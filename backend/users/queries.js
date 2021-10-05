@@ -1,4 +1,4 @@
-const createDatabase = `CREATE DATABASE Instagram`;
+const createDatabase = `CREATE DATABASE instagram`;
 
 const createTable = `CREATE TABLE IF NOT EXISTS users(
   id SERIAL,
@@ -14,4 +14,12 @@ const getUser = 'SELECT * FROM users';
 const addUser =
   'INSERT INTO users(First_name, Last_name, user_email, user_password) VALUES($1, $2, $3, $4)';
 
-module.exports = { createDatabase, createTable, getUser, addUser };
+const checkEmailExists = 'SELECT email from students WHERE students.email = $1';
+
+module.exports = {
+  createDatabase,
+  createTable,
+  getUser,
+  addUser,
+  checkEmailExists,
+};
