@@ -8,7 +8,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <NavBar />
-      <Route path='/Signup'>
+      <Route path='/signup'>
         <Signup />
       </Route>
     </BrowserRouter>
