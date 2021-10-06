@@ -1,11 +1,12 @@
 const express = require('express');
 const app = express();
 const port = 4000;
-const userRouter = require('../backend/users/routes');
+const userRoutes = require('../backend/users/routes');
 
+//middleware
 app.use(express.json());
 
-app.use(userRouter);
+app.use(userRoutes);
 
 app.use((request, response, next) => {
   response

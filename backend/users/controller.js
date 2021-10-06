@@ -41,4 +41,4 @@ const addUser = async (request, response) => {
   }
 };
 
-module.exports = { getUser, addUser, addUser };
+module.exports = { getUser, addUser };
