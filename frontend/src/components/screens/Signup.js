@@ -1,29 +1,58 @@
-import React from 'react';
+import React from "react";
 
 class Signup extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { formData: [] };
+    this.state = { firstName: "", lastName: "", email: "", password: "" };
+  }
+
+  handleChange(event) {
+    const name = event.target.name;
+    const value = event.target.value;
+    this.setState({ ...this.state, [name]: value });
+  }
+
+  requestUrl = "http://localhost:4000";
+  createUser(event) {
+    event.preventDefault();
+    fetch(this.requestUrl, {
+      method: "post",
+      body: JSON.stringify(this.state),
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+      .then(console.log("success"))
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   render() {
     return (
       <div className='row'>
-        <form action='/signup' method='post' className='col s12'>
+        <form onSubmit={this.createUser.bind(this)} className='col s12'>
           <div className='row'>
             <div className='input-field col s6'>
               <input
                 placeholder='First Name'
-                id='first_name'
+                name='firstName'
+                id='firstName'
                 type='text'
+                value={this.state.firstName}
+                onChange={this.handleChange.bind(this)}
                 className='validate'
               />
             </div>
             <div className='input-field col s6'>
               <input
                 placeholder='Last Name'
-                id='last_name'
+                id='lastName'
+                name='lastName'
                 type='text'
+                value={this.state.lastName}
+                onChange={this.handleChange.bind(this)}
                 className='validate'
               />
             </div>
@@ -33,7 +62,10 @@ class Signup extends React.Component {
               <input
                 placeholder='email@email.com'
                 id='email'
+                name='email'
                 type='email'
+                value={this.state.email}
+                onChange={this.handleChange.bind(this)}
                 className='validate'
               />
             </div>
@@ -43,7 +75,10 @@ class Signup extends React.Component {
               <input
                 placeholder='password'
                 id='password'
+                name='password'
                 type='password'
+                value={this.state.password}
+                onChange={this.handleChange.bind(this)}
                 className='validate'
               />
             </div>
