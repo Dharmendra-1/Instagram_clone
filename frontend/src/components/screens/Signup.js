@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 class Signup extends React.Component {
   constructor(props) {
@@ -8,60 +8,63 @@ class Signup extends React.Component {
 
   render() {
     return (
-      <div className='row'>
-        <form action='/signup' method='post' className='col s12'>
-          <div className='row'>
-            <div className='input-field col s6'>
-              <input
-                placeholder='First Name'
-                id='first_name'
-                type='text'
-                className='validate'
-              />
+      <div className="mycard">
+        <div className="row card auth-card">
+          <h2>Instagram</h2>
+          <form action="/signup" method="post" className="col s12">
+            <div className="row">
+              <div className="input-field col s6">
+                <input
+                  placeholder="First Name"
+                  id="first_name"
+                  type="text"
+                  className="validate"
+                />
+              </div>
+              <div className="input-field col s6">
+                <input
+                  placeholder="Last Name"
+                  id="last_name"
+                  type="text"
+                  className="validate"
+                />
+              </div>
             </div>
-            <div className='input-field col s6'>
-              <input
-                placeholder='Last Name'
-                id='last_name'
-                type='text'
-                className='validate'
-              />
+            <div className="row">
+              <div className="input-field col s12">
+                <input
+                  placeholder="email@email.com"
+                  id="email"
+                  type="email"
+                  className="validate"
+                />
+              </div>
             </div>
-          </div>
-          <div className='row'>
-            <div className='input-field col s12'>
-              <input
-                placeholder='email@email.com'
-                id='email'
-                type='email'
-                className='validate'
-              />
+            <div className="row">
+              <div className="input-field col s12">
+                <input
+                  placeholder="password"
+                  id="password"
+                  type="password"
+                  className="validate"
+                />
+              </div>
             </div>
-          </div>
-          <div className='row'>
-            <div className='input-field col s12'>
-              <input
-                placeholder='password'
-                id='password'
-                type='password'
-                className='validate'
-              />
-            </div>
-          </div>
 
-          <div className='row'>
-            <div className='input-field col s12'>
-              <button
-                className='btn waves-effect waves-light'
-                type='submit'
-                name='action'
-              >
-                Submit
-                <i className='material-icons right'>send</i>
-              </button>
+            <div className="row">
+              <div className="input-field col s12">
+                <button
+                  className="btn-block btn waves-effect waves-light #2196f3 blue"
+                  type="submit"
+                  name="action"
+                >
+                  Submit
+                  <i className="material-icons right">send</i>
+                </button>
+              </div>
             </div>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
     );
   }
