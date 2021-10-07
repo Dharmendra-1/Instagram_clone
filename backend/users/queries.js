@@ -17,10 +17,13 @@ const addUser =
 const checkEmailExists =
   'SELECT user_email FROM users WHERE users.user_email = $1';
 
+const loginUserData = 'SELECT * FROM users WHERE users.user_email = $1';
+
 module.exports = {
   createDatabase,
   createTable,
   getUser,
   addUser,
   checkEmailExists,
+  loginUserData,
 };
