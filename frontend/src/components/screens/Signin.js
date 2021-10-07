@@ -24,9 +24,12 @@ class Signin extends React.Component {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(this.state),
-    }).catch((err) => {
-      console.log(err);
-    });
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data))
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   render() {

@@ -1,6 +1,5 @@
 const pool = require("../db");
 const queries = require("./queries");
-// const fetch = require("node-fetch");
 
 const createTable = async () => {
   try {
@@ -28,11 +27,14 @@ const addUser = async (request, response, next) => {
     //check if email or user already exists..
     let userExists = await pool.query(queries.checkEmailExists, [email]);
     if (userExists.rows.length) {
-      response.send("Email Already exists...");
+      return new Promise((resolve, reject) => {
+        resolve(response.send({ mes: "Email Already exists..." }));
+      });
     } else {
       await pool.query(queries.addUser, [firstName, lastName, email, password]);
-      response.status(200).send("User Added Sucessfully");
-      next();
+      return new Promise((resolve, reject) => {
+        resolve(response.send({ mes: "User Added Sucessfully" }));
+      });
     }
   } catch (error) {
     throw new Error(error);
@@ -41,7 +43,6 @@ const addUser = async (request, response, next) => {
 
 const loginUser = async (request, response, next) => {
   const { email, password } = request.body;
-  // const requestUrl = "http://localhost:4000/user/userdata";
 
   try {
     let userExists = await pool.query(queries.loginUserData, [email]);
@@ -51,19 +52,13 @@ const loginUser = async (request, response, next) => {
       loginUserData.user_email === email &&
       loginUserData.user_password === password
     ) {
-      response.redirect("http://localhost:3000/signup");
-      // fetch(requestUrl, {
-      //   method: "POST",
-      //   mode: "cors",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify(loginUserData),
-      // }).catch((err) => {
-      //   console.log(err);
-      // });
+      return new Promise((resolve, reject) => {
+        resolve(response.send(true));
+      });
     } else {
-      response.send("reject");
+      return new Promise((resolve, reject) => {
+        resolve(response.send(false));
+      });
     }
   } catch (error) {
     throw new Error(error);
