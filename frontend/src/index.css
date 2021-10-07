@@ -24,6 +24,21 @@ a {
   font-family: "Grand Hotel", cursive;
 }
 
+.auth-card h5 {
+  font-size: 12px;
+}
+
+.auth-card1 {
+  padding: 10px;
+  text-align: center;
+  max-width: 400px;
+  margin: 10px auto;
+}
+
+.auth-card1 h5 {
+  font-size: 15px;
+}
+
 .btn-block {
   min-width: 100%;
   font-size: 13px;

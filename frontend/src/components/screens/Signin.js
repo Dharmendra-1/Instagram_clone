@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-class Signup extends React.Component {
+class Signin extends React.Component {
   constructor(props) {
     super(props);
     this.state = { firstName: "", lastName: "", email: "", password: "" };
@@ -18,7 +18,7 @@ class Signup extends React.Component {
   createUser(event) {
     event.preventDefault();
     fetch("http://localhost:8000/user/", {
-      method: "POST",
+      method: "GET",
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
@@ -37,30 +37,6 @@ class Signup extends React.Component {
         <div className="row card auth-card">
           <h2>Instagram</h2>
           <form onSubmit={this.createUser.bind(this)} className="col s12">
-            <div className="row">
-              <div className="input-field col s6">
-                <input
-                  placeholder="First Name"
-                  name="firstName"
-                  id="firstName"
-                  type="text"
-                  value={this.state.firstName}
-                  onChange={this.handleChange.bind(this)}
-                  className="validate"
-                />
-              </div>
-              <div className="input-field col s6">
-                <input
-                  placeholder="Last Name"
-                  id="lastName"
-                  name="lastName"
-                  type="text"
-                  value={this.state.lastName}
-                  onChange={this.handleChange.bind(this)}
-                  className="validate"
-                />
-              </div>
-            </div>
             <div className="row">
               <div className="input-field col s12">
                 <input
@@ -95,16 +71,19 @@ class Signup extends React.Component {
                   type="submit"
                   name="action"
                 >
-                  SignUp
+                  Signin
                   <i className="material-icons right">send</i>
                 </button>
               </div>
             </div>
+            <h5>
+              <Link to="/">Forgot password ?</Link>
+            </h5>
           </form>
         </div>
         <div className="row card auth-card1">
           <h5>
-            <Link to="/signin">Have an account?</Link>
+            <Link to="/signup">Don't have an account?</Link>
           </h5>
         </div>
       </div>
@@ -112,4 +91,4 @@ class Signup extends React.Component {
   }
 }
 
-export default Signup;
+export default Signin;
