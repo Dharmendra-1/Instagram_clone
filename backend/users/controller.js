@@ -27,14 +27,10 @@ const addUser = async (request, response, next) => {
     //check if email or user already exists..
     let userExists = await pool.query(queries.checkEmailExists, [email]);
     if (userExists.rows.length) {
-      return new Promise((resolve, reject) => {
-        resolve(response.send({ mes: "Email Already exists..." }));
-      });
+      return response.send({ mes: "Email Already exists..." });
     } else {
       await pool.query(queries.addUser, [firstName, lastName, email, password]);
-      return new Promise((resolve, reject) => {
-        resolve(response.send({ mes: "User Added Sucessfully" }));
-      });
+      return resolve(response.send({ mes: "User Added Sucessfully" }));
     }
   } catch (error) {
     throw new Error(error);
@@ -52,13 +48,9 @@ const loginUser = async (request, response, next) => {
       loginUserData.user_email === email &&
       loginUserData.user_password === password
     ) {
-      return new Promise((resolve, reject) => {
-        resolve(response.send(true));
-      });
+      return response.send(true);
     } else {
-      return new Promise((resolve, reject) => {
-        resolve(response.send(false));
-      });
+      return response.send(false);
     }
   } catch (error) {
     throw new Error(error);
