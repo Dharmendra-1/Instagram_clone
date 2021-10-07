@@ -1,5 +1,5 @@
-const pool = require('../db');
-const queries = require('./queries');
+const pool = require("../db");
+const queries = require("./queries");
 
 const createTable = async () => {
   try {
@@ -11,30 +11,28 @@ const createTable = async () => {
 
 createTable();
 
-const getUser = async (request, response) => {
+const getUser = async (request, response, next) => {
   try {
     let userData = await pool.query(queries.getUser);
     response.status(200).json(userData.rows);
+    response.end();
   } catch (error) {
     throw new Error(error);
   }
 };
 
-const addUser = async (request, response) => {
-  const { First_name, Last_name, user_email, user_password } = request.body;
+const addUser = async (request, response, next) => {
+  const { firstName, lastName, email, password } = request.body;
   try {
     //check if email or user already exists..
-    let userExists = await pool.query(queries.checkEmailExists, [user_email]);
+    let userExists = await pool.query(queries.checkEmailExists, [email]);
     if (userExists.rows.length) {
-      response.send('Email Already exists...');
+      response.send("Email Already exists...");
     } else {
-      let userAdd = await pool.query(queries.addUser, [
-        First_name,
-        Last_name,
-        user_email,
-        user_password,
-      ]);
-      response.status(201).send('User Added Sucessfully');
+      await pool.query(queries.addUser, [firstName, lastName, email, password]);
+      response.status(201).send("User Added Sucessfully");
+      response.end();
+      next();
     }
   } catch (error) {
     throw new Error(error);
