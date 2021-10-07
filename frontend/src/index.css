@@ -64,3 +64,31 @@ h5 a {
     border-bottom: 1px solid #2196f3 !important;
     box-shadow: 0 1px 0 0 #2196f3 !important;
 }
+
+.gallery{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.item{
+  width: 30%;
+}
+
+/* .home{
+  
+} */
+
+.home-card{
+  max-width: 500px;
+  height: max-content;
+  margin: 26px auto;
+}
+
+.home-card h5{
+  margin: 10px;
+}
+
+.card-image{
+  margin: 10px;
+}

@@ -48,7 +48,6 @@ class Signup extends React.Component {
                     onChange={this.handleChange.bind(this)}
                     className="validate"
                   />
-                  <span class = "error">Please provide a valid email</span>
                 </div>
               </div>
               <div className="row">
