@@ -1,9 +1,9 @@
-import React from 'react';
+import React from "react";
 
 class Signup extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { firstName: '', lastName: '', email: '', password: '' };
+    this.state = { firstName: "", lastName: "", email: "", password: "" };
   }
 
   handleChange(event) {
@@ -12,20 +12,19 @@ class Signup extends React.Component {
     this.setState({ ...this.state, [name]: value });
   }
 
-  requestUrl = 'http://localhost:4000/user';
+  requestUrl = "http://localhost:8000/user";
 
   createUser(event) {
     event.preventDefault();
-    fetch('http://localhost:4000/user/', {
-      mode: 'no-cors',
-      method: 'post',
+    fetch("http://localhost:8000/user/", {
+      method: "POST",
+      mode: "cors",
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(this.state),
     })
-      .then(console.log('success'))
+      .then(() => console.log("success"))
       .catch((err) => {
         console.log(err);
       });
