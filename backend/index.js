@@ -9,12 +9,6 @@ app.use(cors());
 app.use(express.json());
 app.use('/user', userRoutes);
 
-app.get('*', (request, response) => {
-  response
-    .status(404)
-    .send('<h1>Unable to find the requested resource! 404 Not Founds</h1>');
-});
-
 app.listen(port, () => {
   console.log(`Server Running on http://localhost:${port}`);
 });
