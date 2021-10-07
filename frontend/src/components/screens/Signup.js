@@ -13,11 +13,11 @@ class Signup extends React.Component {
     this.setState({ ...this.state, [name]: value });
   }
 
-  requestUrl = "http://localhost:8000/user";
+  requestUrl = "http://localhost:4000/user/signup/";
 
   createUser(event) {
     event.preventDefault();
-    fetch("http://localhost:8000/user/", {
+    fetch(this.requestUrl, {
       method: "POST",
       mode: "cors",
       headers: {
@@ -25,7 +25,7 @@ class Signup extends React.Component {
       },
       body: JSON.stringify(this.state),
     })
-      .then(() => console.log("success"))
+      .then((res) => console.log(res))
       .catch((err) => {
         console.log(err);
       });
@@ -33,78 +33,78 @@ class Signup extends React.Component {
 
   render() {
     return (
-      <div className="mycard">
-        <div className="row card auth-card">
+      <div className='mycard'>
+        <div className='row card auth-card'>
           <h2>Instagram</h2>
-          <form onSubmit={this.createUser.bind(this)} className="col s12">
-            <div className="row">
-              <div className="input-field col s6">
+          <form onSubmit={this.createUser.bind(this)} className='col s12'>
+            <div className='row'>
+              <div className='input-field col s6'>
                 <input
-                  placeholder="First Name"
-                  name="firstName"
-                  id="firstName"
-                  type="text"
+                  placeholder='First Name'
+                  name='firstName'
+                  id='firstName'
+                  type='text'
                   value={this.state.firstName}
                   onChange={this.handleChange.bind(this)}
-                  className="validate"
+                  className='validate'
                 />
               </div>
-              <div className="input-field col s6">
+              <div className='input-field col s6'>
                 <input
-                  placeholder="Last Name"
-                  id="lastName"
-                  name="lastName"
-                  type="text"
+                  placeholder='Last Name'
+                  id='lastName'
+                  name='lastName'
+                  type='text'
                   value={this.state.lastName}
                   onChange={this.handleChange.bind(this)}
-                  className="validate"
+                  className='validate'
                 />
               </div>
             </div>
-            <div className="row">
-              <div className="input-field col s12">
+            <div className='row'>
+              <div className='input-field col s12'>
                 <input
-                  placeholder="email@email.com"
-                  id="email"
-                  name="email"
-                  type="email"
+                  placeholder='email@email.com'
+                  id='email'
+                  name='email'
+                  type='email'
                   value={this.state.email}
                   onChange={this.handleChange.bind(this)}
-                  className="validate"
+                  className='validate'
                 />
               </div>
             </div>
-            <div className="row">
-              <div className="input-field col s12">
+            <div className='row'>
+              <div className='input-field col s12'>
                 <input
-                  placeholder="password"
-                  id="password"
-                  name="password"
-                  type="password"
+                  placeholder='password'
+                  id='password'
+                  name='password'
+                  type='password'
                   value={this.state.password}
                   onChange={this.handleChange.bind(this)}
-                  className="validate"
+                  className='validate'
                 />
               </div>
             </div>
 
-            <div className="row">
-              <div className="input-field col s12">
+            <div className='row'>
+              <div className='input-field col s12'>
                 <button
-                  className="btn-block btn waves-effect waves-light #2196f3 blue"
-                  type="submit"
-                  name="action"
+                  className='btn-block btn waves-effect waves-light #2196f3 blue'
+                  type='submit'
+                  name='action'
                 >
                   SignUp
-                  <i className="material-icons right">send</i>
+                  <i className='material-icons right'>send</i>
                 </button>
               </div>
             </div>
           </form>
         </div>
-        <div className="row card auth-card1">
+        <div className='row card auth-card1'>
           <h5>
-            <Link to="/signin">Have an account?</Link>
+            <Link to='/signin'>Have an account?</Link>
           </h5>
         </div>
       </div>

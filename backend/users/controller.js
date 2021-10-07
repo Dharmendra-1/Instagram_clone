@@ -1,5 +1,5 @@
-const pool = require('../db');
-const queries = require('./queries');
+const pool = require("../db");
+const queries = require("./queries");
 
 const createTable = async () => {
   try {
@@ -27,11 +27,10 @@ const addUser = async (request, response, next) => {
     //check if email or user already exists..
     let userExists = await pool.query(queries.checkEmailExists, [email]);
     if (userExists.rows.length) {
-      response.send('Email Already exists...');
+      response.send("Email Already exists...");
     } else {
       await pool.query(queries.addUser, [firstName, lastName, email, password]);
-      response.status(201).send('User Added Sucessfully');
-      response.end();
+      response.status(200).send("User Added Sucessfully");
       next();
     }
   } catch (error) {
