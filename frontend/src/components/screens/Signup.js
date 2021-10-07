@@ -13,11 +13,11 @@ class Signup extends React.Component {
     this.setState({ ...this.state, [name]: value });
   }
 
-  requestUrl = "http://localhost:8000/user";
+  requestUrl = "http://localhost:4000/user/signup";
 
   createUser(event) {
     event.preventDefault();
-    fetch("http://localhost:8000/user/", {
+    fetch(this.requestUrl, {
       method: "POST",
       mode: "cors",
       headers: {
@@ -25,7 +25,8 @@ class Signup extends React.Component {
       },
       body: JSON.stringify(this.state),
     })
-      .then(() => console.log("success"))
+      .then((res) => res.json())
+      .then((data) => console.log(data))
       .catch((err) => {
         console.log(err);
       });
