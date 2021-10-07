@@ -1,10 +1,10 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link, withRouter } from 'react-router-dom';
 
-class Signin extends React.Component {
+class Login extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { email: "", password: "" };
+    this.state = { email: '', password: '' };
   }
 
   handleChange(event) {
@@ -13,20 +13,27 @@ class Signin extends React.Component {
     this.setState({ ...this.state, [name]: value });
   }
 
-  requestUrl = "http://localhost:4000/user/login";
+  requestUrl = 'http://localhost:4000/user/login';
 
   createUser(event) {
     event.preventDefault();
     fetch(this.requestUrl, {
-      method: "POST",
-      mode: "cors",
+      method: 'POST',
+      mode: 'cors',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(this.state),
     })
       .then((res) => res.json())
-      .then((data) => console.log(data))
+      .then((data) => {
+        console.log(data);
+        if (data) {
+          this.props.history.push('/home');
+        } else {
+          alert('Invalid login credentials!');
+        }
+      })
       .catch((err) => {
         console.log(err);
       });
@@ -41,12 +48,13 @@ class Signin extends React.Component {
             <div className='row'>
               <div className='input-field col s12'>
                 <input
-                  placeholder="Username or email"
-                  type="text"
-                  id="lastName"
-                  name="lastName"
-                  required pattern = "^([a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3})|(\d{3}-\d{3}-\d{4})$"
-                  value={this.state.lastName}
+                  placeholder='Username or email'
+                  type='text'
+                  id='email'
+                  name='email'
+                  required
+                  pattern='^([a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3})|(\d{3}-\d{3}-\d{4})$'
+                  value={this.state.email}
                   onChange={this.handleChange.bind(this)}
                   className='validate'
                 />
@@ -55,10 +63,10 @@ class Signin extends React.Component {
             <div className='row'>
               <div className='input-field col s12'>
                 <input
-                  placeholder="Password"
-                  id="password"
-                  name="password"
-                  type="password"
+                  placeholder='Password'
+                  id='password'
+                  name='password'
+                  type='password'
                   value={this.state.password}
                   onChange={this.handleChange.bind(this)}
                   className='validate'
@@ -78,13 +86,13 @@ class Signin extends React.Component {
               </div>
             </div>
             <h4>
-              <Link to="/">Forgot password?</Link>
+              <Link to='/'>Forgot password?</Link>
             </h4>
           </form>
         </div>
         <div className='row card auth-card1'>
           <h5>
-          Don't have an account?<Link to="/signup"> Sign up</Link>
+            Don't have an account?<Link to='/signup'> Sign up</Link>
           </h5>
         </div>
       </div>
@@ -92,4 +100,4 @@ class Signin extends React.Component {
   }
 }
 
-export default Signin;
+export default withRouter(Login);

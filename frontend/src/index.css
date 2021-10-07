@@ -1,15 +1,15 @@
-@import url("https://fonts.googleapis.com/css2?family=Grand+Hotel&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Grand+Hotel&display=swap');
 
 a {
   color: black !important;
 }
 
 .brand-logo {
-  font-family: "Grand Hotel", cursive;
+  font-family: 'Grand Hotel', cursive;
   margin-left: 10px;
 }
 
-body{
+body {
   background: whitesmoke;
 }
 
@@ -25,7 +25,7 @@ body{
 }
 
 .auth-card h2 {
-  font-family: "Grand Hotel", cursive;
+  font-family: 'Grand Hotel', cursive;
 }
 
 .auth-card h4 {
@@ -45,11 +45,11 @@ body{
 }
 
 h4 a {
-  color: #2b5884 !important; 
+  color: #2b5884 !important;
 }
 
 h5 a {
-  color: #0095f6 !important; 
+  color: #0095f6 !important;
 }
 
 .btn-block {
@@ -61,17 +61,17 @@ h5 a {
 }
 
 .input-field input:focus {
-    border-bottom: 1px solid #2196f3 !important;
-    box-shadow: 0 1px 0 0 #2196f3 !important;
+  border-bottom: 1px solid #2196f3 !important;
+  box-shadow: 0 1px 0 0 #2196f3 !important;
 }
 
-.gallery{
+.gallery {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
 }
 
-.item{
+.item {
   width: 30%;
 }
 
@@ -79,16 +79,21 @@ h5 a {
   
 } */
 
-.home-card{
+.home-card {
   max-width: 500px;
   height: max-content;
   margin: 26px auto;
 }
 
-.home-card h5{
+.home-card h5 {
   margin: 10px;
 }
 
-.card-image{
+.card-image {
   margin: 10px;
+}
+
+::placeholder {
+  color: #696969;
+  opacity: 1;
 }
