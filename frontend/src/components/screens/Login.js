@@ -40,11 +40,12 @@ class Signin extends React.Component {
             <div className="row">
               <div className="input-field col s12">
                 <input
-                  placeholder="email@email.com"
-                  id="email"
-                  name="email"
-                  type="email"
-                  value={this.state.email}
+                  placeholder="Username or email"
+                  type="text"
+                  id="lastName"
+                  name="lastName"
+                  required pattern = "^([a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3})|(\d{3}-\d{3}-\d{4})$"
+                  value={this.state.lastName}
                   onChange={this.handleChange.bind(this)}
                   className="validate"
                 />
@@ -53,7 +54,7 @@ class Signin extends React.Component {
             <div className="row">
               <div className="input-field col s12">
                 <input
-                  placeholder="password"
+                  placeholder="Password"
                   id="password"
                   name="password"
                   type="password"
@@ -71,19 +72,18 @@ class Signin extends React.Component {
                   type="submit"
                   name="action"
                 >
-                  Signin
-                  <i className="material-icons right">send</i>
+                  Log In
                 </button>
               </div>
             </div>
-            <h5>
-              <Link to="/">Forgot password ?</Link>
-            </h5>
+            <h4>
+              <Link to="/">Forgot password?</Link>
+            </h4>
           </form>
         </div>
         <div className="row card auth-card1">
           <h5>
-            <Link to="/signup">Don't have an account?</Link>
+          Don't have an account?<Link to="/signup"> Sign up</Link>
           </h5>
         </div>
       </div>
