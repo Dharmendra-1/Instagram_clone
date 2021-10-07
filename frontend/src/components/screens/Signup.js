@@ -103,7 +103,7 @@ class Signup extends React.Component {
           </div>
           <div className="row card auth-card1">
             <h5>
-              Have an account?<Link to="/login"> Log in</Link>
+              Have an account?<Link to="/"> Log in</Link>
             </h5>
           </div>
         </div>

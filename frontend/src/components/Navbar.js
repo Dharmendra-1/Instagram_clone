@@ -5,15 +5,14 @@ const NavBar = () => {
   return (
     <nav>
       <div className="nav-wrapper white">
+      <Link to="/"></Link>
+      <Link to="/signup"></Link>
         <Link to="/" className="brand-logo left">
           Instagram
         </Link>
         <ul id="nav-mobile" className="right">
           <li>
-            <Link to="/login">Login</Link>
-          </li>
-          <li>
-            <Link to="/signup">Signup</Link>
+            <Link to="/home">Home</Link>
           </li>
           <li>
             <Link to="/profile">Profile</Link>
