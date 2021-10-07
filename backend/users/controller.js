@@ -1,5 +1,6 @@
 const pool = require("../db");
 const queries = require("./queries");
+// const fetch = require("node-fetch");
 
 const createTable = async () => {
   try {
@@ -15,7 +16,7 @@ const getUser = async (request, response, next) => {
   try {
     let userData = await pool.query(queries.getUser);
     response.status(200).json(userData.rows);
-    return;
+    next();
   } catch (error) {
     throw new Error(error);
   }
@@ -38,4 +39,35 @@ const addUser = async (request, response, next) => {
   }
 };
 
-module.exports = { getUser, addUser };
+const loginUser = async (request, response, next) => {
+  const { email, password } = request.body;
+  // const requestUrl = "http://localhost:4000/user/userdata";
+
+  try {
+    let userExists = await pool.query(queries.loginUserData, [email]);
+    let loginUserData = userExists.rows[0];
+    if (
+      loginUserData &&
+      loginUserData.user_email === email &&
+      loginUserData.user_password === password
+    ) {
+      response.redirect("http://localhost:3000/signup");
+      // fetch(requestUrl, {
+      //   method: "POST",
+      //   mode: "cors",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify(loginUserData),
+      // }).catch((err) => {
+      //   console.log(err);
+      // });
+    } else {
+      response.send("reject");
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+module.exports = { getUser, addUser, loginUser };

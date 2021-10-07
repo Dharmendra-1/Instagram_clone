@@ -13,7 +13,7 @@ class Signin extends React.Component {
     this.setState({ ...this.state, [name]: value });
   }
 
-  requestUrl = "http://localhost:4000/user/login/";
+  requestUrl = "http://localhost:4000/user/login";
 
   createUser(event) {
     event.preventDefault();
@@ -24,11 +24,9 @@ class Signin extends React.Component {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(this.state),
-    })
-      .then((res) => console.log(res))
-      .catch((err) => {
-        console.log(err);
-      });
+    }).catch((err) => {
+      console.log(err);
+    });
   }
 
   render() {
