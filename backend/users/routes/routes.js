@@ -6,7 +6,7 @@ const authorization = require('../middleware/authorization');
 
 router.get('/', controller.getUser);
 
-router.post('/signup', controller.addUser);
+router.post('/signup', validInfo, controller.addUser);
 
 router.post('/login', controller.loginUser);
 
