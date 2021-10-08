@@ -28,7 +28,8 @@ class Login extends React.Component {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        if (data) {
+        if (data.jwtToken) {
+          localStorage.setItem('token', data.jwtToken);
           this.props.history.push('/home');
         } else {
           alert('Invalid login credentials!');

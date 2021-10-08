@@ -28,6 +28,10 @@ class Signup extends React.Component {
       .then((res) => res.json())
       .then((data) => {
         if (data) {
+          console.log(data);
+          if (data.jwtToken) {
+            localStorage.setItem('token', data.jwtToken);
+          }
           this.props.history.push('/');
         } else {
           alert('Email already exists!');
