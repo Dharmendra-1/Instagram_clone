@@ -10,6 +10,8 @@ router.post('/signup', validInfo, controller.addUser);
 
 router.post('/login', controller.loginUser);
 
+router.get('/home', controller.homeUser);
+
 router.get('/verify', authorization, (req, res) => {
   try {
     res.json(true);
