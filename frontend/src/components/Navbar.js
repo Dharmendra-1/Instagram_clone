@@ -18,6 +18,9 @@ const NavBar = () => {
             <Link to='/profile'>Profile</Link>
           </li>
           <li>
+            <Link to='/createpost'>Create Post</Link>
+          </li>
+          <li>
             <Link
               className='btn waves-effect waves-light #2196f3 blue logout'
               to='/'

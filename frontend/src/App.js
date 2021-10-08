@@ -6,6 +6,7 @@ import Signup from './components/screens/Signup';
 import Login from './components/screens/Login';
 import Profile from './components/screens/Profile';
 import Home from './components/screens/Home';
+import CreatePost from './components/screens/CreatePost';
 
 const App = () => {
   return (
@@ -23,6 +24,10 @@ const App = () => {
       <Route exact path='/home'>
         <NavBar />
         <Home />
+      </Route>
+      <Route exact path='/createpost'>
+        <NavBar />
+        <CreatePost />
       </Route>
       {/* <Route path='*'>errror page</Route> */}
     </BrowserRouter>
