@@ -8,11 +8,11 @@ router.get('/', controller.getUser);
 
 router.post('/signup', validInfo, controller.addUser);
 
-router.post('/login', controller.loginUser);
+router.post('/login', validInfo, controller.loginUser);
 
 router.get('/home', controller.homeUser);
 
-router.get('/verify', authorization, (req, res) => {
+router.post('/verify', authorization, (req, res) => {
   try {
     res.json(true);
   } catch (err) {

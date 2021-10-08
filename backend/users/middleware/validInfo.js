@@ -8,7 +8,7 @@ module.exports = function (req, res, next) {
   if (req.path === '/signup') {
     console.log(!email.length);
 
-    if (![email, firstName, password].every(Boolean)) {
+    if (![email, firstName, lastName, password].every(Boolean)) {
       return res.status(401).json('Missing Credentials');
     } else if (!validEmail(email)) {
       return res.status(401).json('Invalid Email');

@@ -41,7 +41,6 @@ const addUser = async (request, response) => {
       ]);
 
       const jwtToken = jwtGenerator(newUser.rows[0].user_email);
-      console.log(jwtToken);
 
       return response.json({ jwtToken });
     }
@@ -83,8 +82,7 @@ const loginUser = async (request, response) => {
 const homeUser = async (request, response, next) => {
   try {
     let userData = await pool.query(queries.getUser);
-    response.status(200).json(userData.rows);
-    next();
+    return response.status(200).json(userData.rows);
   } catch (error) {
     throw new Error(error);
   }

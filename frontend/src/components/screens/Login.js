@@ -15,30 +15,32 @@ class Login extends React.Component {
 
   requestUrl = 'http://localhost:4000/user/login';
 
-  createUser(event) {
+  createUser = async (event) => {
     event.preventDefault();
-    fetch(this.requestUrl, {
+
+    const options = {
       method: 'POST',
       mode: 'cors',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(this.state),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        if (data.jwtToken) {
-          localStorage.setItem('token', data.jwtToken);
-          this.props.history.push('/home');
-        } else {
-          alert('Invalid login credentials!');
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
+    };
+
+    try {
+      const res = await fetch(this.requestUrl, options);
+      const user = await res.json();
+
+      if (user.jwtToken) {
+        localStorage.setItem('token', user.jwtToken);
+        this.props.history.push('/home');
+      } else {
+        alert('Invalid login credentials!');
+      }
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
 
   render() {
     return (

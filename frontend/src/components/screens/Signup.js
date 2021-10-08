@@ -15,32 +15,33 @@ class Signup extends React.Component {
 
   requestUrl = 'http://localhost:4000/user/signup';
 
-  createUser(event) {
+  createUser = async (event) => {
     event.preventDefault();
-    fetch(this.requestUrl, {
+    const options = {
       method: 'POST',
       mode: 'cors',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(this.state),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data) {
-          console.log(data);
-          if (data.jwtToken) {
-            localStorage.setItem('token', data.jwtToken);
-          }
+    };
+
+    try {
+      const res = await fetch(this.requestUrl, options);
+      const user = await res.json();
+
+      if (user) {
+        if (user.jwtToken) {
+          localStorage.setItem('token', user.jwtToken);
           this.props.history.push('/');
-        } else {
-          alert('Email already exists!');
         }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
+      } else {
+        alert('Email already exists!');
+      }
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
 
   render() {
     return (
