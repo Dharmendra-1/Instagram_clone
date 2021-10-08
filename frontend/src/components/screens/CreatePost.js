@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 const CretePost = () => {
   return (
     <div
-      className='card input-filed'
+      className='card input-field'
       style={{
         margin: '30px auto',
         maxWidth: '500px',
