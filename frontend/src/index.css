@@ -97,3 +97,8 @@ h5 a {
   color: #696969;
   opacity: 1;
 }
+
+.logout{
+  color: #fff !important;
+  text-transform: none;
+}
