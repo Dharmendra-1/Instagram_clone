@@ -1,5 +1,7 @@
 const pool = require('../db');
 const queries = require('./queries');
+const bcrypt = require('bcrypt');
+const jwtGenerator = require('./utils/jwtGenerator');
 
 const createTable = async () => {
   try {
@@ -29,8 +31,19 @@ const addUser = async (request, response) => {
     if (userExists.rows.length) {
       return response.send(false);
     } else {
-      await pool.query(queries.addUser, [firstName, lastName, email, password]);
-      return response.send(true);
+      const salt = await bcrypt.genSalt(10);
+      const bcryptPassword = await bcrypt.hash(password, salt);
+      let newUser = await pool.query(queries.addUser, [
+        firstName,
+        lastName,
+        email,
+        bcryptPassword,
+      ]);
+
+      const jwtToken = jwtGenerator(newUser.rows[0].user_email);
+      console.log(jwtToken);
+
+      return response.json({ jwtToken });
     }
   } catch (error) {
     throw new Error(error);
@@ -39,16 +52,28 @@ const addUser = async (request, response) => {
 
 const loginUser = async (request, response) => {
   const { email, password } = request.body;
+  console.log(request.body);
 
   try {
-    let userExists = await pool.query(queries.loginUserData, [email]);
+    const userExists = await pool.query(queries.loginUserData, [email]);
     let loginUserData = userExists.rows[0];
-    if (
-      loginUserData &&
-      loginUserData.user_email === email &&
-      loginUserData.user_password === password
-    ) {
-      return response.send(true);
+    console.log(loginUserData);
+
+    if (loginUserData && loginUserData.user_email === email) {
+      // const validPassword = await bcrypt.compare(
+      //   password,
+      //   userExists.user_password
+      // );
+
+      // console.log(validPassword);
+
+      // if (!validPassword) {
+      //   return res.status(401).json('Invalid Credential');
+      // }
+
+      const jwtToken = jwtGenerator(userExists.user_email);
+
+      return response.json({ jwtToken });
     } else {
       return response.send(false);
     }
