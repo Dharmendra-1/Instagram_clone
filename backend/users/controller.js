@@ -52,12 +52,10 @@ const addUser = async (request, response) => {
 
 const loginUser = async (request, response) => {
   const { email, password } = request.body;
-  console.log(request.body);
 
   try {
     const userExists = await pool.query(queries.loginUserData, [email]);
     let loginUserData = userExists.rows[0];
-    console.log(loginUserData);
 
     if (loginUserData && loginUserData.user_email === email) {
       // const validPassword = await bcrypt.compare(
@@ -71,7 +69,7 @@ const loginUser = async (request, response) => {
       //   return res.status(401).json('Invalid Credential');
       // }
 
-      const jwtToken = jwtGenerator(userExists.user_email);
+      const jwtToken = jwtGenerator(loginUserData.user_email);
 
       return response.json({ jwtToken });
     } else {
@@ -82,4 +80,14 @@ const loginUser = async (request, response) => {
   }
 };
 
-module.exports = { getUser, addUser, loginUser };
+const homeUser = async (request, response, next) => {
+  try {
+    let userData = await pool.query(queries.getUser);
+    response.status(200).json(userData.rows);
+    next();
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+module.exports = { getUser, addUser, loginUser, homeUser };
