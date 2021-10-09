@@ -6,6 +6,7 @@ const createTable = `CREATE TABLE IF NOT EXISTS users(
   Last_name VARCHAR(255) NOT NULL,
   user_email VARCHAR(255) NOT NULL UNIQUE,
   user_password VARCHAR(255) NOT NULL,
+  img VARCHAR(255),
   PRIMARY KEY(id)
 );`;
 
@@ -19,6 +20,8 @@ const checkEmailExists =
 
 const loginUserData = 'SELECT * FROM users WHERE users.user_email = $1';
 
+const updateImg = 'UPDATE users SET img = ($1) WHERE user_email = ($2)';
+
 module.exports = {
   createDatabase,
   createTable,
@@ -26,4 +29,5 @@ module.exports = {
   addUser,
   checkEmailExists,
   loginUserData,
+  updateImg,
 };

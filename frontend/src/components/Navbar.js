@@ -22,13 +22,19 @@ class NavBar extends React.Component {
           </Link>
           <ul id='nav-mobile' className='right'>
             <li>
-              <Link to='/home'>Home</Link>
+              <Link to='/home'>
+                <i className='medium material-icons'>home</i>
+              </Link>
             </li>
             <li>
-              <Link to='/profile'>Profile</Link>
+              <Link to='/profile'>
+                <i className='medium material-icons'>account_circle</i>
+              </Link>
             </li>
             <li>
-              <Link to='/createpost'>Create Post</Link>
+              <Link to='/createpost'>
+                <i className='medium material-icons'>add_box</i>
+              </Link>
             </li>
             <li>
               <Link to='/'>

@@ -88,4 +88,14 @@ const homeUser = async (request, response, next) => {
   }
 };
 
-module.exports = { getUser, addUser, loginUser, homeUser };
+const updateImg = async (request, response) => {
+  const { email, img } = request.body;
+  console.log(request.body);
+  try {
+    let update = await pool.query(queries.updateImg, [img, email]);
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+module.exports = { getUser, addUser, loginUser, homeUser, updateImg };

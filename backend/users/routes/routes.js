@@ -20,4 +20,6 @@ router.post('/verify', authorization, (req, res) => {
   }
 });
 
+router.post('/img', controller.updateImg);
+
 module.exports = router;

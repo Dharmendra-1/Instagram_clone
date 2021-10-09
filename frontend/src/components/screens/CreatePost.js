@@ -4,15 +4,7 @@ import React from 'react';
 class CreatePost extends React.Component {
   render() {
     return (
-      <div
-        className='card input-field'
-        style={{
-          margin: '30px auto',
-          maxWidth: '500px',
-          padding: '20px',
-          textAlign: 'center',
-        }}
-      >
+      <div className='card input-field create-post' >
         <input
           type='text'
           placeholder='title'
