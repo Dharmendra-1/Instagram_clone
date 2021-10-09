@@ -125,6 +125,10 @@ h5 a {
   background: #ccc;
 }
 
+/* .profile-image button:active {
+  display: none;
+} */
+
 .user-stats {
   display: flex;
   justify-content: space-between;

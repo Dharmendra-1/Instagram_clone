@@ -37,16 +37,6 @@ class Profile extends React.Component {
         },
         body: JSON.stringify({ email: this.state.email, img: fileData.url }),
       });
-
-      const res = await fetch('http://localhost:4000/dashboard/', {
-        method: 'POST',
-        headers: { jwt_token: localStorage.token },
-      });
-      const parseData = await res.json();
-      console.log(parseData);
-      this.setState({
-        url: parseData.img,
-      });
     } catch (error) {
       throw new Error(error);
     }
@@ -63,6 +53,7 @@ class Profile extends React.Component {
         userName: parseData.last_name,
         firstName: parseData.first_name,
         email: parseData.user_email,
+        url: parseData.img,
       });
     } catch (err) {
       console.error(err.message);
@@ -78,17 +69,21 @@ class Profile extends React.Component {
       <div style={{ maxWidth: '550px', margin: '0px auto' }}>
         <div className='profile'>
           <div className='profile-image'>
-            <img alt='profile' src={this.state.url} />
-            <input
-              type='file'
-              name='filename'
-              onChange={(e) => this.setState({ image: e.target.files[0] })}
-            />
-            <button type='submit' name='action' onClick={this.postDetails}>
-              <i type='file' class='small material-icons'>
-                add_a_photo
-              </i>
-            </button>
+            <section>
+              <img alt='profile' src={this.state.url} />
+              <input
+                type='file'
+                name='filename'
+                onChange={(e) => this.setState({ image: e.target.files[0] })}
+              />
+            </section>
+            <section>
+              <button type='button' onClick={this.postDetails}>
+                <i type='file' className='small material-icons'>
+                  add_a_photo
+                </i>
+              </button>
+            </section>
           </div>
           <div>
             <h4>{this.state.userName}</h4>
