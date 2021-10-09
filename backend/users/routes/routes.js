@@ -12,6 +12,10 @@ router.post('/login', validInfo, controller.loginUser);
 
 router.get('/home', controller.homeUser);
 
+router.post('/post', controller.createPost);
+
+router.get('/post', controller.getPost);
+
 router.post('/verify', authorization, (req, res) => {
   try {
     res.json(true);
