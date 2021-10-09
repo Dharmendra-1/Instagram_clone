@@ -15,7 +15,7 @@ This project is a simplified a full stack clone of Instagram.
 1. Clone Repository
 
 ```sh
-    git clone https://github.com/Dharmendra-1/Instagram_clone.git
+git clone https://github.com/Dharmendra-1/Instagram_clone.git
 ```
 
 2. Setup Database on local
@@ -23,13 +23,13 @@ This project is a simplified a full stack clone of Instagram.
    -Install postgres
 
     ```sh
-        sudo apt-get -y install postgresql
+    sudo apt-get -y install postgresql
     ```
 
     -Start postgres server
 
     ```sh
-        sudo su postgres
+    sudo su postgres
     ```
 
 
