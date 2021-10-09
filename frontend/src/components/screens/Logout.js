@@ -8,10 +8,10 @@ class Logout extends Component {
   render() {
     return (
       <button
-        className='btn waves-effect waves-light #2196f3 blue logout'
+        className='btn waves-effect waves-light red logout'
         onClick={this.handleLogout}
       >
-        Logout
+        Log Out
       </button>
     );
   }

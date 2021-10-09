@@ -98,7 +98,42 @@ h5 a {
   opacity: 1;
 }
 
-.logout{
+.logout {
   color: #fff !important;
   text-transform: none;
+}
+
+.profile {
+  display: flex;
+  justify-content: space-around;
+  margin: 18px 0px;
+  border-bottom: 1px solid gray;
+}
+
+.profile-image img {
+  width: 160px;
+  height: 160px;
+  border-radius: 80px;
+  display: none;
+}
+
+.profile-image button {
+  width: 160px;
+  height: 160px;
+  border-radius: 80px;
+  border: none;
+  background: #ccc;
+}
+
+.user-stats {
+  display: flex;
+  justify-content: space-between;
+  width: 108%;
+}
+
+.create-post {
+  margin: 30px auto;
+  max-width: 500px;
+  padding: 20px;
+  text-align: center;
 }
