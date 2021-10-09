@@ -12,23 +12,6 @@ class Home extends React.Component {
     }
   };
 
-  checkAuthenticated = async () => {
-    try {
-      const res = await fetch('http://localhost:4000/user/verify', {
-        method: 'POST',
-        headers: { jwt_token: localStorage.token },
-      });
-
-      const parseRes = await res.json();
-
-      parseRes
-        ? this.props.history.push('/home')
-        : this.props.history.push('/');
-    } catch (err) {
-      console.error(err.message);
-    }
-  };
-
   render() {
     this.getUser();
     return (

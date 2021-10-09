@@ -3,14 +3,17 @@ import { Link, withRouter } from 'react-router-dom';
 import Logout from './screens/Logout';
 
 class NavBar extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  //   console.log(props);
-  // }
+  constructor(props) {
+    super(props);
+    const { setIsAuthenticated } = this.props;
+    this.state = {
+      setIsAuthenticated,
+    };
+  }
+
   render() {
     return (
       <nav>
-        {}
         <div className='nav-wrapper white'>
           <Link to='/'></Link>
           <Link to='/signup'></Link>
@@ -29,7 +32,7 @@ class NavBar extends React.Component {
             </li>
             <li>
               <Link to='/'>
-                <Logout />
+                <Logout setIsAuthenticated={this.state.setIsAuthenticated} />
               </Link>
             </li>
           </ul>

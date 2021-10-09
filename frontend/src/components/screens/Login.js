@@ -4,7 +4,9 @@ import { Link, withRouter } from 'react-router-dom';
 class Login extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { email: '', password: '' };
+    const { setIsAuthenticated } = this.props;
+
+    this.state = { email: '', password: '', setIsAuthenticated };
   }
 
   handleChange(event) {
@@ -34,6 +36,7 @@ class Login extends React.Component {
       if (user.jwtToken) {
         localStorage.setItem('token', user.jwtToken);
         this.props.history.push('/home');
+        this.state.setIsAuthenticated(true);
       } else {
         alert('Invalid login credentials!');
       }
