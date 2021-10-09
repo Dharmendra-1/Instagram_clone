@@ -90,12 +90,12 @@ const homeUser = async (request, response, next) => {
 };
 
 const createPost = async (request, response) => {
-  const { title, body, photo, id } = request.body;
+  const { title, body, img, id } = request.body;
   try {
-    if (!title || !body || !photo) {
+    if (!title || !body || !img) {
       return response.status(422).json({ error: 'Plase add all the fields' });
     }
-    let newPost = await pool.query(queries.addPost, [title, body, photo, id]);
+    let newPost = await pool.query(queries.addPost, [title, body, img, id]);
     return response.json(newPost.rows);
   } catch (error) {
     throw new Error(error);
@@ -104,6 +104,8 @@ const createPost = async (request, response) => {
 
 const getPost = async (request, response) => {
   try {
+    let userPost = await pool.query(queries.getPost);
+    return response.status(200).json(userPost.rows);
   } catch (error) {
     throw new Error(error);
   }
