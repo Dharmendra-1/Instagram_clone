@@ -6,6 +6,7 @@ const jwtGenerator = require('./utils/jwtGenerator');
 const createTable = async () => {
   try {
     await pool.query(queries.createTable);
+    await pool.query(queries.postTable);
   } catch (error) {
     throw new Error(error);
   }
@@ -98,4 +99,34 @@ const updateImg = async (request, response) => {
   }
 };
 
-module.exports = { getUser, addUser, loginUser, homeUser, updateImg };
+const createPost = async (request, response) => {
+  const { title, body, img, id } = request.body;
+  try {
+    if (!title || !body || !img) {
+      return response.status(422).json({ error: 'Plase add all the fields' });
+    }
+    let newPost = await pool.query(queries.addPost, [title, body, img, id]);
+    return response.json(newPost.rows);
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+const getPost = async (request, response) => {
+  try {
+    let userPost = await pool.query(queries.getPost);
+    return response.status(200).json(userPost.rows);
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+module.exports = {
+  getUser,
+  addUser,
+  loginUser,
+  homeUser,
+  createPost,
+  getPost,
+  updateImg,
+};
