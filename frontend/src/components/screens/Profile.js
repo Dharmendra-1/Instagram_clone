@@ -1,19 +1,25 @@
 import React from 'react';
+import { Modal } from 'react-bootstrap';
 
 class Profile extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    const { setImage } = this.props;
     this.state = {
       userName: '',
       firstName: '',
       email: '',
       image: '',
       url: '',
+      toggle: false,
+      setImage,
     };
   }
 
   postDetails = async () => {
     try {
+      this.setState({ ...this.state, toggle: false });
+
       const data = new FormData();
       data.append('file', this.state.image);
       data.append('upload_preset', 'insta-clone');
@@ -27,7 +33,7 @@ class Profile extends React.Component {
       );
 
       const fileData = await response.json();
-      console.log(fileData.url);
+      window.location.reload();
 
       await fetch('http://localhost:4000/user/img', {
         method: 'POST',
@@ -60,6 +66,13 @@ class Profile extends React.Component {
     }
   };
 
+  toggleModal = () => {
+    if (this.state.toggle) {
+      this.setState({ ...this.state, toggle: false });
+    } else {
+      this.setState({ ...this.state, toggle: true });
+    }
+  };
   componentDidMount() {
     this.userData();
   }
@@ -70,19 +83,33 @@ class Profile extends React.Component {
         <div className='profile'>
           <div className='profile-image'>
             <section>
-              <img alt='profile' src={this.state.url} />
-              <input
-                type='file'
-                name='filename'
-                onChange={(e) => this.setState({ image: e.target.files[0] })}
-              />
-            </section>
-            <section>
-              <button type='button' onClick={this.postDetails}>
-                <i type='file' className='small material-icons'>
-                  add_a_photo
-                </i>
+              <button onClick={this.toggleModal}>
+                {this.state.url && <img alt='profile' src={this.state.url} />}
+                {!this.state.url && (
+                  <i type='file' className='small material-icons'>
+                    add_a_photo
+                  </i>
+                )}
               </button>
+
+              <Modal show={this.state.toggle} animation={false}>
+                <Modal.Header>
+                  <Modal.Title>Upload Profile Picture</Modal.Title>
+                </Modal.Header>
+
+                <Modal.Body>
+                  <input
+                    type='file'
+                    name='filename'
+                    onChange={(e) =>
+                      this.setState({ image: e.target.files[0] })
+                    }
+                  />
+                  <button onClick={this.toggleModal}>Cancel</button>
+
+                  <button onClick={this.postDetails}>Upload</button>
+                </Modal.Body>
+              </Modal>
             </section>
           </div>
           <div>
@@ -96,36 +123,6 @@ class Profile extends React.Component {
           </div>
         </div>
         <div className='gallery'>
-          <img
-            className='item'
-            src='https://images.unsplash.com/photo-1475692277358-d66444784d6b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=580&q=80'
-            alt='post'
-          />
-          <img
-            className='item'
-            src='https://images.unsplash.com/photo-1475692277358-d66444784d6b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=580&q=80'
-            alt='post'
-          />
-          <img
-            className='item'
-            src='https://images.unsplash.com/photo-1475692277358-d66444784d6b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=580&q=80'
-            alt='post'
-          />
-          <img
-            className='item'
-            src='https://images.unsplash.com/photo-1475692277358-d66444784d6b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=580&q=80'
-            alt='post'
-          />
-          <img
-            className='item'
-            src='https://images.unsplash.com/photo-1475692277358-d66444784d6b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=580&q=80'
-            alt='post'
-          />
-          <img
-            className='item'
-            src='https://images.unsplash.com/photo-1475692277358-d66444784d6b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=580&q=80'
-            alt='post'
-          />
           <img
             className='item'
             src='https://images.unsplash.com/photo-1475692277358-d66444784d6b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=580&q=80'

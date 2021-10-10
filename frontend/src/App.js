@@ -11,7 +11,7 @@ import CreatePost from './components/screens/CreatePost';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { isAuthenticated: false };
+    this.state = { isAuthenticated: false, image: false };
   }
 
   componentDidMount() {

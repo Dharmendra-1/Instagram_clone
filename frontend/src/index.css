@@ -115,6 +115,8 @@ h5 a {
   height: 160px;
   border-radius: 80px;
   /* display: none; */
+  margin-left: -6px;
+  margin-top: -1px;
 }
 
 .profile-image button {

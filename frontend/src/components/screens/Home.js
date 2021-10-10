@@ -27,7 +27,7 @@ class Home extends React.Component {
           if (data.first_name) {
             return (
               <div key={data.id} className='card home-card'>
-                <h5>{data.profile + ' ' + data.first_name}</h5>
+                <h5>{data.first_name}</h5>
                 <div className='card-image'>
                   <img src={data.image_url} alt='post' />
                 </div>
