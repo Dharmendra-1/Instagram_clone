@@ -95,6 +95,11 @@ class Profile extends React.Component {
     this.postDeatils();
   }
 
+  componentDidUpdate() {
+    this.userData();
+    this.postDeatils();
+  }
+
   render() {
     return (
       <div style={{ maxWidth: '550px', margin: '0px auto' }}>
