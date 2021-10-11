@@ -7,6 +7,8 @@ const createTable = async () => {
   try {
     await pool.query(queries.createTable);
     await pool.query(queries.postTable);
+    await pool.query(queries.likesTable);
+    await pool.query(queries.commentsTable);
   } catch (error) {
     throw new Error(error);
   }
@@ -121,6 +123,30 @@ const getPost = async (request, response) => {
   }
 };
 
+const deletePost = async (request, response) => {
+  const pid = request.params.pid;
+
+  try {
+    let result = await pool.query(queries.deletePost, [pid]);
+    return response.status(200).json(result.rows);
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+const like = async (request, response) => {
+  const { id, pid } = request.body;
+
+  try {
+    let result = await pool.query(queries.addLikes, [id, pid]);
+    return response.status(200).json(result.rows);
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+const comment = async (request, response) => {};
+
 module.exports = {
   getUser,
   addUser,
@@ -129,4 +155,7 @@ module.exports = {
   createPost,
   getPost,
   updateImg,
+  deletePost,
+  like,
+  comment,
 };

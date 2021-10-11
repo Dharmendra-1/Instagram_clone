@@ -16,6 +16,12 @@ router.post('/post', controller.createPost);
 
 router.get('/post', controller.getPost);
 
+router.delete('/post/:pid', controller.deletePost);
+
+router.put('/like', controller.like);
+
+router.post('/comment', controller.comment);
+
 router.post('/verify', authorization, (req, res) => {
   try {
     res.json(true);
