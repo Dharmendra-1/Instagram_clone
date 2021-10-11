@@ -6,7 +6,11 @@ class Login extends React.Component {
     super(props);
     const { setIsAuthenticated } = this.props;
 
-    this.state = { email: '', password: '', setIsAuthenticated };
+    this.state = {
+      email: '',
+      password: '',
+      setIsAuthenticated,
+    };
   }
 
   handleChange(event) {

@@ -58,17 +58,6 @@ const loginUser = async (request, response) => {
     let loginUserData = userExists.rows[0];
 
     if (loginUserData && loginUserData.user_email === email) {
-      // const validPassword = await bcrypt.compare(
-      //   password,
-      //   userExists.user_password
-      // );
-
-      // console.log(validPassword);
-
-      // if (!validPassword) {
-      //   return res.status(401).json('Invalid Credential');
-      // }
-
       const jwtToken = jwtGenerator(loginUserData.user_email);
 
       return response.json({ jwtToken });
@@ -100,7 +89,6 @@ const updateImg = async (request, response) => {
 
 const createPost = async (request, response) => {
   const { title, body, img, id } = request.body;
-  console.log(request.body);
 
   try {
     if (!title || !body || !img) {
@@ -122,6 +110,15 @@ const getPost = async (request, response) => {
   }
 };
 
+const getProfilePic = async (request, response) => {
+  const { id } = request.body;
+  try {
+    let userPost = await pool.query(queries.getProfilePic, [id]);
+    return response.status(200).json(userPost.rows);
+  } catch (error) {
+    throw new Error(error);
+  }
+};
 module.exports = {
   getUser,
   addUser,
@@ -130,4 +127,5 @@ module.exports = {
   createPost,
   getPost,
   updateImg,
+  getProfilePic,
 };

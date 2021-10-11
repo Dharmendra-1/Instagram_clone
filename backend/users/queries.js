@@ -40,6 +40,8 @@ const loginUserData = 'SELECT * FROM users WHERE users.user_email = $1';
 
 const updateImg = 'UPDATE users SET img = ($1) WHERE user_email = ($2)';
 
+const getProfilePic = 'SELECT img FROM users WHERE users.id = $1';
+
 module.exports = {
   createDatabase,
   createTable,
@@ -51,4 +53,5 @@ module.exports = {
   postTable,
   addPost,
   getPost,
+  getProfilePic,
 };

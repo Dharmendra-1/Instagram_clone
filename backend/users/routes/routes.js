@@ -16,6 +16,8 @@ router.post('/post', controller.createPost);
 
 router.get('/post', controller.getPost);
 
+router.post('/profile/img', controller.getProfilePic);
+
 router.post('/verify', authorization, (req, res) => {
   try {
     res.json(true);

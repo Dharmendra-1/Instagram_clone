@@ -2,9 +2,11 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 
 class Home extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    const { userId } = this.props;
     this.state = {
+      userId,
       userData: [],
     };
   }
@@ -17,6 +19,17 @@ class Home extends React.Component {
       console.error(err.message);
     }
   };
+
+  goToUserProfile = (id) => {
+    this.state.userId(id);
+    if (id === 1) {
+      //match with user id
+      this.props.history.push(`/profile`);
+    } else {
+      this.props.history.push(`/profile/user`);
+    }
+  };
+
   componentDidMount() {
     this.getUser();
   }
@@ -27,7 +40,9 @@ class Home extends React.Component {
           if (data.pid) {
             return (
               <div key={data.pid} className='card home-card' style={{}}>
-                <h5>{data.last_name}</h5>
+                <h5 onClick={() => this.goToUserProfile(data.id)}>
+                  {data.last_name}
+                </h5>
                 <div className='card-image'>
                   <img src={data.img} alt='post' />
                 </div>
@@ -35,12 +50,11 @@ class Home extends React.Component {
                   <span>likes:</span>
                   {data.like}
                 </div>
-                <div style={{display:'flex'}}>
-                  <div style={{marginRight: 10}}>{data.last_name}</div>
-                  <div style={{fontWeight:'normal'}}>{data.title}</div>
+                <div style={{ display: 'flex' }}>
+                  <div style={{ marginRight: 10 }}>{data.last_name}</div>
+                  <div style={{ fontWeight: 'normal' }}>{data.title}</div>
                 </div>
-                
-                {/* <div>{data.body}</div> */}
+
                 <div>{data.comments} </div>
               </div>
             );
