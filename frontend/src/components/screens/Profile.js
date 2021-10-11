@@ -13,6 +13,7 @@ class Profile extends React.Component {
       url: '',
       toggle: false,
       setImage,
+      post: [],
     };
   }
 
@@ -73,8 +74,22 @@ class Profile extends React.Component {
       this.setState({ ...this.state, toggle: true });
     }
   };
+
+  postDeatils = async () => {
+    try {
+      const res = await fetch('http://localhost:4000/user/post');
+      const postData = await res.json();
+      this.setState({
+        post: postData,
+      });
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
   componentDidMount() {
     this.userData();
+    this.postDeatils();
   }
 
   render() {
@@ -116,18 +131,18 @@ class Profile extends React.Component {
             <h4>{this.state.userName}</h4>
             <p>{this.state.firstName}</p>
             <div className='user-stats'>
-              <h6>40 posts</h6>
+              <h6>{this.state.post.length} posts</h6>
               <h6>40 followers</h6>
               <h6>40 following</h6>
             </div>
           </div>
         </div>
         <div className='gallery'>
-          <img
-            className='item'
-            src='https://images.unsplash.com/photo-1475692277358-d66444784d6b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=580&q=80'
-            alt='post'
-          />
+          {this.state.post.map((obj) => {
+            return (
+              <img className='item' key={obj.pid} src={obj.img} alt='post' />
+            );
+          })}
         </div>
       </div>
     );

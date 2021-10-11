@@ -101,6 +101,8 @@ const updateImg = async (request, response) => {
 
 const createPost = async (request, response) => {
   const { title, body, img, id } = request.body;
+  console.log(request.body);
+
   try {
     if (!title || !body || !img) {
       return response.status(422).json({ error: 'Plase add all the fields' });
