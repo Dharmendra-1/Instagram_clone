@@ -28,7 +28,7 @@ const addUser =
 const addPost =
   'INSERT INTO posts(title, body, img, id) VALUES($1, $2, $3, $4) RETURNING *';
 
-const getPost = `SELECT Last_name, user_email, pid, title, body, posts.img
+const getPost = `SELECT users.id, Last_name, user_email, pid, title, body, posts.img
 FROM users
 INNER JOIN posts
 ON users.id = posts.id;`;
