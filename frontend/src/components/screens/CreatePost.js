@@ -63,7 +63,7 @@ class CreatePost extends React.Component {
 
   render() {
     return (
-      <div className='card input-field create-post' >
+      <div className='card input-field create-post'>
         <input
           type='text'
           placeholder='title'
