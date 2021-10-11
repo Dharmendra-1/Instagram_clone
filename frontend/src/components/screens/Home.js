@@ -26,7 +26,7 @@ class Home extends React.Component {
         {this.state.userData.map((data) => {
           if (data.pid) {
             return (
-              <div key={data.pid} className='card home-card'>
+              <div key={data.pid} className='card home-card' style={{}}>
                 <h5>{data.last_name}</h5>
                 <div className='card-image'>
                   <img src={data.img} alt='post' />
@@ -35,8 +35,12 @@ class Home extends React.Component {
                   <span>likes:</span>
                   {data.like}
                 </div>
-                <div>{data.last_name + ' ' + data.title}</div>
-                <div>{data.body}</div>
+                <div style={{display:'flex'}}>
+                  <div style={{marginRight: 10}}>{data.last_name}</div>
+                  <div style={{fontWeight:'normal'}}>{data.title}</div>
+                </div>
+                
+                {/* <div>{data.body}</div> */}
                 <div>{data.comments} </div>
               </div>
             );

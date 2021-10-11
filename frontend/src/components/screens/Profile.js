@@ -132,8 +132,8 @@ class Profile extends React.Component {
             <p>{this.state.firstName}</p>
             <div className='user-stats'>
               <h6>{this.state.post.length} posts</h6>
-              <h6>40 followers</h6>
-              <h6>40 following</h6>
+              <h6>0 followers</h6>
+              <h6>0 following</h6>
             </div>
           </div>
         </div>

@@ -83,6 +83,7 @@ h5 a {
   max-width: 500px;
   height: max-content;
   margin: 26px auto;
+  font-weight: bold;
 }
 
 .home-card h5 {
