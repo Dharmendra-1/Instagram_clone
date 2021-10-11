@@ -14,6 +14,7 @@ class Profile extends React.Component {
       toggle: false,
       setImage,
       post: [],
+      id: null,
     };
   }
 
@@ -61,6 +62,7 @@ class Profile extends React.Component {
         firstName: parseData.first_name,
         email: parseData.user_email,
         url: parseData.img,
+        id: parseData.id,
       });
     } catch (err) {
       console.error(err.message);
@@ -79,8 +81,9 @@ class Profile extends React.Component {
     try {
       const res = await fetch('http://localhost:4000/user/post');
       const postData = await res.json();
+      let usefulData = postData.filter((obj) => obj.id === this.state.id);
       this.setState({
-        post: postData,
+        post: usefulData,
       });
     } catch (err) {
       console.error(err.message);
