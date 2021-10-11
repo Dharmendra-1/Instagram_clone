@@ -10,9 +10,9 @@ class Home extends React.Component {
   }
   getUser = async () => {
     try {
-      const res = await fetch('http://localhost:4000/user/home');
+      const res = await fetch('http://localhost:4000/user/post');
       const parseData = await res.json();
-      this.setState({ userData: parseData });
+      this.setState({ userData: parseData.reverse() });
     } catch (err) {
       console.error(err.message);
     }
@@ -24,18 +24,19 @@ class Home extends React.Component {
     return (
       <div className='home'>
         {this.state.userData.map((data) => {
-          if (data.first_name) {
+          if (data.pid) {
             return (
-              <div key={data.id} className='card home-card'>
-                <h5>{data.first_name}</h5>
+              <div key={data.pid} className='card home-card'>
+                <h5>{data.last_name}</h5>
                 <div className='card-image'>
-                  <img src={data.image_url} alt='post' />
+                  <img src={data.img} alt='post' />
                 </div>
                 <div>
                   <span>likes:</span>
                   {data.like}
                 </div>
-                <div>{data.first_name + ' ' + data.caption}</div>
+                <div>{data.last_name + ' ' + data.title}</div>
+                <div>{data.body}</div>
                 <div>{data.comments} </div>
               </div>
             );

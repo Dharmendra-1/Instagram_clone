@@ -64,7 +64,7 @@ class App extends React.Component {
             <NavBar setIsAuthenticated={this.setIsAuthenticated.bind(this)} />
           )}
           {this.state.isAuthenticated && <Profile />}
-          {!this.state.isAuthenticated && <Redirect to='/' />}
+          {!this.state.isAuthenticated && <Redirect to='/profile' />}
         </Route>
 
         <Route exact path='/createpost'>

@@ -42,6 +42,7 @@ class CreatePost extends React.Component {
           id: this.state.id,
         }),
       });
+      window.location.reload();
     } catch (error) {
       throw new Error(error);
     }
