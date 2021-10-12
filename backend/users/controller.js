@@ -125,9 +125,12 @@ const getFollowList = async (request, response) => {
   const { id, fid, follow } = request.body;
   try {
     let followerExists = await pool.query(queries.followerExists, [id, fid]);
-    if (followerExists.rows.length == 0) {
-      await pool.query(queries.insertFollower, [id, fid, 0]);
+    if (followerExists.rows.length == 0 && follow === true) {
+      await pool.query(queries.insertFollower, [id, fid, 1]);
+    } else if (followerExists.rows.length !== 0 && follow === true) {
+      await pool.query(queries.increaseFollow, [id, fid, 1]);
     } else {
+      await pool.query(queries.DecreaseFollow, [id, fid, 0]);
     }
 
     let allFollower = await pool.query(queries.getFollowList);

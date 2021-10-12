@@ -86,7 +86,7 @@ class UserProfile extends React.Component {
       this.setState({ ...this.state, follow: true });
     }
 
-    //this.followerDetails();
+    this.followerDetails();
   };
 
   followerDetails = async () => {
