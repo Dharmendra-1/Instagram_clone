@@ -28,4 +28,6 @@ router.post('/verify', authorization, (req, res) => {
 
 router.post('/img', controller.updateImg);
 
+router.post('/follow', controller.getFollowList);
+
 module.exports = router;
