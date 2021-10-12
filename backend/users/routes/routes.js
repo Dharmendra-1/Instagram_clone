@@ -30,4 +30,8 @@ router.post('/img', controller.updateImg);
 
 router.post('/follow', controller.getFollowList);
 
+router.get('/followers', controller.getFollowers);
+
+router.post('/defaultFollow', controller.defaultFollow);
+
 module.exports = router;
