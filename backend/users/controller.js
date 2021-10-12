@@ -162,7 +162,7 @@ const unlike = async (request, response) => {
 
 const getFollowList = async (request, response) => {
   const { id, fid, follow } = request.body;
-  console.log(follow);
+  // console.log(follow);
   try {
     if (follow === 1) {
       await pool.query(queries.increaseFollow, [id, fid, 1]);
