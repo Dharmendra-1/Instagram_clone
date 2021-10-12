@@ -19,6 +19,7 @@ router.get('/post', controller.getPost);
 router.delete('/post/:pid', controller.deletePost);
 
 router.put('/like', controller.like);
+router.put('/unlike', controller.unlike);
 
 router.post('/comment', controller.comment);
 

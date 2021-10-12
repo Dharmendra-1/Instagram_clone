@@ -136,10 +136,27 @@ const deletePost = async (request, response) => {
 
 const like = async (request, response) => {
   const { id, pid } = request.body;
-
   try {
-    let result = await pool.query(queries.addLikes, [id, pid]);
-    return response.status(200).json(result.rows);
+    await pool.query(queries.likeInsert, [id, pid]);
+
+    const likes = await pool.query(queries.likeIncrease, [pid]);
+
+    console.log(likes.rows);
+    return response.status(200).json(likes.rows);
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+const unlike = async (request, response) => {
+  const { id, pid } = request.body;
+  try {
+    await pool.query(queries.likeDelete, [id, pid]);
+
+    const likes = await pool.query(queries.likeDecrease, [pid]);
+
+    console.log(likes.rows);
+    return response.status(200).json(likes.rows);
   } catch (error) {
     throw new Error(error);
   }
@@ -157,5 +174,6 @@ module.exports = {
   updateImg,
   deletePost,
   like,
+  unlike,
   comment,
 };

@@ -15,6 +15,7 @@ const postTable = `CREATE TABLE IF NOT EXISTS posts (
     title VARCHAR(255) NOT NULL,
     body VARCHAR(255) NOT NULL,
     img VARCHAR(255) NOT NULL,
+    like_count int,
     id int,
     PRIMARY KEY (pid),
     CONSTRAINT FK_id FOREIGN KEY (id) REFERENCES users(id)
@@ -22,7 +23,6 @@ const postTable = `CREATE TABLE IF NOT EXISTS posts (
 
 const likesTable = `CREATE TABLE IF NOT EXISTS likes (
     lid SERIAL,
-    like_count int NOT NULL,
     id int,
     pid int,
     PRIMARY KEY (lid),
@@ -32,7 +32,7 @@ const likesTable = `CREATE TABLE IF NOT EXISTS likes (
 
 const commentsTable = `CREATE TABLE IF NOT EXISTS comments (
     cid SERIAL,
-    comment VARCHAR(255) NOT NULL,
+    comment VARCHAR(255),
     id int,
     pid int,
     PRIMARY KEY (cid),
@@ -50,17 +50,21 @@ const addPost =
 
 const getPost = `SELECT users.id, Last_name, posts.pid, title, body, posts.img, like_count, comment
 FROM users
-INNER JOIN posts
-  ON posts.id = users.id
-INNER JOIN likes
+JOIN posts
+  ON users.id = posts.id
+JOIN likes
   ON likes.pid = posts.pid
-INNER JOIN comments
+JOIN comments
   ON comments.pid = posts.pid`;
 
 const deletePost = `DELETE FROM posts
 WHERE posts.pid = $1 RETURNING *`;
 
-const addLikes = `UPDATE likes SET like = like + 1 WHERE id=($1) and pid=($2) RETURNING like, id, pid`;
+const likeInsert = `INSERT INTO likes (id, pid) VALUES (($1), ($2))`;
+const likeIncrease = `UPDATE posts SET like_count=like_count+1 WHERE pid=$1 RETURNING id,pid,like_count`;
+
+const likeDelete = `DELETE FROM likes WHERE id=$1 AND pid=$2`;
+const likeDecrease = `UPDATE posts SET like_count=like_count-1 WHERE pid=$1 RETURNING id,pid,like_count`;
 
 const addComments = `INSERT INTO comments(comment) VALUES($1) WHERE id = ($2) and pid = ($3) RETURNING comment WHERE pid = ($3)`;
 
@@ -85,6 +89,9 @@ module.exports = {
   deletePost,
   likesTable,
   commentsTable,
-  addLikes,
+  likeInsert,
+  likeIncrease,
+  likeDelete,
+  likeDecrease,
   addComments,
 };
