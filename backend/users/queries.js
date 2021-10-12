@@ -45,8 +45,8 @@ const followerTable = `CREATE TABLE IF NOT EXISTS follower(
  id INT NOT NULL,
  fid INT NOT NULL,
  follow INT NOT NULL,
- FOREIGN KEY(id) REFERENCES users(id)
-);`;
+ CONSTRAINT FK_id FOREIGN KEY(id) REFERENCES users(id)
+)`;
 
 const getUser = 'SELECT * FROM users';
 
