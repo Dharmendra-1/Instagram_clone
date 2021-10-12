@@ -1,16 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Grand+Hotel&display=swap');
 
+.nav-wrapper {
+  background-color: #080b0c;
+  border-bottom: 1px solid #232729;
+}
+
 a {
-  color: black !important;
+  color: #e2dcdf !important;
 }
 
 .brand-logo {
   font-family: 'Grand Hotel', cursive;
-  margin-left: 10px;
+  margin-left: 35px;
+}
+
+#nav-mobile {
+  margin-right: 35px;
 }
 
 body {
-  background: whitesmoke;
+  background: #0f1213;
 }
 
 .mycard {
@@ -22,6 +31,9 @@ body {
   text-align: center;
   max-width: 400px;
   margin: 10px auto;
+  color: #f8f5f2;
+  background-color: #080b0c;
+  border: 1px solid #232729;
 }
 
 .auth-card h2 {
@@ -38,6 +50,9 @@ body {
   text-align: center;
   max-width: 400px;
   margin: 10px auto;
+  color: #f8f5f2;
+  background-color: #080b0c;
+  border: 1px solid #232729;
 }
 
 .auth-card1 h5 {
@@ -45,7 +60,7 @@ body {
 }
 
 h4 a {
-  color: #2b5884 !important;
+  color: rgba(46, 46, 255, 0.856) !important;
 }
 
 h5 a {
@@ -80,10 +95,13 @@ h5 a {
 } */
 
 .home-card {
+  color: #f8f5f2;
+  background-color: #080b0c;
   max-width: 500px;
   height: max-content;
   margin: 26px auto;
   font-weight: bold;
+  border: 1px solid #232729;
 }
 
 .home-card h5 {
@@ -92,6 +110,13 @@ h5 a {
 
 .card-image {
   margin: 10px;
+  border: 1px solid #232729;
+}
+
+input,
+select,
+textarea {
+  color: #f8f5f2;
 }
 
 ::placeholder {
@@ -100,11 +125,11 @@ h5 a {
 }
 
 .logout {
-  color: #fff !important;
   text-transform: none;
 }
 
 .profile {
+  color: #f8f5f2;
   display: flex;
   justify-content: space-around;
   margin: 18px 0px;
@@ -114,10 +139,10 @@ h5 a {
 .profile-image img {
   width: 160px;
   height: 160px;
-  border-radius: 80px;
-  /* display: none; */
-  margin-left: -6px;
+  margin-left: -4px;
   margin-top: -1px;
+  border: 1px solid #000; 
+  border-radius: 80px;
 }
 
 .profile-image button {
@@ -141,6 +166,54 @@ h5 a {
 .create-post {
   margin: 30px auto;
   max-width: 500px;
+  height: 300px;
   padding: 20px;
   text-align: center;
+  background-color: #080b0c;
+  border: 1px solid #232729;
+}
+
+.create-post .check-it {
+  background-color: #080b0c;
+  /* margin-bottom: 30px; */
+}
+
+.check {
+  color: #64b5f6;
+}
+
+.browse {
+  margin-top: 60px;
+}
+
+.create-post button,
+.create-post span {
+  text-transform: none;
+}
+
+#dropdown-basic {
+  background-color: #080b0c;
+  color: #e2dcdf;
+  margin-top: -4px;
+  height: 63px;
+  box-shadow: 0 0 0 0;
+  border-radius: 0;
+}
+
+.drop .card {
+  width: 150px;
+  border-radius: 4px;
+  z-index: 1;
+  background-color: #080b0c;
+}
+
+.divider {
+  background-color: #232729;
+}
+
+@media only screen and (max-width: 600px) {
+  #dropdown-basic {
+    margin-top: -3px;
+    height: 54px;
+  }
 }

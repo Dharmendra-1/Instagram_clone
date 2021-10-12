@@ -17,12 +17,12 @@ class Logout extends Component {
 
   render() {
     return (
-      <button
-        className='btn waves-effect waves-light red logout'
+      <div
+        className='logout'
         onClick={this.handleLogout}
       >
         Log Out
-      </button>
+      </div>
     );
   }
 }

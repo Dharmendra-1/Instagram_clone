@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import Logout from './screens/Logout';
+import { Dropdown } from 'react-bootstrap';
 
 class NavBar extends React.Component {
   constructor(props) {
@@ -14,7 +15,7 @@ class NavBar extends React.Component {
   render() {
     return (
       <nav>
-        <div className='nav-wrapper white'>
+        <div className='nav-wrapper'>
           <Link to='/'></Link>
           <Link to='/signup'></Link>
           <Link to='/' className='brand-logo left'>
@@ -27,19 +28,25 @@ class NavBar extends React.Component {
               </Link>
             </li>
             <li>
-              <Link to='/profile'>
-                <i className='medium material-icons'>account_circle</i>
-              </Link>
-            </li>
-            <li>
               <Link to='/createpost'>
                 <i className='medium material-icons'>add_box</i>
               </Link>
             </li>
             <li>
-              <Link to='/'>
-                <Logout setIsAuthenticated={this.state.setIsAuthenticated} />
-              </Link>
+              <Dropdown className='drop'>
+                <Dropdown.Toggle variant='success' id='dropdown-basic'>
+                  <i className='medium material-icons'>account_circle</i>
+                </Dropdown.Toggle>
+                <Dropdown.Menu className='card'>
+                  <Link to='/profile'>Profile</Link>
+                  <Link className="divider" tabIndex="-1"/>
+                  <Link to='/'>
+                    <Logout
+                      setIsAuthenticated={this.state.setIsAuthenticated}
+                    />
+                  </Link>
+                </Dropdown.Menu>
+              </Dropdown>
             </li>
           </ul>
         </div>

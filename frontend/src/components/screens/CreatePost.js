@@ -65,21 +65,15 @@ class CreatePost extends React.Component {
   render() {
     return (
       <div className='card input-field create-post'>
-        <input
-          type='text'
-          placeholder='title'
-          value={this.state.title}
-          onChange={(e) => this.setState({ title: e.target.value })}
-        />
-        <input
-          type='text'
-          placeholder='body'
-          value={this.state.body}
-          onChange={(e) => this.setState({ body: e.target.value })}
-        />
-        <div className='file-field input-field'>
+        <button
+          className='btn check-it right'
+          onClick={() => this.postDetails()}
+        >
+          <i className='medium material-icons check'>check</i>
+        </button>
+        <div className='file-field input-field browse'>
           <div className='btn #64b5f6 blue darken-1'>
-            <span>Uplaod Image</span>
+            <span>Browse Files</span>
             <input
               type='file'
               onChange={(e) => this.setState({ img: e.target.files[0] })}
@@ -89,12 +83,18 @@ class CreatePost extends React.Component {
             <input className='file-path validate' type='text' />
           </div>
         </div>
-        <button
-          className='btn waves-effect waves-light #64b5f6 blue darken-1'
-          onClick={() => this.postDetails()}
-        >
-          Submit post
-        </button>
+        <input
+          type='text'
+          placeholder='Write a caption...'
+          value={this.state.title}
+          onChange={(e) => this.setState({ title: e.target.value })}
+        />
+        <input
+          type='text'
+          placeholder='body'
+          value={this.state.body}
+          onChange={(e) => this.setState({ body: e.target.value })}
+        />
       </div>
     );
   }
