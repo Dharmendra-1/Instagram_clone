@@ -8,6 +8,7 @@ class Home extends React.Component {
     this.state = {
       userId,
       userData: [],
+      loginId: null,
     };
   }
   getUser = async () => {
@@ -20,9 +21,24 @@ class Home extends React.Component {
     }
   };
 
+  loginUserId = async () => {
+    try {
+      const res = await fetch('http://localhost:4000/dashboard/', {
+        method: 'POST',
+        headers: { jwt_token: localStorage.token },
+      });
+      const parseData = await res.json();
+      this.setState({
+        loginId: parseData.id,
+      });
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
   goToUserProfile = (id) => {
     this.state.userId(id);
-    if (id === 1) {
+    if (id === this.state.loginId) {
       //match with user id
       this.props.history.push(`/profile`);
     } else {
@@ -32,6 +48,7 @@ class Home extends React.Component {
 
   componentDidMount() {
     this.getUser();
+    this.loginUserId();
   }
   render() {
     return (

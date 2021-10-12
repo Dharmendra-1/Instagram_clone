@@ -12,8 +12,26 @@ class UserProfile extends React.Component {
       url: 'https://www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png',
       post: [],
       follow: false, //take from database later
+      loginId: null,
     };
   }
+
+  loginUserId = async () => {
+    try {
+      const res = await fetch('http://localhost:4000/dashboard/', {
+        method: 'POST',
+        headers: { jwt_token: localStorage.token },
+      });
+      const parseData = await res.json();
+      console.log(parseData.id);
+
+      this.setState({
+        loginId: parseData.id,
+      });
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
 
   toggleModal = () => {
     if (this.state.toggle) {
@@ -67,33 +85,37 @@ class UserProfile extends React.Component {
     } else {
       this.setState({ ...this.state, follow: true });
     }
+
+    //this.followerDetails();
   };
 
   followerDetails = async () => {
-    const res = await fetch('http://localhost:4000/user/follow', {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        id: this.state.userId,
-        fid: 1,
-        follow: this.state.follow,
-      }),
-    });
-    const allFollower = await res.json();
-    console.log(allFollower);
+    if (this.state.loginId !== null) {
+      try {
+        const res = await fetch('http://localhost:4000/user/follow', {
+          method: 'POST',
+          mode: 'cors',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            id: this.state.loginId,
+            fid: this.state.userId,
+            follow: this.state.follow,
+          }),
+        });
+        const allFollower = await res.json();
+        console.log(allFollower);
+      } catch (error) {
+        throw new Error(error);
+      }
+    }
   };
 
   componentDidMount() {
+    this.loginUserId();
     this.userDetails();
     this.postDeatils();
-    this.followerDetails();
-  }
-
-  componentDidUpdate() {
-    this.followerDetails();
   }
 
   render() {

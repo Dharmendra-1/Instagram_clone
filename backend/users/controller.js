@@ -123,22 +123,14 @@ const getProfilePic = async (request, response) => {
 
 const getFollowList = async (request, response) => {
   const { id, fid, follow } = request.body;
-
   try {
     let followerExists = await pool.query(queries.followerExists, [id, fid]);
     if (followerExists.rows.length == 0) {
-      await pool.query(queries.insertFollower, [id, fid, 1]);
+      await pool.query(queries.insertFollower, [id, fid, 0]);
     } else {
-      if (follow === true) {
-        await pool.query(queries.increaseFollow, [id, fid]);
-      } else {
-        await pool.query(queries.DecreaseFollow, [id, fid]);
-      }
     }
 
     let allFollower = await pool.query(queries.getFollowList);
-    console.log(allFollower.rows);
-
     return response.status(200).json(allFollower.rows);
   } catch (error) {
     throw new Error(error);

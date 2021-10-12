@@ -52,13 +52,15 @@ const getProfilePic = 'SELECT img FROM users WHERE users.id = $1';
 
 const getFollowList = 'SELECT * FROM follower';
 
-const increaseFollow = `UPDATE follower SET follow = follow + 1 WHERE id = ($1) AND fid = ($2)`;
+const increaseFollow = `UPDATE follower SET follow = ($3) WHERE id = ($1) AND fid = ($2)`;
 
-const DecreaseFollow = `UPDATE follower SET follow = follow - 1 WHERE id = ($1) AND fid = ($2)`;
+const DecreaseFollow = `UPDATE follower SET follow = ($3) WHERE id = ($1) AND fid = ($2)`;
 
 const insertFollower = `INSERT INTO follower(id, fid, follow) VALUES($1, $2, $3) RETURNING *`;
 
 const followerExists = `SELECT id, fid, follow FROM follower WHERE id = ($1) AND fid = ($2)`;
+
+const followExists = `SELECT follow from follower where id = ($1) AND fid = ($2)`;
 
 module.exports = {
   createDatabase,
@@ -78,4 +80,5 @@ module.exports = {
   insertFollower,
   followerExists,
   followerTable,
+  followExists,
 };
