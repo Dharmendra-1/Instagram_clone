@@ -20,6 +20,15 @@ const postTable = `CREATE TABLE IF NOT EXISTS posts (
     CONSTRAINT FK_id FOREIGN KEY (id) REFERENCES users(id)
 );`;
 
+const followerTable = `CREATE TABLE IF NOT EXISTS follower(
+ fid SERIAL,
+ id INT,
+ pid INT,
+ follow INT NOT NULL,
+ FOREIGN KEY(id) REFERENCES users(id),
+ FOREIGN KEY(pid) REFERENCES posts(pid) 
+);`;
+
 const getUser = 'SELECT * FROM users';
 
 const addUser =
@@ -42,6 +51,16 @@ const updateImg = 'UPDATE users SET img = ($1) WHERE user_email = ($2)';
 
 const getProfilePic = 'SELECT img FROM users WHERE users.id = $1';
 
+const getFollowList = 'SELECT * FROM follower';
+
+const increaseFollow = `UPDATE follower SET follow = follow + 1 WHERE id = ($1) AND pid = ($2)`;
+
+const DecreaseFollow = `UPDATE follower SET follow = follow - 1 WHERE id = ($1) AND pid = ($2)`;
+
+const insertFollower = `INSERT INTO follower(id, pid, follow) VALUES($1, $2, $3) RETURNING *`;
+
+const followerExists = `SELECT id, pid, follow FROM follower WHERE id = ($1) AND pid = ($2)`;
+
 module.exports = {
   createDatabase,
   createTable,
@@ -54,4 +73,10 @@ module.exports = {
   addPost,
   getPost,
   getProfilePic,
+  getFollowList,
+  increaseFollow,
+  DecreaseFollow,
+  insertFollower,
+  followerExists,
+  followerTable,
 };
