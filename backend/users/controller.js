@@ -162,7 +162,17 @@ const unlike = async (request, response) => {
   }
 };
 
-const comment = async (request, response) => {};
+const comment = async (request, response) => {
+  const { comment, id, pid } = request.body;
+  try {
+    const result = await pool.query(queries.addComments, [comment, id, pid]);
+
+    console.log(result.rows);
+    return response.status(200).json(result.rows);
+  } catch (error) {
+    throw new Error(error);
+  }
+};
 
 module.exports = {
   getUser,
