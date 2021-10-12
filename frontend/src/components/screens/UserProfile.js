@@ -13,9 +13,12 @@ class UserProfile extends React.Component {
       post: [],
       follow: 0, //take from database later
       loginId: null,
+      following: [],
+      followers: [],
     };
   }
   count = 1;
+  counter = 1;
   loginUserId = async () => {
     try {
       const res = await fetch('http://localhost:4000/dashboard/', {
@@ -23,7 +26,6 @@ class UserProfile extends React.Component {
         headers: { jwt_token: localStorage.token },
       });
       const parseData = await res.json();
-      console.log(parseData.id);
 
       this.setState({
         loginId: parseData.id,
@@ -47,7 +49,6 @@ class UserProfile extends React.Component {
         }),
       });
       const followerValue = await res.json();
-      console.log(followerValue[0].follow);
       this.setState({
         ...this.state,
         follow: followerValue[0].follow,
@@ -113,7 +114,7 @@ class UserProfile extends React.Component {
         fol = 0;
       }
       try {
-        const res = await fetch('http://localhost:4000/user/follow', {
+        await fetch('http://localhost:4000/user/follow', {
           method: 'POST',
           mode: 'cors',
           headers: {
@@ -125,26 +126,47 @@ class UserProfile extends React.Component {
             follow: fol,
           }),
         });
-        const allFollower = await res.json();
-
-        allFollower.forEach((obj) => {
-          if (this.state.loginId === obj.id) {
-            if (obj.follow === 1) {
-              this.following += 1;
-            }
-          }
-        });
       } catch (error) {
         throw new Error(error);
       }
     }
   };
 
+  getFollowerDetails = async () => {
+    const dataOfUser = await fetch('http://localhost:4000/user/followers');
+    const orginalData = await dataOfUser.json();
+    const followings = orginalData.reduce((currArr, obj) => {
+      if (obj.id === this.state.loginId) {
+        if (obj.follow === 1) {
+          currArr.push(obj);
+        }
+      }
+      return currArr;
+    }, []);
+
+    const follower = orginalData.reduce((currArr, obj) => {
+      if (obj.fid === this.state.loginId) {
+        if (obj.follow === 1) {
+          currArr.push(obj);
+        }
+      }
+      return currArr;
+    }, []);
+
+    this.setState({
+      ...this.state,
+      following: followings,
+      followers: follower,
+    });
+  };
+
   componentDidMount() {
     this.loginUserId();
     this.userDetails();
     this.postDeatils();
+    // this.getFollowerDetails();
   }
+
   componentDidUpdate() {
     if (this.state.loginId && this.count) {
       this.count = 0;
@@ -165,8 +187,8 @@ class UserProfile extends React.Component {
             <h4>{this.state.userName}</h4>
             <div className='user-stats'>
               <h6>{this.state.post.length} posts</h6>
-              <h6>0 followers</h6>
-              <h6>{this.following}</h6>
+              <h6>{this.state.followers.length} followers</h6>
+              <h6>{this.state.following.length} following</h6>
             </div>
             {!this.state.follow && (
               <button onClick={this.handleFollow}> Follow </button>

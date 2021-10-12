@@ -15,6 +15,8 @@ class Profile extends React.Component {
       setImage,
       post: [],
       id: null,
+      followers: [],
+      following: [],
     };
   }
 
@@ -90,9 +92,38 @@ class Profile extends React.Component {
     }
   };
 
+  getFollowerDetails = async () => {
+    const dataOfUser = await fetch('http://localhost:4000/user/followers');
+    const orginalData = await dataOfUser.json();
+    const followings = orginalData.reduce((currArr, obj) => {
+      if (obj.id === this.state.id) {
+        if (obj.follow === 1) {
+          currArr.push(obj);
+        }
+      }
+      return currArr;
+    }, []);
+
+    const follower = orginalData.reduce((currArr, obj) => {
+      if (obj.fid === this.state.id) {
+        if (obj.follow === 1) {
+          currArr.push(obj);
+        }
+      }
+      return currArr;
+    }, []);
+
+    this.setState({
+      ...this.state,
+      following: followings,
+      followers: follower,
+    });
+  };
+
   componentDidMount() {
     this.userData();
     this.postDeatils();
+    // this.getFollowerDetails();
   }
 
   componentDidUpdate() {
@@ -101,6 +132,8 @@ class Profile extends React.Component {
   }
 
   render() {
+    console.log(this.state.post);
+
     return (
       <div style={{ maxWidth: '550px', margin: '0px auto' }}>
         <div className='profile'>
@@ -140,8 +173,8 @@ class Profile extends React.Component {
             <p>{this.state.firstName}</p>
             <div className='user-stats'>
               <h6>{this.state.post.length} posts</h6>
-              <h6>0 followers</h6>
-              <h6>0 following</h6>
+              <h6>{this.state.followers.length} followers</h6>
+              <h6>{this.state.following.length} following</h6>
             </div>
           </div>
         </div>
