@@ -46,6 +46,16 @@ class Home extends React.Component {
     }
   };
 
+  deletePost = (id) => {
+    this.state.userId(id);
+    if (id === this.state.loginId) {
+      //match with user id
+      this.props.history.push(`/createpost`);
+    } else {
+      this.props.history.push(`/createpost`);
+    }
+  };
+
   componentDidMount() {
     this.getUser();
     this.loginUserId();
@@ -57,22 +67,36 @@ class Home extends React.Component {
           if (data.pid) {
             return (
               <div key={data.pid} className='card home-card' style={{}}>
-                <h5 onClick={() => this.goToUserProfile(data.id)}>
-                  {data.last_name}
-                </h5>
+                <div>
+                  <h5
+                    style={{ display: 'inline' }}
+                    onClick={() => this.goToUserProfile(data.id)}
+                  >
+                    {data.last_name}
+                  </h5>
+                  <i
+                    className='material-icons'
+                    style={{
+                      float: 'right',
+                    }}
+                    onClick={() => this.deletePost(data.id)}
+                  >
+                    delete
+                  </i>
+                </div>
                 <div className='card-image'>
                   <img src={data.img} alt='post' />
                 </div>
                 <div>
                   <span>likes:</span>
-                  {data.like}
+                  {data.like_count}
                 </div>
                 <div style={{ display: 'flex' }}>
                   <div style={{ marginRight: 10 }}>{data.last_name}</div>
                   <div style={{ fontWeight: 'normal' }}>{data.title}</div>
                 </div>
 
-                <div>{data.comments} </div>
+                <div>{data.comment} </div>
               </div>
             );
           } else {
