@@ -8,6 +8,8 @@ const createTable = async () => {
     await pool.query(queries.createTable);
     await pool.query(queries.postTable);
     await pool.query(queries.followerTable);
+    await pool.query(queries.likesTable);
+    await pool.query(queries.commentsTable);
   } catch (error) {
     throw new Error(error);
   }
@@ -121,6 +123,43 @@ const getProfilePic = async (request, response) => {
   }
 };
 
+const deletePost = async (request, response) => {
+  const pid = request.params.pid;
+
+  try {
+    let result = await pool.query(queries.deletePost, [pid]);
+    return response.status(200).json(result.rows);
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+const like = async (request, response) => {
+  const { id, pid } = request.body;
+  try {
+    await pool.query(queries.likeInsert, [id, pid]);
+
+    const likes = await pool.query(queries.likeIncrease, [pid]);
+
+    return response.status(200).json(likes.rows);
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+const unlike = async (request, response) => {
+  const { id, pid } = request.body;
+  try {
+    await pool.query(queries.likeDelete, [id, pid]);
+
+    const likes = await pool.query(queries.likeDecrease, [pid]);
+
+    return response.status(200).json(likes.rows);
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
 const getFollowList = async (request, response) => {
   const { id, fid, follow } = request.body;
   try {
@@ -140,6 +179,18 @@ const getFollowList = async (request, response) => {
   }
 };
 
+const comment = async (request, response) => {
+  const { comment, id, pid } = request.body;
+  try {
+    const result = await pool.query(queries.addComments, [comment, id, pid]);
+
+    console.log(result.rows);
+    return response.status(200).json(result.rows);
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
 module.exports = {
   getUser,
   addUser,
@@ -150,4 +201,8 @@ module.exports = {
   updateImg,
   getProfilePic,
   getFollowList,
+  deletePost,
+  like,
+  unlike,
+  comment,
 };
