@@ -12,11 +12,18 @@ router.post('/login', validInfo, controller.loginUser);
 
 router.get('/home', controller.homeUser);
 
+router.post('/profile/img', controller.getProfilePic);
+
 router.post('/post', controller.createPost);
 
 router.get('/post', controller.getPost);
 
-router.post('/profile/img', controller.getProfilePic);
+router.delete('/post/:pid', controller.deletePost);
+
+router.put('/like', controller.like);
+router.put('/unlike', controller.unlike);
+
+router.post('/comment', controller.comment);
 
 router.post('/verify', authorization, (req, res) => {
   try {
@@ -29,5 +36,9 @@ router.post('/verify', authorization, (req, res) => {
 router.post('/img', controller.updateImg);
 
 router.post('/follow', controller.getFollowList);
+
+router.get('/followers', controller.getFollowers);
+
+router.post('/defaultFollow', controller.defaultFollow);
 
 module.exports = router;

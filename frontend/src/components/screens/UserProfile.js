@@ -11,11 +11,14 @@ class UserProfile extends React.Component {
       firstName: '',
       url: 'https://www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png',
       post: [],
-      follow: false, //take from database later
+      follow: 0, //take from database later
       loginId: null,
+      following: [],
+      followers: [],
     };
   }
-
+  count = 1;
+  counter = 1;
   loginUserId = async () => {
     try {
       const res = await fetch('http://localhost:4000/dashboard/', {
@@ -23,7 +26,6 @@ class UserProfile extends React.Component {
         headers: { jwt_token: localStorage.token },
       });
       const parseData = await res.json();
-      console.log(parseData.id);
 
       this.setState({
         loginId: parseData.id,
@@ -33,11 +35,26 @@ class UserProfile extends React.Component {
     }
   };
 
-  toggleModal = () => {
-    if (this.state.toggle) {
-      this.setState({ ...this.state, toggle: false });
-    } else {
-      this.setState({ ...this.state, toggle: true });
+  getDefaultFollow = async (id, fid) => {
+    try {
+      const res = await fetch('http://localhost:4000/user/defaultFollow/', {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id,
+          fid,
+        }),
+      });
+      const followerValue = await res.json();
+      this.setState({
+        ...this.state,
+        follow: followerValue[0].follow,
+      });
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -80,19 +97,24 @@ class UserProfile extends React.Component {
   };
 
   handleFollow = () => {
-    if (this.state.follow) {
-      this.setState({ ...this.state, follow: false });
-    } else {
-      this.setState({ ...this.state, follow: true });
-    }
-
     this.followerDetails();
+    if (this.state.follow === 1) {
+      this.setState({ ...this.state, follow: 0 });
+    } else {
+      this.setState({ ...this.state, follow: 1 });
+    }
   };
 
   followerDetails = async () => {
     if (this.state.loginId !== null) {
+      let fol;
+      if (this.state.follow === 0) {
+        fol = 1;
+      } else {
+        fol = 0;
+      }
       try {
-        const res = await fetch('http://localhost:4000/user/follow', {
+        await fetch('http://localhost:4000/user/follow', {
           method: 'POST',
           mode: 'cors',
           headers: {
@@ -101,21 +123,55 @@ class UserProfile extends React.Component {
           body: JSON.stringify({
             id: this.state.loginId,
             fid: this.state.userId,
-            follow: this.state.follow,
+            follow: fol,
           }),
         });
-        const allFollower = await res.json();
-        console.log(allFollower);
       } catch (error) {
         throw new Error(error);
       }
     }
   };
 
+  getFollowerDetails = async () => {
+    const dataOfUser = await fetch('http://localhost:4000/user/followers');
+    const orginalData = await dataOfUser.json();
+    const followings = orginalData.reduce((currArr, obj) => {
+      if (obj.id === this.state.loginId) {
+        if (obj.follow === 1) {
+          currArr.push(obj);
+        }
+      }
+      return currArr;
+    }, []);
+
+    const follower = orginalData.reduce((currArr, obj) => {
+      if (obj.fid === this.state.loginId) {
+        if (obj.follow === 1) {
+          currArr.push(obj);
+        }
+      }
+      return currArr;
+    }, []);
+
+    this.setState({
+      ...this.state,
+      following: followings,
+      followers: follower,
+    });
+  };
+
   componentDidMount() {
     this.loginUserId();
     this.userDetails();
     this.postDeatils();
+    // this.getFollowerDetails();
+  }
+
+  componentDidUpdate() {
+    if (this.state.loginId && this.count) {
+      this.count = 0;
+      this.getDefaultFollow(this.state.loginId, this.state.userId);
+    }
   }
 
   render() {
@@ -131,11 +187,11 @@ class UserProfile extends React.Component {
             <h4>{this.state.userName}</h4>
             <div className='user-stats'>
               <h6>{this.state.post.length} posts</h6>
-              <h6>0 followers</h6>
-              <h6>0 following</h6>
+              <h6>{this.state.followers.length} followers</h6>
+              <h6>{this.state.following.length} following</h6>
             </div>
             {!this.state.follow && (
-              <button onClick={this.handleFollow}>Follow</button>
+              <button onClick={this.handleFollow}> Follow </button>
             )}
             {this.state.follow && (
               <button onClick={this.handleFollow}>Unfollow</button>

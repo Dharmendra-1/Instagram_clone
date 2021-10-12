@@ -8,6 +8,8 @@ const createTable = async () => {
     await pool.query(queries.createTable);
     await pool.query(queries.postTable);
     await pool.query(queries.followerTable);
+    await pool.query(queries.likesTable);
+    await pool.query(queries.commentsTable);
   } catch (error) {
     throw new Error(error);
   }
@@ -121,13 +123,48 @@ const getProfilePic = async (request, response) => {
   }
 };
 
+const deletePost = async (request, response) => {
+  const pid = request.params.pid;
+
+  try {
+    let result = await pool.query(queries.deletePost, [pid]);
+    return response.status(200).json(result.rows);
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+const like = async (request, response) => {
+  const { id, pid } = request.body;
+  try {
+    await pool.query(queries.likeInsert, [id, pid]);
+
+    const likes = await pool.query(queries.likeIncrease, [pid]);
+
+    return response.status(200).json(likes.rows);
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+const unlike = async (request, response) => {
+  const { id, pid } = request.body;
+  try {
+    await pool.query(queries.likeDelete, [id, pid]);
+
+    const likes = await pool.query(queries.likeDecrease, [pid]);
+
+    return response.status(200).json(likes.rows);
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
 const getFollowList = async (request, response) => {
   const { id, fid, follow } = request.body;
+  // console.log(follow);
   try {
-    let followerExists = await pool.query(queries.followerExists, [id, fid]);
-    if (followerExists.rows.length == 0 && follow === true) {
-      await pool.query(queries.insertFollower, [id, fid, 1]);
-    } else if (followerExists.rows.length !== 0 && follow === true) {
+    if (follow === 1) {
       await pool.query(queries.increaseFollow, [id, fid, 1]);
     } else {
       await pool.query(queries.DecreaseFollow, [id, fid, 0]);
@@ -135,6 +172,45 @@ const getFollowList = async (request, response) => {
 
     let allFollower = await pool.query(queries.getFollowList);
     return response.status(200).json(allFollower.rows);
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+const getFollowers = async (request, response) => {
+  try {
+    const followers = await pool.query(queries.getFollowList);
+    response.status(200).json(followers.rows);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const defaultFollow = async (request, response) => {
+  const { id, fid } = request.body;
+  try {
+    let followerExists = await pool.query(queries.followerExists, [id, fid]);
+
+    if (followerExists.rows.length == 0) {
+      await pool.query(queries.insertFollower, [id, fid, 0]);
+      return response.status(200).json(0);
+    } else {
+      let follow = await pool.query(queries.followExists, [id, fid]);
+
+      return response.status(200).json(follow.rows);
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const comment = async (request, response) => {
+  const { comment, id, pid } = request.body;
+  try {
+    const result = await pool.query(queries.addComments, [comment, id, pid]);
+
+    console.log(result.rows);
+    return response.status(200).json(result.rows);
   } catch (error) {
     throw new Error(error);
   }
@@ -150,4 +226,18 @@ module.exports = {
   updateImg,
   getProfilePic,
   getFollowList,
+  getFollowers,
+  defaultFollow,
+  deletePost,
+  like,
+  unlike,
+  comment,
 };
+
+// sid id fid follow
+// 1    1   2    1
+// 2    1   3    1
+// 3    2   1     1
+
+// sid id fid follow
+// 1    1   2    0
