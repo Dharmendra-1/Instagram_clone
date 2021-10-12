@@ -126,14 +126,7 @@ class Profile extends React.Component {
     this.getFollowerDetails();
   }
 
-  componentDidUpdate() {
-    // this.userData();
-    // this.postDeatils();
-  }
-
   render() {
-    console.log(this.state.post);
-
     return (
       <div style={{ maxWidth: '550px', margin: '0px auto' }}>
         <div className='profile'>

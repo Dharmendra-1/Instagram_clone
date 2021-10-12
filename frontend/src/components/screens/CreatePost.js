@@ -54,7 +54,6 @@ class CreatePost extends React.Component {
       headers: { jwt_token: localStorage.token },
     });
     const parseData = await res.json();
-    console.log(parseData);
     this.setState({ id: parseData.id });
   };
 

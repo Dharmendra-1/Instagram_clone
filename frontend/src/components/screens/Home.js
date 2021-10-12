@@ -11,12 +11,14 @@ class Home extends React.Component {
       loginId: null,
     };
   }
+
   getUser = async () => {
     try {
       const res = await fetch('http://localhost:4000/user/post');
       const parseData = await res.json();
-      console.log(parseData);
-      this.setState({ userData: parseData.reverse() });
+      parseData.sort((a, b) => (a.pid < b.pid ? 1 : -1));
+
+      this.setState({ userData: parseData });
     } catch (err) {
       console.error(err.message);
     }
@@ -40,7 +42,6 @@ class Home extends React.Component {
   goToUserProfile = (id) => {
     this.state.userId(id);
     if (id === this.state.loginId) {
-      //match with user id
       this.props.history.push(`/profile`);
     } else {
       this.props.history.push(`/profile/user`);
@@ -50,7 +51,6 @@ class Home extends React.Component {
   deletePost = (id) => {
     this.state.userId(id);
     if (id === this.state.loginId) {
-      //match with user id
       this.props.history.push(`/createpost`);
     } else {
       this.props.history.push(`/createpost`);

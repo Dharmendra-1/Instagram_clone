@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 
 class UserProfile extends React.Component {
   constructor(props) {
@@ -18,7 +19,6 @@ class UserProfile extends React.Component {
     };
   }
   count = 1;
-  counter = 1;
   loginUserId = async () => {
     try {
       const res = await fetch('http://localhost:4000/dashboard/', {
@@ -98,11 +98,15 @@ class UserProfile extends React.Component {
 
   handleFollow = () => {
     this.followerDetails();
+
     if (this.state.follow === 1) {
       this.setState({ ...this.state, follow: 0 });
     } else {
       this.setState({ ...this.state, follow: 1 });
     }
+    setTimeout(() => {
+      this.getFollowerDetails();
+    }, 100);
   };
 
   followerDetails = async () => {
@@ -214,4 +218,4 @@ class UserProfile extends React.Component {
   }
 }
 
-export default UserProfile;
+export default withRouter(UserProfile);
