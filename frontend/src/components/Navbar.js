@@ -39,7 +39,7 @@ class NavBar extends React.Component {
                 </Dropdown.Toggle>
                 <Dropdown.Menu className='card'>
                   <Link to='/profile'>Profile</Link>
-                  <Link className="divider" tabIndex="-1"/>
+                  <Link to='#' className='divider' tabIndex='-1' />
                   <Link to='/'>
                     <Logout
                       setIsAuthenticated={this.state.setIsAuthenticated}

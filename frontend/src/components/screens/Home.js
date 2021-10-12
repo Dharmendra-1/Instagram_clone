@@ -15,6 +15,7 @@ class Home extends React.Component {
     try {
       const res = await fetch('http://localhost:4000/user/post');
       const parseData = await res.json();
+      console.log(parseData);
       this.setState({ userData: parseData.reverse() });
     } catch (err) {
       console.error(err.message);
@@ -79,7 +80,7 @@ class Home extends React.Component {
                     style={{
                       float: 'right',
                     }}
-                    onClick={() => this.deletePost(data.id)}
+                    onClick={() => this.deletePost()}
                   >
                     delete
                   </i>
@@ -100,7 +101,7 @@ class Home extends React.Component {
               </div>
             );
           } else {
-            return <div key={data.id}></div>;
+            return <div key={data.pid}></div>;
           }
         })}
       </div>

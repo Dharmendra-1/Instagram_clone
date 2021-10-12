@@ -123,12 +123,12 @@ class Profile extends React.Component {
   componentDidMount() {
     this.userData();
     this.postDeatils();
-    // this.getFollowerDetails();
+    this.getFollowerDetails();
   }
 
   componentDidUpdate() {
-    this.userData();
-    this.postDeatils();
+    // this.userData();
+    // this.postDeatils();
   }
 
   render() {

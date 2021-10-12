@@ -164,7 +164,7 @@ class UserProfile extends React.Component {
     this.loginUserId();
     this.userDetails();
     this.postDeatils();
-    // this.getFollowerDetails();
+    this.getFollowerDetails();
   }
 
   componentDidUpdate() {
@@ -190,11 +190,15 @@ class UserProfile extends React.Component {
               <h6>{this.state.followers.length} followers</h6>
               <h6>{this.state.following.length} following</h6>
             </div>
-            {!this.state.follow && (
-              <button onClick={this.handleFollow}> Follow </button>
-            )}
-            {this.state.follow && (
-              <button onClick={this.handleFollow}>Unfollow</button>
+            {!this.state.follow ? (
+              <button className='btn' onClick={this.handleFollow}>
+                {' '}
+                Follow{' '}
+              </button>
+            ) : (
+              <button className='btn' onClick={this.handleFollow}>
+                Unfollow
+              </button>
             )}
           </div>
         </div>
