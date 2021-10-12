@@ -7,6 +7,7 @@ const createTable = async () => {
   try {
     await pool.query(queries.createTable);
     await pool.query(queries.postTable);
+    await pool.query(queries.followerTable);
   } catch (error) {
     throw new Error(error);
   }
@@ -119,6 +120,31 @@ const getProfilePic = async (request, response) => {
     throw new Error(error);
   }
 };
+
+const getFollowList = async (request, response) => {
+  const { id, pid, bool } = request.body;
+
+  try {
+    let followerExists = await pool.query(queries.followerExists, [id, pid]);
+
+    if (followerExists.rows.length == 0) {
+      await pool.query(queries.insertFollower, [id, pid, 1]);
+    } else {
+      if (bool === true) {
+        await pool.query(queries.increaseFollow, [id, pid]);
+      } else {
+        await pool.query(queries.DecreaseFollow, [id, pid]);
+      }
+    }
+
+    let allFollower = await pool.query(queries.getFollowList);
+
+    return response.status(200).json(allFollower.rows);
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
 module.exports = {
   getUser,
   addUser,
@@ -128,4 +154,5 @@ module.exports = {
   getPost,
   updateImg,
   getProfilePic,
+  getFollowList,
 };
