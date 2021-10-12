@@ -122,22 +122,22 @@ const getProfilePic = async (request, response) => {
 };
 
 const getFollowList = async (request, response) => {
-  const { id, pid, bool } = request.body;
+  const { id, fid, follow } = request.body;
 
   try {
-    let followerExists = await pool.query(queries.followerExists, [id, pid]);
-
+    let followerExists = await pool.query(queries.followerExists, [id, fid]);
     if (followerExists.rows.length == 0) {
-      await pool.query(queries.insertFollower, [id, pid, 1]);
+      await pool.query(queries.insertFollower, [id, fid, 1]);
     } else {
-      if (bool === true) {
-        await pool.query(queries.increaseFollow, [id, pid]);
+      if (follow === true) {
+        await pool.query(queries.increaseFollow, [id, fid]);
       } else {
-        await pool.query(queries.DecreaseFollow, [id, pid]);
+        await pool.query(queries.DecreaseFollow, [id, fid]);
       }
     }
 
     let allFollower = await pool.query(queries.getFollowList);
+    console.log(allFollower.rows);
 
     return response.status(200).json(allFollower.rows);
   } catch (error) {

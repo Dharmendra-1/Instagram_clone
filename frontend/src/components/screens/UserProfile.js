@@ -68,9 +68,32 @@ class UserProfile extends React.Component {
       this.setState({ ...this.state, follow: true });
     }
   };
+
+  followerDetails = async () => {
+    const res = await fetch('http://localhost:4000/user/follow', {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: this.state.userId,
+        fid: 1,
+        follow: this.state.follow,
+      }),
+    });
+    const allFollower = await res.json();
+    console.log(allFollower);
+  };
+
   componentDidMount() {
     this.userDetails();
     this.postDeatils();
+    this.followerDetails();
+  }
+
+  componentDidUpdate() {
+    this.followerDetails();
   }
 
   render() {
