@@ -196,8 +196,7 @@ class UserProfile extends React.Component {
             </div>
             {!this.state.follow ? (
               <button className='btn' onClick={this.handleFollow}>
-                {' '}
-                Follow{' '}
+                Follow
               </button>
             ) : (
               <button className='btn' onClick={this.handleFollow}>

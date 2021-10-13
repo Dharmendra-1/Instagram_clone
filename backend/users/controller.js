@@ -162,7 +162,6 @@ const unlike = async (request, response) => {
 
 const getFollowList = async (request, response) => {
   const { id, fid, follow } = request.body;
-  // console.log(follow);
   try {
     if (follow === 1) {
       await pool.query(queries.increaseFollow, [id, fid, 1]);
@@ -233,11 +232,3 @@ module.exports = {
   unlike,
   comment,
 };
-
-// sid id fid follow
-// 1    1   2    1
-// 2    1   3    1
-// 3    2   1     1
-
-// sid id fid follow
-// 1    1   2    0
