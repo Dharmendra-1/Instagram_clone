@@ -15,10 +15,9 @@ class App extends React.Component {
 
     this.state = {
       isAuthenticated: false,
-      image: false,
-      id: '',
     };
   }
+  // console.log(this.props.location.pathname); use it
 
   componentDidMount() {
     this.checkAuthenticated();
@@ -43,10 +42,6 @@ class App extends React.Component {
     this.setState({ isAuthenticated: toggle });
   }
 
-  userId = (id) => {
-    this.setState({ ...this.state, id: id });
-  };
-
   render() {
     return (
       <BrowserRouter>
@@ -66,7 +61,7 @@ class App extends React.Component {
             <NavBar setIsAuthenticated={this.setIsAuthenticated.bind(this)} />
           )}
 
-          {this.state.isAuthenticated && <Home userId={this.userId} />}
+          {this.state.isAuthenticated && <Home />}
           {!this.state.isAuthenticated && <Redirect to='/' />}
         </Route>
 
@@ -75,7 +70,7 @@ class App extends React.Component {
             <NavBar setIsAuthenticated={this.setIsAuthenticated.bind(this)} />
           )}
           {this.state.isAuthenticated && <Profile />}
-          {!this.state.isAuthenticated && <Redirect to='/profile' />}
+          {!this.state.isAuthenticated && <Redirect to='/' />}
         </Route>
 
         <Route exact path='/createpost'>
@@ -89,7 +84,7 @@ class App extends React.Component {
           {this.state.isAuthenticated && (
             <NavBar setIsAuthenticated={this.setIsAuthenticated.bind(this)} />
           )}
-          {this.state.isAuthenticated && <UserProfile userId={this.state.id} />}
+          {this.state.isAuthenticated && <UserProfile />}
           {!this.state.isAuthenticated && <Redirect to='/' />}
         </Route>
         {/* <Route path='*'>errror page</Route> */}

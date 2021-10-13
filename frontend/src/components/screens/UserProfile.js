@@ -4,10 +4,9 @@ import { withRouter } from 'react-router-dom';
 class UserProfile extends React.Component {
   constructor(props) {
     super(props);
-    const { userId } = this.props;
 
     this.state = {
-      userId,
+      userId: this.props.location.state.id,
       userName: '',
       firstName: '',
       url: 'https://www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png',
@@ -106,7 +105,7 @@ class UserProfile extends React.Component {
     }
     setTimeout(() => {
       this.getFollowerDetails();
-    }, 100);
+    }, 500);
   };
 
   followerDetails = async () => {

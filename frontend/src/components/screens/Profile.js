@@ -122,7 +122,9 @@ class Profile extends React.Component {
 
   componentDidMount() {
     this.userData();
-    this.postDeatils();
+    setTimeout(() => {
+      this.postDeatils();
+    }, 200);
     this.getFollowerDetails();
   }
 
@@ -173,9 +175,13 @@ class Profile extends React.Component {
         </div>
         <div className='gallery'>
           {this.state.post.map((obj) => {
-            return (
-              <img className='item' key={obj.pid} src={obj.img} alt='post' />
-            );
+            if (obj.img) {
+              return (
+                <img className='item' key={obj.pid} src={obj.img} alt='post' />
+              );
+            } else {
+              return <div key={obj.pid}></div>;
+            }
           })}
         </div>
       </div>

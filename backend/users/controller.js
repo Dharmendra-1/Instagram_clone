@@ -162,7 +162,6 @@ const unlike = async (request, response) => {
 
 const getFollowList = async (request, response) => {
   const { id, fid, follow } = request.body;
-  // console.log(follow);
   try {
     if (follow === 1) {
       await pool.query(queries.increaseFollow, [id, fid, 1]);
@@ -208,8 +207,6 @@ const comment = async (request, response) => {
   const { comment, id, pid } = request.body;
   try {
     const result = await pool.query(queries.addComments, [comment, id, pid]);
-
-    console.log(result.rows);
     return response.status(200).json(result.rows);
   } catch (error) {
     throw new Error(error);
@@ -233,11 +230,3 @@ module.exports = {
   unlike,
   comment,
 };
-
-// sid id fid follow
-// 1    1   2    1
-// 2    1   3    1
-// 3    2   1     1
-
-// sid id fid follow
-// 1    1   2    0

@@ -4,9 +4,7 @@ import { withRouter } from 'react-router-dom';
 class Home extends React.Component {
   constructor(props) {
     super(props);
-    const { userId } = this.props;
     this.state = {
-      userId,
       userData: [],
       loginId: null,
     };
@@ -40,20 +38,19 @@ class Home extends React.Component {
   };
 
   goToUserProfile = (id) => {
-    this.state.userId(id);
     if (id === this.state.loginId) {
       this.props.history.push(`/profile`);
     } else {
-      this.props.history.push(`/profile/user`);
+      this.props.history.push(`/profile/user`, { id });
     }
   };
 
   deletePost = (id) => {
-    this.state.userId(id);
     if (id === this.state.loginId) {
       this.props.history.push(`/createpost`);
     } else {
       this.props.history.push(`/createpost`);
+      // this.props.history.push(`/createpost`,{id}); use this instead
     }
   };
 
@@ -93,7 +90,12 @@ class Home extends React.Component {
                   {data.like_count}
                 </div>
                 <div style={{ display: 'flex' }}>
-                  <div style={{ marginRight: 10 }}>{data.last_name}</div>
+                  <div
+                    style={{ marginRight: 10 }}
+                    onClick={() => this.goToUserProfile(data.id)}
+                  >
+                    {data.last_name}
+                  </div>
                   <div style={{ fontWeight: 'normal' }}>{data.title}</div>
                 </div>
 
