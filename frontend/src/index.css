@@ -176,6 +176,29 @@ h5 a {
   font-size: 14px;
 }
 
+.comment{
+  width: 615px;
+  height: 53.33px;
+  margin-top: 43px;
+  margin-left: -10px;
+  border-top: 1px solid #796f60;
+}
+
+.comment textarea{
+  width: 100%;
+  height: 53.33px;
+  padding: 16px;
+  border-style: none; 
+  resize: none;
+  border-color: Transparent; 
+  overflow: hidden;
+}
+
+.comment textarea:focus{
+  outline: none !important;
+  border-color: #796f60;
+}
+
 input,
 select,
 textarea {
@@ -183,7 +206,7 @@ textarea {
 }
 
 ::placeholder {
-  color: #696969;
+  color: #ccc;
   opacity: 1;
 }
 

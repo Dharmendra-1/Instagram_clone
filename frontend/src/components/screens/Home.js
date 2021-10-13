@@ -93,7 +93,8 @@ class Home extends React.Component {
                     <h6>{data.like_count} likes</h6>
                   </div>
                   <div className='caption'>
-                    <div className='captionuser'
+                    <div
+                      className='captionuser'
                       style={{ marginRight: 10 }}
                       onClick={() => this.goToUserProfile(data.id)}
                     >
@@ -101,7 +102,7 @@ class Home extends React.Component {
                     </div>
                     <div style={{ fontWeight: 'normal' }}>{data.title}</div>
                   </div>
-                  <div>
+                  <div className='comment'>
                     {data.comment}
 
                     {/* {item.comments.map((record) => {
@@ -115,13 +116,16 @@ class Home extends React.Component {
                   );
                 })} */}
                     <form
-
                     // onSubmit={(e) => {
                     //   e.preventDefault();
                     //   makeComment(e.target[0].value, item._id);
                     // }}
                     >
-                      <input type='text' placeholder='add a comment' />
+                      <textarea
+                        type='submit'
+                        aria-label='Add a comment…'
+                        placeholder='Add a comment…'
+                      ></textarea>
                     </form>
                   </div>
                 </div>
