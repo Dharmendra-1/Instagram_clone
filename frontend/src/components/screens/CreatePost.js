@@ -27,8 +27,6 @@ class CreatePost extends React.Component {
       );
 
       const fileData = await response.json();
-      console.log(fileData.url);
-
       await fetch('http://localhost:4000/user/post', {
         method: 'POST',
         mode: 'cors',
