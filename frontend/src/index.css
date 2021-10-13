@@ -98,7 +98,8 @@ h5 a {
   color: #f8f5f2;
   background-color: #080b0c;
   width: 616px;
-  height: 894.25px;
+  height: auto;
+  /* height: 894.25px; */
   margin: 40px auto;
   font-weight: bold;
   border: 1px solid #796f60;
@@ -140,7 +141,7 @@ h5 a {
 }
 
 .likeandcomment {
-  min-height: 233.75px;
+  min-height: 230.75px;
   width: 579px;
   padding: 10px 10px 0 10px;
   display: flex;
@@ -176,12 +177,21 @@ h5 a {
   font-size: 14px;
 }
 
+.showcomment {
+  margin-top: 10px;
+  margin-bottom: -30px;
+}
+
+.showcomment h6{
+  font-size: 14px;
+}
+
 .comment{
   width: 615px;
-  height: 53.33px;
   margin-top: 43px;
   margin-left: -10px;
   border-top: 1px solid #796f60;
+  font-size: 14px;
 }
 
 .comment textarea{
@@ -192,11 +202,25 @@ h5 a {
   resize: none;
   border-color: Transparent; 
   overflow: hidden;
+  font-size: 14px;
 }
 
 .comment textarea:focus{
   outline: none !important;
   border-color: #796f60;
+}
+
+.commentsection{
+  display: flex;
+  
+}
+
+.commentsection .btn{
+  align-self: center;
+  margin-right: 5px;
+  background-color: #080b0c;
+  color: #2196f3;
+  font-size: 14px;
 }
 
 input,

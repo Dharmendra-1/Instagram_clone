@@ -49,9 +49,14 @@ class Home extends React.Component {
 
   deletePost = async (pid) => {
     try {
+      await fetch('http://localhost:4000/user/comment/' + pid, {
+        method: 'delete',
+      });
+
       await fetch('http://localhost:4000/user/post/' + pid, {
         method: 'delete',
       });
+
       window.location.reload();
     } catch (err) {
       console.error(err.message);
@@ -76,7 +81,6 @@ class Home extends React.Component {
   getComments = async () => {
     const response = await fetch('http://localhost:4000/user/getComment');
     const postComment = await response.json();
-    console.log(postComment);
     this.setState({
       ...this.state,
       userComment: postComment,
@@ -95,7 +99,7 @@ class Home extends React.Component {
         {this.state.userData.map((data) => {
           if (data.pid) {
             return (
-              <div className='card home-card' style={{}}>
+              <div key={data.pid} className='card home-card' style={{}}>
                 <div className='postheadername'>
                   <h5
                     style={{ display: 'inline' }}
@@ -134,8 +138,7 @@ class Home extends React.Component {
                     </div>
                     <div style={{ fontWeight: 'normal' }}>{data.title}</div>
                   </div>
-
-                  <div className='comment'>
+                  <div className='showcomment'>
                     {this.state.userComment
                       .filter((obj) => obj.pid === data.pid)
                       .map((record) => {
@@ -146,24 +149,31 @@ class Home extends React.Component {
                           </h6>
                         );
                       })}
+                  </div>
+                  <div className='comment'>
                     <form
                       onSubmit={(e) => {
                         e.preventDefault();
                         this.submitForm(data.pid);
+                        window.location.reload();
                       }}
                     >
-                      <textarea
-                        aria-label='Add a comment…'
-                        placeholder='Add a comment…'
-                        value={this.state.comment}
-                        onChange={(e) => {
-                          this.setState({
-                            ...this.state,
-                            comment: e.target.value,
-                          });
-                        }}
-                      ></textarea>
-                      <button type='submit'>Submit</button>
+                      <div className='commentsection'>
+                        <textarea
+                          aria-label='Add a comment…'
+                          placeholder='Add a comment…'
+                          value={this.state.comment}
+                          onChange={(e) => {
+                            this.setState({
+                              ...this.state,
+                              comment: e.target.value,
+                            });
+                          }}
+                        ></textarea>
+                        <button className='btn' type='submit'>
+                          POST
+                        </button>
+                      </div>
                     </form>
                   </div>
                 </div>

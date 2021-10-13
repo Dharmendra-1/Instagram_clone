@@ -56,16 +56,16 @@ const addUser =
 const addPost =
   'INSERT INTO posts(title, body, img, id) VALUES($1, $2, $3, $4) RETURNING *';
 
-const getPost = `SELECT users.id, Last_name, posts.pid, title, body, posts.img, posts.like_count, comment
+const getPost = `SELECT users.id, Last_name, posts.pid, title, body, posts.img, posts.like_count
 FROM users
 LEFT JOIN posts
   ON users.id = posts.id
-LEFT JOIN comments
-  ON comments.pid = posts.pid
 `;
 
 const deletePost = `DELETE FROM posts
 WHERE posts.pid = $1 RETURNING *`;
+
+const deleteComment = `DELETE FROM comments WHERE pid = $1`;
 
 const likeInsert = `INSERT INTO likes (id, pid) VALUES (($1), ($2))`;
 const likeIncrease = `UPDATE posts SET like_count=like_count+1 WHERE pid=$1 RETURNING id,pid,like_count`;
@@ -126,4 +126,5 @@ module.exports = {
   likeDecrease,
   addComments,
   getComments,
+  deleteComment,
 };
