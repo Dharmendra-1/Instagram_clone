@@ -122,11 +122,11 @@ class Home extends React.Component {
                 <div className='likeandcomment'>
                   <div className='likes'>
                     <i className='small material-icons'>favorite_border</i>
-                    <br />
-                    {data.like_count} likes
+                    <h6>{data.like_count} likes</h6>
                   </div>
                   <div className='caption'>
                     <div
+                      className='captionuser'
                       style={{ marginRight: 10 }}
                       onClick={() => this.goToUserProfile(data.id)}
                     >
@@ -134,7 +134,8 @@ class Home extends React.Component {
                     </div>
                     <div style={{ fontWeight: 'normal' }}>{data.title}</div>
                   </div>
-                  <div>
+
+                  <div className='comment'>
                     {this.state.userComment
                       .filter((obj) => obj.pid === data.pid)
                       .map((record) => {
@@ -151,9 +152,9 @@ class Home extends React.Component {
                         this.submitForm(data.pid);
                       }}
                     >
-                      <input
-                        type='text'
-                        placeholder='add a comment'
+                      <textarea
+                        aria-label='Add a comment…'
+                        placeholder='Add a comment…'
                         value={this.state.comment}
                         onChange={(e) => {
                           this.setState({
@@ -161,7 +162,7 @@ class Home extends React.Component {
                             comment: e.target.value,
                           });
                         }}
-                      />
+                      ></textarea>
                       <button type='submit'>Submit</button>
                     </form>
                   </div>
