@@ -190,8 +190,8 @@ class UserProfile extends React.Component {
             <h4>{this.state.userName}</h4>
             <div className='user-stats'>
               <h6>{this.state.post.length} posts</h6>
-              <h6>{this.state.followers.length} followers</h6>
-              <h6>{this.state.following.length} following</h6>
+              <h6>{this.state.following.length} followers</h6>
+              <h6>{this.state.followers.length} following</h6>
             </div>
             {!this.state.follow ? (
               <button className='btn' onClick={this.handleFollow}>
