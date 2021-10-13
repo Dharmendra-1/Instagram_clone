@@ -98,7 +98,8 @@ h5 a {
   color: #f8f5f2;
   background-color: #080b0c;
   width: 616px;
-  height: 894.25px;
+  height: auto;
+  /* height: 894.25px; */
   margin: 40px auto;
   font-weight: bold;
   border: 1px solid #796f60;
@@ -115,6 +116,7 @@ h5 a {
 .home-card h5 {
   margin: 10px;
   cursor: pointer;
+  font-size: 20px;
 }
 
 .home-card .material-icons {
@@ -139,23 +141,86 @@ h5 a {
 }
 
 .likeandcomment {
-  min-height: 233.75px;
+  min-height: 230.75px;
   width: 579px;
-  padding: 15px;
+  padding: 10px 10px 0 10px;
+  display: flex;
+  flex-direction: column;
 }
 
 .likes {
   display: flex;
   flex-direction: column;
+  justify-self: center;
+  
 }
 .likes i {
   height: 54px;
+  justify-self: center;
+  padding-top: 15px;
+}
+
+.likes h6 {
+  margin:0;
+  padding:10px;
+  padding-left: 0;
+  font-size: 14px;
 }
 
 .caption {
   height: 18px;
   display: flex;
   cursor: pointer;
+}
+
+.captionuser{
+  font-size: 14px;
+}
+
+.showcomment {
+  margin-top: 10px;
+  margin-bottom: -30px;
+}
+
+.showcomment h6{
+  font-size: 14px;
+}
+
+.comment{
+  width: 615px;
+  margin-top: 43px;
+  margin-left: -10px;
+  border-top: 1px solid #796f60;
+  font-size: 14px;
+}
+
+.comment textarea{
+  width: 100%;
+  height: 53.33px;
+  padding: 16px;
+  border-style: none; 
+  resize: none;
+  border-color: Transparent; 
+  overflow: hidden;
+  font-size: 14px;
+}
+
+.comment textarea:focus{
+  outline: none !important;
+  border-color: #796f60;
+}
+
+.commentsection{
+  display: flex;
+  
+}
+
+.commentsection .btn{
+  align-self: center;
+  margin-right: 5px;
+  background-color: #080b0c;
+  color: #2196f3;
+  font-size: 14px;
 }
 
 input,
@@ -165,7 +230,7 @@ textarea {
 }
 
 ::placeholder {
-  color: #696969;
+  color: #ccc;
   opacity: 1;
 }
 

@@ -126,11 +126,11 @@ class Home extends React.Component {
                 <div className='likeandcomment'>
                   <div className='likes'>
                     <i className='small material-icons'>favorite_border</i>
-                    <br />
-                    {data.like_count} likes
+                    <h6>{data.like_count} likes</h6>
                   </div>
                   <div className='caption'>
                     <div
+                      className='captionuser'
                       style={{ marginRight: 10 }}
                       onClick={() => this.goToUserProfile(data.id)}
                     >
@@ -138,7 +138,7 @@ class Home extends React.Component {
                     </div>
                     <div style={{ fontWeight: 'normal' }}>{data.title}</div>
                   </div>
-                  <div>
+                  <div className='showcomment'>
                     {this.state.userComment
                       .filter((obj) => obj.pid === data.pid)
                       .map((record) => {
@@ -149,6 +149,8 @@ class Home extends React.Component {
                           </h6>
                         );
                       })}
+                  </div>
+                  <div className='comment'>
                     <form
                       onSubmit={(e) => {
                         e.preventDefault();
@@ -156,18 +158,22 @@ class Home extends React.Component {
                         window.location.reload();
                       }}
                     >
-                      <input
-                        type='text'
-                        placeholder='add a comment'
-                        value={this.state.comment}
-                        onChange={(e) => {
-                          this.setState({
-                            ...this.state,
-                            comment: e.target.value,
-                          });
-                        }}
-                      />
-                      <button type='submit'>Submit</button>
+                      <div className='commentsection'>
+                        <textarea
+                          aria-label='Add a comment…'
+                          placeholder='Add a comment…'
+                          value={this.state.comment}
+                          onChange={(e) => {
+                            this.setState({
+                              ...this.state,
+                              comment: e.target.value,
+                            });
+                          }}
+                        ></textarea>
+                        <button className='btn' type='submit'>
+                          POST
+                        </button>
+                      </div>
                     </form>
                   </div>
                 </div>

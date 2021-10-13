@@ -9,7 +9,7 @@ class UserProfile extends React.Component {
       userId: this.props.location.state.id,
       userName: '',
       firstName: '',
-      url: 'https://www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png',
+      url: 'https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg',
       post: [],
       follow: 0, //take from database later
       loginId: null,
