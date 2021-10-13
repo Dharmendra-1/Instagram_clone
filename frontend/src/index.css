@@ -141,7 +141,8 @@ h5 a {
 }
 
 .likeandcomment {
-  min-height: 230.75px;
+  height: auto;
+  /* min-height: 230.75px; */
   width: 579px;
   padding: 10px 10px 0 10px;
   display: flex;
@@ -249,7 +250,7 @@ textarea {
 .profile-image img {
   width: 160px;
   height: 160px;
-  margin-left: -4px;
+  margin-left: -6px;
   margin-top: -1px;
   border: 1px solid #000;
   border-radius: 80px;
