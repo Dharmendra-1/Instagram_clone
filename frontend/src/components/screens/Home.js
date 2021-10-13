@@ -49,12 +49,10 @@ class Home extends React.Component {
 
   deletePost = async (pid) => {
     try {
-      const res = await fetch('http://localhost:4000/user/post/' + pid, {
+      await fetch('http://localhost:4000/user/post/' + pid, {
         method: 'delete',
       });
-      const parseData = await res.json();
-      // console.log(parseData);
-      window.location.reload(true);
+      window.location.reload();
     } catch (err) {
       console.error(err.message);
     }
@@ -105,7 +103,7 @@ class Home extends React.Component {
                   >
                     {data.last_name}
                   </h5>
-                  {data.id == this.state.loginId ? (
+                  {data.id === this.state.loginId ? (
                     <i
                       className='material-icons'
                       style={{
@@ -115,9 +113,7 @@ class Home extends React.Component {
                     >
                       delete
                     </i>
-                  ) : (
-                    <h1></h1>
-                  )}
+                  ) : null}
                 </div>
                 <div className='imgsize'>
                   <img className='card-image' src={data.img} alt='post' />
@@ -173,7 +169,7 @@ class Home extends React.Component {
               </div>
             );
           } else {
-            return <div></div>;
+            return null;
           }
         })}
       </div>
