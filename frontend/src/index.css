@@ -36,6 +36,10 @@ body {
   border: 1px solid #796f60;
 }
 
+.auth-card .input-field input{
+  border-bottom: 1px solid #796f60;
+}
+
 .auth-card h2 {
   font-family: 'Grand Hotel', cursive;
 }
@@ -83,11 +87,14 @@ h5 a {
 .gallery {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: flex-start;
+  z-index: -1;
 }
 
 .item {
   width: 30%;
+  margin: 30px 15px 15px 15px;
+  height: 285.98px;
 }
 
 /* .home{
@@ -241,24 +248,96 @@ textarea {
   display: flex;
   justify-content: space-around;
   margin: 18px 0px;
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid #796f60;
 }
 
 .profile-image img {
   width: 160px;
   height: 160px;
-  margin-left: -6px;
   margin-top: -1px;
-  border: 1px solid #000;
+  margin-left: -6px;
+  margin-bottom: 30px;
+  border-radius: 80px;
+}
+
+.profile-image1 img {
+  width: 160px;
+  height: 160px;
+  margin-top: 29px;
+  margin-left: -206px;
+  margin-bottom: 30px;
   border-radius: 80px;
 }
 
 .profile-image button {
   width: 160px;
   height: 160px;
+  margin-top: 30px;
+  margin-left: -200px;
   border-radius: 80px;
   border: none;
   background: #ccc;
+}
+
+.profile-pic-modal{
+  margin: 100px auto;
+  max-width: 616px;
+  padding: 20px;
+  text-align: center;
+  background-color: #080b0c;
+  border: 1px solid #796f60;
+  z-index: 1;
+}
+
+.userdetails {
+  margin-top: 20px;
+  margin-left: -450px;
+}
+
+.userdetails h4 {
+  font-size: 28px;
+}
+
+.userdetails h6 {
+  font-size: 16px;
+  margin: 10px;
+}
+
+.userdetails p {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.userdetails button {
+  position: relative;
+  top:-3px;
+  left: 20px;
+  height: 28px;
+}
+
+.userdetails button h4 {
+  position: relative;
+  font-size: 14px;
+  top:-15px;
+}
+
+.userdetails .unfollow {
+  position: relative;
+  top:-3px;
+  left: 20px;
+  height: 28px;
+  width: 90px;
+  background: #080b0c;
+  border: 1px solid #796f60;
+}
+
+.unfollow i {
+  position: relative;
+  top:-5px;
+}
+
+.user-stats {
+  margin-left: -10px;
 }
 
 /* .profile-image button:active {
@@ -272,18 +351,31 @@ textarea {
 }
 
 .create-post {
-  margin: 30px auto;
-  max-width: 500px;
+  margin: 100px auto;
+  max-width: 616px;
   height: 300px;
   padding: 20px;
   text-align: center;
   background-color: #080b0c;
-  border: 1px solid #232729;
+  border: 1px solid #796f60;
+}
+
+.create-post input[type=text]{
+  border-bottom: 1px solid #796f60;
 }
 
 .create-post .check-it {
   background-color: #080b0c;
-  /* margin-bottom: 30px; */
+  height: 50px;
+  margin-right: -20px;
+  box-shadow: 0 0 0 0 ;
+}
+
+.check-it i{
+  position:relative;
+  padding: 20px;
+  top: -15px;
+  font-size: 40px;
 }
 
 .check {

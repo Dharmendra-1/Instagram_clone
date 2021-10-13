@@ -130,7 +130,7 @@ class Profile extends React.Component {
 
   render() {
     return (
-      <div style={{ maxWidth: '550px', margin: '0px auto' }}>
+      <div style={{ maxWidth: '953px', margin: '0px auto' }}>
         <div className='profile'>
           <div className='profile-image'>
             <section>
@@ -143,7 +143,7 @@ class Profile extends React.Component {
                 )}
               </button>
 
-              <Modal show={this.state.toggle} animation={false}>
+              <Modal show={this.state.toggle} animation={false} className='modal fade profile-pic-modal'>
                 <Modal.Header>
                   <Modal.Title>Upload Profile Picture</Modal.Title>
                 </Modal.Header>
@@ -163,9 +163,8 @@ class Profile extends React.Component {
               </Modal>
             </section>
           </div>
-          <div>
+          <div className='userdetails'>
             <h4>{this.state.userName}</h4>
-            <p>{this.state.firstName}</p>
             <div className='user-stats'>
               <h6>
                 {(this.state.post.length &&
@@ -177,6 +176,7 @@ class Profile extends React.Component {
               <h6>{this.state.followers.length} followers</h6>
               <h6>{this.state.following.length} following</h6>
             </div>
+            <p>{this.state.firstName}</p>
           </div>
         </div>
         <div className='gallery'>
