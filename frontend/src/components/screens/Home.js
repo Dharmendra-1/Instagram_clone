@@ -169,12 +169,11 @@ class Home extends React.Component {
                 <div className='likeandcomment'>
                   <div className='likes'>
                     <i
-                      onClick={() => this.dolike(data.id, data.pid)}
+                      // onClick={() => this.dolike(data.id, data.pid)}
                       className='small material-icons'
                     >
                       favorite_border
                     </i>
-                    <br />
                     {data.like_count} likes
                   </div>
                   <div className='caption'>
