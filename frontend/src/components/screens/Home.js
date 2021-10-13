@@ -134,8 +134,7 @@ class Home extends React.Component {
                     </div>
                     <div style={{ fontWeight: 'normal' }}>{data.title}</div>
                   </div>
-
-                  <div className='comment'>
+                  <div className='showcomment'>
                     {this.state.userComment
                       .filter((obj) => obj.pid === data.pid)
                       .map((record) => {
@@ -146,24 +145,30 @@ class Home extends React.Component {
                           </h6>
                         );
                       })}
+                  </div>
+                  <div className='comment'>
                     <form
                       onSubmit={(e) => {
                         e.preventDefault();
                         this.submitForm(data.pid);
                       }}
                     >
-                      <textarea
-                        aria-label='Add a comment…'
-                        placeholder='Add a comment…'
-                        value={this.state.comment}
-                        onChange={(e) => {
-                          this.setState({
-                            ...this.state,
-                            comment: e.target.value,
-                          });
-                        }}
-                      ></textarea>
-                      <button type='submit'>Submit</button>
+                      <div className='commentsection'>
+                        <textarea
+                          aria-label='Add a comment…'
+                          placeholder='Add a comment…'
+                          value={this.state.comment}
+                          onChange={(e) => {
+                            this.setState({
+                              ...this.state,
+                              comment: e.target.value,
+                            });
+                          }}
+                        ></textarea>
+                        <button className='btn' type='submit'>
+                          POST
+                        </button>
+                      </div>
                     </form>
                   </div>
                 </div>
