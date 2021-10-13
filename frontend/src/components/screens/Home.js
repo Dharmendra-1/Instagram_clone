@@ -51,8 +51,51 @@ class Home extends React.Component {
         method: 'delete',
       });
       const parseData = await res.json();
-      // console.log(parseData);
+      console.log(parseData);
       window.location.reload(true);
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
+  dolike = async (id, pid) => {
+    try {
+      const likes = await fetch('http://localhost:4000/user/getLike', {
+        method: 'GET',
+        mode: 'cors',
+      });
+
+      const likeData = await likes.json();
+
+      likeData.map(async (data) => {
+        console.log(data);
+        if (data.id === this.state.loginId && data.pid === pid) {
+          const unlike = await fetch('http://localhost:4000/user/unlike', {
+            method: 'put',
+            mode: 'cors',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ id: this.state.loginId, pid }),
+          });
+
+          const unlikeData = await unlike.json();
+          console.log(unlikeData);
+        }
+      });
+      if (id !== this.state.loginId) {
+        const like = await fetch('http://localhost:4000/user/like', {
+          method: 'put',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ id: this.state.loginId, pid }),
+        });
+        const likeData = await like.json();
+        console.log(likeData);
+      }
+
+      // window.location.reload();
     } catch (err) {
       console.error(err.message);
     }
@@ -76,7 +119,7 @@ class Home extends React.Component {
                   >
                     {data.last_name}
                   </h5>
-                  {data.id == this.state.loginId ? (
+                  {data.id === this.state.loginId ? (
                     <i
                       className='material-icons'
                       style={{
@@ -86,9 +129,7 @@ class Home extends React.Component {
                     >
                       delete
                     </i>
-                  ) : (
-                    <h1></h1>
-                  )}
+                  ) : null}
                 </div>
                 <div className='imgsize'>
                   <img className='card-image' src={data.img} alt='post' />
@@ -96,7 +137,12 @@ class Home extends React.Component {
 
                 <div className='likeandcomment'>
                   <div className='likes'>
-                    <i className='small material-icons'>favorite_border</i>
+                    <i
+                      onClick={() => this.dolike(data.id, data.pid)}
+                      className='small material-icons'
+                    >
+                      favorite_border
+                    </i>
                     <br />
                     {data.like_count} likes
                   </div>

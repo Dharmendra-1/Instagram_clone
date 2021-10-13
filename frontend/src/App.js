@@ -62,7 +62,7 @@ class App extends React.Component {
           )}
 
           {this.state.isAuthenticated && <Home />}
-          {!this.state.isAuthenticated && <Redirect to='/' />}
+          {!this.state.isAuthenticated && <Redirect to='/home' />}
         </Route>
 
         <Route exact path='/profile'>
@@ -70,7 +70,7 @@ class App extends React.Component {
             <NavBar setIsAuthenticated={this.setIsAuthenticated.bind(this)} />
           )}
           {this.state.isAuthenticated && <Profile />}
-          {!this.state.isAuthenticated && <Redirect to='/' />}
+          {!this.state.isAuthenticated && <Redirect to='/profile' />}
         </Route>
 
         <Route exact path='/createpost'>
@@ -85,7 +85,7 @@ class App extends React.Component {
             <NavBar setIsAuthenticated={this.setIsAuthenticated.bind(this)} />
           )}
           {this.state.isAuthenticated && <UserProfile />}
-          {!this.state.isAuthenticated && <Redirect to='/' />}
+          {!this.state.isAuthenticated && <Redirect to='/profile/user' />}
         </Route>
         {/* <Route path='*'>errror page</Route> */}
       </BrowserRouter>
