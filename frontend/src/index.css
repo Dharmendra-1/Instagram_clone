@@ -115,6 +115,7 @@ h5 a {
 .home-card h5 {
   margin: 10px;
   cursor: pointer;
+  font-size: 20px;
 }
 
 .home-card .material-icons {
@@ -141,22 +142,39 @@ h5 a {
 .likeandcomment {
   min-height: 233.75px;
   width: 579px;
-  padding: 15px;
+  padding: 10px 10px 0 10px;
+  display: flex;
+  flex-direction: column;
 }
 
 .likes {
   
   display: flex;
   flex-direction: column;
+  justify-self: center;
+  
 }
 .likes i {
   height: 54px;
+  justify-self: center;
+  padding-top: 15px;
+}
+
+.likes h6 {
+  margin:0;
+  padding:10px;
+  padding-left: 0;
+  font-size: 14px;
 }
 
 .caption {
   height: 18px;
   display: flex;
   cursor: pointer;
+}
+
+.captionuser{
+  font-size: 14px;
 }
 
 input,

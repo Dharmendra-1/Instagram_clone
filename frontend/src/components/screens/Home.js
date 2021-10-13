@@ -90,11 +90,10 @@ class Home extends React.Component {
                 <div className='likeandcomment'>
                   <div className='likes'>
                     <i className='small material-icons'>favorite_border</i>
-                    <br />
-                    {data.like_count} likes
+                    <h6>{data.like_count} likes</h6>
                   </div>
                   <div className='caption'>
-                    <div
+                    <div className='captionuser'
                       style={{ marginRight: 10 }}
                       onClick={() => this.goToUserProfile(data.id)}
                     >
