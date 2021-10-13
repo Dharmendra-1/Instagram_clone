@@ -49,9 +49,14 @@ class Home extends React.Component {
 
   deletePost = async (pid) => {
     try {
+      await fetch('http://localhost:4000/user/comment/' + pid, {
+        method: 'delete',
+      });
+
       await fetch('http://localhost:4000/user/post/' + pid, {
         method: 'delete',
       });
+
       window.location.reload();
     } catch (err) {
       console.error(err.message);
@@ -76,7 +81,6 @@ class Home extends React.Component {
   getComments = async () => {
     const response = await fetch('http://localhost:4000/user/getComment');
     const postComment = await response.json();
-    console.log(postComment);
     this.setState({
       ...this.state,
       userComment: postComment,
@@ -95,7 +99,7 @@ class Home extends React.Component {
         {this.state.userData.map((data) => {
           if (data.pid) {
             return (
-              <div className='card home-card' style={{}}>
+              <div key={data.pid} className='card home-card' style={{}}>
                 <div className='postheadername'>
                   <h5
                     style={{ display: 'inline' }}
@@ -149,6 +153,7 @@ class Home extends React.Component {
                       onSubmit={(e) => {
                         e.preventDefault();
                         this.submitForm(data.pid);
+                        window.location.reload();
                       }}
                     >
                       <input
