@@ -2,7 +2,7 @@
 
 .nav-wrapper {
   background-color: #080b0c;
-  border-bottom: 1px solid #232729;
+  border-bottom: 1px solid #796f60;
 }
 
 a {
@@ -33,7 +33,7 @@ body {
   margin: 10px auto;
   color: #f8f5f2;
   background-color: #080b0c;
-  border: 1px solid #232729;
+  border: 1px solid #796f60;
 }
 
 .auth-card h2 {
@@ -52,7 +52,7 @@ body {
   margin: 10px auto;
   color: #f8f5f2;
   background-color: #080b0c;
-  border: 1px solid #232729;
+  border: 1px solid #796f60;
 }
 
 .auth-card1 h5 {
@@ -97,20 +97,66 @@ h5 a {
 .home-card {
   color: #f8f5f2;
   background-color: #080b0c;
-  max-width: 500px;
-  height: max-content;
-  margin: 26px auto;
+  width: 616px;
+  height: 894.25px;
+  margin: 40px auto;
   font-weight: bold;
-  border: 1px solid #232729;
+  border: 1px solid #796f60;
+}
+
+.postheadername {
+  height: 69px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 20px;
 }
 
 .home-card h5 {
   margin: 10px;
+  cursor: pointer;
+}
+
+.home-card .material-icons {
+  cursor: pointer;
+}
+
+.imgsize {
+  width: 615px;
+  height: 611px;
+  margin-left: -1px;
+  border: 1px solid #796f60;
+  /* border-bottom: 1px solid #796f60; */
 }
 
 .card-image {
-  margin: 10px;
-  border: 1px solid #232729;
+  object-fit: contain;
+  position: absolute;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100%;
+  width: 100%;
+}
+
+.likeandcomment {
+  min-height: 233.75px;
+  width: 579px;
+  padding: 15px;
+}
+
+.likes {
+  
+  display: flex;
+  flex-direction: column;
+}
+.likes i {
+  height: 54px;
+}
+
+.caption {
+  height: 18px;
+  display: flex;
+  cursor: pointer;
 }
 
 input,
@@ -195,7 +241,7 @@ textarea {
   background-color: #080b0c;
   color: #e2dcdf;
   margin-top: -4px;
-  height: 63px;
+  height: 62px;
   box-shadow: 0 0 0 0;
   border-radius: 0;
 }
@@ -214,6 +260,6 @@ textarea {
 @media only screen and (max-width: 600px) {
   #dropdown-basic {
     margin-top: -3px;
-    height: 54px;
+    height: 53px;
   }
 }
