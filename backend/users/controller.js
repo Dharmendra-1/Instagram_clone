@@ -172,6 +172,15 @@ const unlike = async (request, response) => {
   }
 };
 
+const getLike = async (request, response) => {
+  try {
+    let like = await pool.query(queries.getLike);
+    return response.status(200).json(like.rows);
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
 const getFollowList = async (request, response) => {
   const { id, fid, follow } = request.body;
   try {
@@ -252,4 +261,5 @@ module.exports = {
   comment,
   getComment,
   deleteComment,
+  getLike,
 };

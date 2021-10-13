@@ -87,6 +87,49 @@ class Home extends React.Component {
     });
   };
 
+  dolike = async (id, pid) => {
+    try {
+      const likes = await fetch('http://localhost:4000/user/getLike', {
+        method: 'GET',
+        mode: 'cors',
+      });
+
+      const likeData = await likes.json();
+
+      likeData.map(async (data) => {
+        console.log(data);
+        if (data.id === this.state.loginId && data.pid === pid) {
+          const unlike = await fetch('http://localhost:4000/user/unlike', {
+            method: 'put',
+            mode: 'cors',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ id: this.state.loginId, pid }),
+          });
+
+          const unlikeData = await unlike.json();
+          console.log(unlikeData);
+        }
+      });
+      if (id !== this.state.loginId) {
+        const like = await fetch('http://localhost:4000/user/like', {
+          method: 'put',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ id: this.state.loginId, pid }),
+        });
+        const likeData = await like.json();
+        console.log(likeData);
+      }
+
+      // window.location.reload();
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
   componentDidMount() {
     this.getUser();
     this.loginUserId();
@@ -125,8 +168,14 @@ class Home extends React.Component {
 
                 <div className='likeandcomment'>
                   <div className='likes'>
-                    <i className='small material-icons'>favorite_border</i>
-                    <h6>{data.like_count} likes</h6>
+                    <i
+                      onClick={() => this.dolike(data.id, data.pid)}
+                      className='small material-icons'
+                    >
+                      favorite_border
+                    </i>
+                    <br />
+                    {data.like_count} likes
                   </div>
                   <div className='caption'>
                     <div
