@@ -72,7 +72,7 @@ class Home extends React.Component {
                   >
                     {data.last_name}
                   </h5>
-
+                  {data.id === this.loginId}
                   <i
                     className='material-icons'
                     style={{
@@ -101,9 +101,30 @@ class Home extends React.Component {
                     </div>
                     <div style={{ fontWeight: 'normal' }}>{data.title}</div>
                   </div>
-                </div>
+                  <div>
+                    {data.comment}
 
-                <div>{data.comment} </div>
+                    {/* {item.comments.map((record) => {
+                  return (
+                    <h6 key={record._id}>
+                      <span style={{ fontWeight: '500' }}>
+                        {record.postedBy.name}
+                      </span>{' '}
+                      {record.text}
+                    </h6>
+                  );
+                })} */}
+                    <form
+
+                    // onSubmit={(e) => {
+                    //   e.preventDefault();
+                    //   makeComment(e.target[0].value, item._id);
+                    // }}
+                    >
+                      <input type='text' placeholder='add a comment' />
+                    </form>
+                  </div>
+                </div>
               </div>
             );
           } else {
