@@ -67,11 +67,13 @@ WHERE posts.pid = $1 RETURNING *`;
 
 const deleteComment = `DELETE FROM comments WHERE pid = $1`;
 
-const likeInsert = `INSERT INTO likes (id, pid) VALUES (($1), ($2))`;
+const likeInsert = `INSERT INTO likes (id, pid) VALUES($1, $2)`;
 const likeIncrease = `UPDATE posts SET like_count=like_count+1 WHERE pid=$1 RETURNING id,pid,like_count`;
 
 const likeDelete = `DELETE FROM likes WHERE id=$1 AND pid=$2`;
 const likeDecrease = `UPDATE posts SET like_count=like_count-1 WHERE pid=$1 RETURNING id,pid,like_count`;
+
+const getLike = `SELECT * FROM likes`;
 
 const addComments = `INSERT INTO comments (comment, id, pid) VALUES($1, $2, $3) RETURNING id, pid, comment`;
 
@@ -124,6 +126,7 @@ module.exports = {
   likeIncrease,
   likeDelete,
   likeDecrease,
+  getLike,
   addComments,
   getComments,
   deleteComment,
