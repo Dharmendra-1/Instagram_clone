@@ -128,7 +128,6 @@ const getProfilePic = async (request, response) => {
 
 const deletePost = async (request, response) => {
   const pid = request.params.pid;
-
   try {
     let result = await pool.query(queries.deletePost, [pid]);
     return response.status(200).json(result.rows);
@@ -139,7 +138,6 @@ const deletePost = async (request, response) => {
 
 const deleteComment = async (request, response) => {
   const pid = request.params.pid;
-  console.log(pid);
   try {
     let result = await pool.query(queries.deleteComment, [pid]);
     return response.status(200).json(result.rows);
