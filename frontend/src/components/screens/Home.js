@@ -47,12 +47,16 @@ class Home extends React.Component {
     }
   };
 
-  deletePost = (id) => {
-    if (id === this.state.loginId) {
-      this.props.history.push(`/createpost`);
-    } else {
-      this.props.history.push(`/createpost`);
-      // this.props.history.push(`/createpost`,{id}); use this instead
+  deletePost = async (pid) => {
+    try {
+      const res = await fetch('http://localhost:4000/user/post/' + pid, {
+        method: 'delete',
+      });
+      const parseData = await res.json();
+      // console.log(parseData);
+      window.location.reload(true);
+    } catch (err) {
+      console.error(err.message);
     }
   };
 
@@ -101,16 +105,19 @@ class Home extends React.Component {
                   >
                     {data.last_name}
                   </h5>
-                  {data.id === this.loginId}
-                  <i
-                    className='material-icons'
-                    style={{
-                      float: 'right',
-                    }}
-                    onClick={() => this.deletePost()}
-                  >
-                    delete
-                  </i>
+                  {data.id == this.state.loginId ? (
+                    <i
+                      className='material-icons'
+                      style={{
+                        float: 'right',
+                      }}
+                      onClick={() => this.deletePost(data.pid)}
+                    >
+                      delete
+                    </i>
+                  ) : (
+                    <h1></h1>
+                  )}
                 </div>
                 <div className='imgsize'>
                   <img className='card-image' src={data.img} alt='post' />
