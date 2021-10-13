@@ -96,6 +96,8 @@ const followerExists = `SELECT id, fid, follow FROM follower WHERE id = ($1) AND
 
 const followExists = `SELECT follow from follower where id = ($1) AND fid = ($2)`;
 
+const getComments = `SELECT * FROM comments`;
+
 module.exports = {
   createDatabase,
   createTable,
@@ -123,4 +125,5 @@ module.exports = {
   likeDelete,
   likeDecrease,
   addComments,
+  getComments,
 };

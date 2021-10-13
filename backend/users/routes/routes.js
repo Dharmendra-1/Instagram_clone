@@ -41,4 +41,6 @@ router.get('/followers', controller.getFollowers);
 
 router.post('/defaultFollow', controller.defaultFollow);
 
+router.get('/getComment', controller.getComment);
+
 module.exports = router;

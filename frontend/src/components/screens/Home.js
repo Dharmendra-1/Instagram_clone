@@ -7,6 +7,8 @@ class Home extends React.Component {
     this.state = {
       userData: [],
       loginId: null,
+      comment: '',
+      userComment: [],
     };
   }
 
@@ -54,17 +56,44 @@ class Home extends React.Component {
     }
   };
 
+  submitForm = async (pid) => {
+    await fetch('http://localhost:4000/user/comment', {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        comment: this.state.comment,
+        id: this.state.loginId,
+        pid: pid,
+      }),
+    });
+  };
+
+  getComments = async () => {
+    const response = await fetch('http://localhost:4000/user/getComment');
+    const postComment = await response.json();
+    console.log(postComment);
+    this.setState({
+      ...this.state,
+      userComment: postComment,
+    });
+  };
+
   componentDidMount() {
     this.getUser();
     this.loginUserId();
+    this.getComments();
   }
+
   render() {
     return (
       <div className='home'>
         {this.state.userData.map((data) => {
           if (data.pid) {
             return (
-              <div key={data.pid} className='card home-card' style={{}}>
+              <div className='card home-card' style={{}}>
                 <div className='postheadername'>
                   <h5
                     style={{ display: 'inline' }}
@@ -103,33 +132,41 @@ class Home extends React.Component {
                     <div style={{ fontWeight: 'normal' }}>{data.title}</div>
                   </div>
                   <div>
-                    {data.comment}
-
-                    {/* {item.comments.map((record) => {
-                  return (
-                    <h6 key={record._id}>
-                      <span style={{ fontWeight: '500' }}>
-                        {record.postedBy.name}
-                      </span>{' '}
-                      {record.text}
-                    </h6>
-                  );
-                })} */}
+                    {this.state.userComment
+                      .filter((obj) => obj.pid === data.pid)
+                      .map((record) => {
+                        return (
+                          <h6 key={record.cid}>
+                            <span style={{ fontWeight: '500' }}></span>{' '}
+                            {record.comment}
+                          </h6>
+                        );
+                      })}
                     <form
-
-                    // onSubmit={(e) => {
-                    //   e.preventDefault();
-                    //   makeComment(e.target[0].value, item._id);
-                    // }}
+                      onSubmit={(e) => {
+                        e.preventDefault();
+                        this.submitForm(data.pid);
+                      }}
                     >
-                      <input type='text' placeholder='add a comment' />
+                      <input
+                        type='text'
+                        placeholder='add a comment'
+                        value={this.state.comment}
+                        onChange={(e) => {
+                          this.setState({
+                            ...this.state,
+                            comment: e.target.value,
+                          });
+                        }}
+                      />
+                      <button type='submit'>Submit</button>
                     </form>
                   </div>
                 </div>
               </div>
             );
           } else {
-            return <div key={data.pid}></div>;
+            return <div></div>;
           }
         })}
       </div>
