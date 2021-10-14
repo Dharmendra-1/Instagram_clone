@@ -1,5 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import { Modal } from 'react-bootstrap';
 
 class Home extends React.Component {
   constructor(props) {
@@ -10,7 +11,12 @@ class Home extends React.Component {
       comment: '',
       userComment: [],
       postLike: [],
+<<<<<<< HEAD
       // toggleLike: false,
+=======
+      toggleComments: false,
+      pid: null,
+>>>>>>> 651dc19678c9a2422bdc6e43122939b764ad409a
     };
   }
 
@@ -71,20 +77,19 @@ class Home extends React.Component {
   };
 
   submitForm = async (pid) => {
-    if (this.state.comment !== '') {
-      await fetch('http://localhost:4000/user/comment', {
-        method: 'POST',
-        mode: 'cors',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          comment: this.state.comment,
-          id: this.state.loginId,
-          pid: pid,
-        }),
-      });
-    }
+    await fetch('http://localhost:4000/user/comment', {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        comment: this.state.comment,
+        id: this.state.loginId,
+        pid: pid,
+      }),
+    });
+
     this.setState({ ...this.state, comment: '' });
   };
 
@@ -131,6 +136,13 @@ class Home extends React.Component {
   };
 
   // handleLike()
+  handleComments = (pid) => {
+    if (this.state.toggleComments) {
+      this.setState({ ...this.state, pid, toggleComments: false });
+    } else {
+      this.setState({ ...this.state, pid, toggleComments: true });
+    }
+  };
 
   componentDidMount() {
     this.getUser();
@@ -199,48 +211,118 @@ class Home extends React.Component {
                     </div>
                     <div style={{ fontWeight: 'normal' }}>{data.title}</div>
                   </div>
-                  {/* View all comments... */}
-                  <div className='showcomment'>
-                    {this.state.userComment
-                      .filter((obj) => obj.pid === data.pid)
-                      .map((record) => {
-                        return (
-                          <h6 key={record.cid}>
-                            <span style={{ fontWeight: 'bold' }}>
-                              {' '}
-                              {record.last_name}
-                            </span>
-                            <span>&nbsp;&nbsp;&nbsp;{record.comment}</span>
-                          </h6>
-                        );
-                      })}
+                  <br />
+
+                  <div onClick={() => this.handleComments(data.pid)}>
+                    View all comments...
                   </div>
+
+                  <div className='showcomment'>
+                    {
+                      this.state.userComment
+                        .filter((obj) => obj.pid === data.pid)
+                        .map((record) => {
+                          return (
+                            <h6 key={record.cid}>
+                              <span style={{ fontWeight: 'bold' }}>
+                                {' '}
+                                {record.last_name}
+                              </span>
+                              <span>&nbsp;&nbsp;&nbsp;{record.comment}</span>
+                            </h6>
+                          );
+                        })
+                        .reverse()[0]
+                    }
+                  </div>
+
+                  <Modal
+                    show={this.state.toggleComments}
+                    animation={false}
+                    className='comment-modal'
+                  >
+                    <Modal.Header>
+                      <Modal.Title>comments</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body className='showcomment'>
+                      {this.state.userComment
+                        .filter((obj) => obj.pid === this.state.pid)
+                        .map((record) => {
+                          return (
+                            <h6 key={record.cid}>
+                              <span style={{ fontWeight: 'bold' }}>
+                                {' '}
+                                {record.last_name}
+                              </span>
+                              <span>&nbsp;&nbsp;&nbsp;{record.comment}</span>
+                            </h6>
+                          );
+                        })}
+                      <div className='comment'>
+                        <form
+                          onSubmit={(e) => {
+                            e.preventDefault();
+                            if (this.state.comment !== '') {
+                              this.submitForm(this.state.pid);
+                              setTimeout(() => {
+                                this.getComments();
+                              }, 200);
+                            }
+                          }}
+                        >
+                          <div className='commentsection'>
+                            <textarea
+                              style={{ color: '#000' }}
+                              aria-label='Add a comment…'
+                              placeholder='Add a comment…'
+                              value={this.state.comment}
+                              onChange={(e) => {
+                                this.setState({
+                                  ...this.state,
+                                  comment: e.target.value,
+                                });
+                              }}
+                            ></textarea>
+                            <button className='btn' type='submit'>
+                              POST
+                            </button>
+                          </div>
+                        </form>
+                        <button onClick={this.handleComments}>close</button>
+                      </div>
+                    </Modal.Body>
+                  </Modal>
+
                   <div className='comment'>
                     <form
                       onSubmit={(e) => {
                         e.preventDefault();
-                        this.submitForm(data.pid);
-                        setTimeout(() => {
-                          this.getComments();
-                        }, 200);
+                        if (this.state.comment !== '') {
+                          this.submitForm(data.pid);
+                          setTimeout(() => {
+                            this.getComments();
+                          }, 200);
+                        }
                       }}
                     >
-                      <div className='commentsection'>
-                        <textarea
-                          aria-label='Add a comment…'
-                          placeholder='Add a comment…'
-                          value={this.state.comment}
-                          onChange={(e) => {
-                            this.setState({
-                              ...this.state,
-                              comment: e.target.value,
-                            });
-                          }}
-                        ></textarea>
-                        <button className='btn' type='submit'>
-                          POST
-                        </button>
-                      </div>
+                      {!this.state.toggleComments && (
+                        <div className='commentsection'>
+                          <textarea
+                            aria-label='Add a comment…'
+                            placeholder='Add a comment…'
+                            value={this.state.comment}
+                            onChange={(e) => {
+                              this.setState({
+                                ...this.state,
+                                comment: e.target.value,
+                              });
+                            }}
+                          ></textarea>
+                          <button className='btn' type='submit'>
+                            POST
+                          </button>
+                        </div>
+                      )}
                     </form>
                   </div>
                 </div>
