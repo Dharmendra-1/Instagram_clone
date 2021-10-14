@@ -65,6 +65,7 @@ const deletePost = `DELETE FROM posts
 WHERE posts.pid = $1 RETURNING *`;
 
 const deleteComment = `DELETE FROM comments WHERE pid = $1`;
+const deleteLike = `DELETE FROM likes WHERE pid = $1`;
 
 const likeInsert = `INSERT INTO likes (id, pid) VALUES($1, $2)`;
 const likeDelete = `DELETE FROM likes WHERE id=$1 AND pid=$2`;
@@ -95,7 +96,9 @@ const followerExists = `SELECT id, fid, follow FROM follower WHERE id = ($1) AND
 
 const followExists = `SELECT follow from follower where id = ($1) AND fid = ($2)`;
 
-const getComments = `SELECT * FROM comments`;
+const getComments = `SELECT users.Last_name, comments.cid, comments.comment , comments.id,comments.pid 
+FROM users LEFT JOIN comments 
+ON users.id=comments.id`;
 
 module.exports = {
   createDatabase,
@@ -126,4 +129,5 @@ module.exports = {
   getComments,
   deleteComment,
   checkLikeOfPost,
+  deleteLike,
 };

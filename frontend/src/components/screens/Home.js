@@ -46,11 +46,16 @@ class Home extends React.Component {
     } else {
       this.props.history.push(`/profile/user`, { id });
     }
+    localStorage.setItem('userId', id);
   };
 
   deletePost = async (pid) => {
     try {
       await fetch('http://localhost:4000/user/comment/' + pid, {
+        method: 'delete',
+      });
+
+      await fetch('http://localhost:4000/user/like/' + pid, {
         method: 'delete',
       });
 
@@ -77,6 +82,8 @@ class Home extends React.Component {
         pid: pid,
       }),
     });
+
+    this.setState({ ...this.state, comment: '' });
   };
 
   getComments = async () => {
@@ -101,7 +108,6 @@ class Home extends React.Component {
         },
         body: JSON.stringify({ id: this.state.loginId, pid }),
       });
-
       window.location.reload();
     } catch (err) {
       console.error(err.message);
@@ -161,7 +167,12 @@ class Home extends React.Component {
                 <div className='likeandcomment'>
                   <div className='likes'>
                     <i
-                      onClick={() => this.dolike(data.pid)}
+                      onClick={() => {
+                        this.dolike(data.pid);
+                        setTimeout(() => {
+                          this.getLike();
+                        }, 200);
+                      }}
                       className='small material-icons'
                     >
                       favorite_border
@@ -188,7 +199,10 @@ class Home extends React.Component {
                       .map((record) => {
                         return (
                           <h6 key={record.cid}>
-                            <span style={{ fontWeight: '500' }}></span>{' '}
+                            <span style={{ fontWeight: '500' }}>
+                              {' '}
+                              {record.last_name}
+                            </span>{' '}
                             {record.comment}
                           </h6>
                         );
@@ -199,7 +213,9 @@ class Home extends React.Component {
                       onSubmit={(e) => {
                         e.preventDefault();
                         this.submitForm(data.pid);
-                        window.location.reload();
+                        setTimeout(() => {
+                          this.getComments();
+                        }, 200);
                       }}
                     >
                       <div className='commentsection'>

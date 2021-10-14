@@ -85,7 +85,7 @@ class App extends React.Component {
             <NavBar setIsAuthenticated={this.setIsAuthenticated.bind(this)} />
           )}
           {this.state.isAuthenticated && <UserProfile />}
-          {!this.state.isAuthenticated && <Redirect to='/home' />}
+          {!this.state.isAuthenticated && <Redirect to='/profile/user' />}
         </Route>
         {/* <Route path='*'>errror page</Route> */}
       </BrowserRouter>

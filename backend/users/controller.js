@@ -145,6 +145,16 @@ const deleteComment = async (request, response) => {
   }
 };
 
+const deleteLike = async (request, response) => {
+  const pid = request.params.pid;
+  try {
+    let result = await pool.query(queries.deleteLike, [pid]);
+    return response.status(200).json(result.rows);
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
 const like = async (request, response) => {
   const { id, pid } = request.body;
   try {
@@ -248,4 +258,5 @@ module.exports = {
   getComment,
   deleteComment,
   getLike,
+  deleteLike,
 };

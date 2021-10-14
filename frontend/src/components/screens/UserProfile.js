@@ -6,7 +6,7 @@ class UserProfile extends React.Component {
     super(props);
 
     this.state = {
-      userId: this.props.location.state.id,
+      userId: Number(localStorage.getItem('userId')),
       userName: '',
       firstName: '',
       url: 'https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg',
@@ -139,7 +139,7 @@ class UserProfile extends React.Component {
     const dataOfUser = await fetch('http://localhost:4000/user/followers');
     const orginalData = await dataOfUser.json();
     const followings = orginalData.reduce((currArr, obj) => {
-      if (obj.id === this.state.loginId) {
+      if (obj.fid === this.state.loginId) {
         if (obj.follow === 1) {
           currArr.push(obj);
         }
@@ -148,7 +148,7 @@ class UserProfile extends React.Component {
     }, []);
 
     const follower = orginalData.reduce((currArr, obj) => {
-      if (obj.fid === this.state.loginId) {
+      if (obj.id === this.state.loginId) {
         if (obj.follow === 1) {
           currArr.push(obj);
         }
@@ -190,8 +190,8 @@ class UserProfile extends React.Component {
             <h4>{this.state.userName}</h4>
             <div className='user-stats'>
               <h6>{this.state.post.length} posts</h6>
-              <h6>{this.state.following.length} followers</h6>
-              <h6>{this.state.followers.length} following</h6>
+              <h6>{this.state.followers.length} follower</h6>
+              <h6>{this.state.following.length} following</h6>
             </div>
             {!this.state.follow ? (
               <button className='btn' onClick={this.handleFollow}>

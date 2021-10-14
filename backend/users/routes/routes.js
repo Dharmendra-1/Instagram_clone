@@ -28,6 +28,8 @@ router.post('/comment', controller.comment);
 
 router.delete('/comment/:pid', controller.deleteComment);
 
+router.delete('/like/:pid', controller.deleteLike);
+
 router.post('/verify', authorization, (req, res) => {
   try {
     res.json(true);
