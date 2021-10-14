@@ -192,13 +192,17 @@ h5 a {
   flex-direction: column;
 }
 
+.lc-icons{
+  display: flex;
+}
+
 .likes {
   display: flex;
   flex-direction: column;
   justify-self: center;
 }
 
-.likes i {
+.lc-icons i{
   height: 54px;
   justify-self: center;
   padding-top: 15px;

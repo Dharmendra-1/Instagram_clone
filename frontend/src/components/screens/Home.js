@@ -179,24 +179,30 @@ class Home extends React.Component {
                 </div>
 
                 <div className='likeandcomment'>
-                  <div className='likes'>
-                    <i
-                      onClick={() => {
-                        this.dolike(data.pid);
-                        setTimeout(() => {
-                          this.getLike();
-                        }, 200);
-                        // this.handleLike();
-                      }}
-                      className='small material-icons'
-                    >
-                      favorite_border
-                    </i>
-                    {
-                      this.state.postLike.filter((obj) => obj.pid === data.pid)
-                        .length
-                    }{' '}
-                    likes
+                  <div className='lc-icons'>
+                    <div className='likes'>
+                      <i
+                        onClick={() => {
+                          this.dolike(data.pid);
+                          setTimeout(() => {
+                            this.getLike();
+                          }, 200);
+                          // this.handleLike();
+                        }}
+                        className='small material-icons'
+                      >
+                        favorite_border
+                      </i>
+                      {
+                        this.state.postLike.filter(
+                          (obj) => obj.pid === data.pid
+                        ).length
+                      }{' '}
+                      likes
+                    </div>
+                    <div onClick={() => this.handleComments(data.pid)}>
+                      <i className='small material-icons'>comment</i>
+                    </div>
                   </div>
                   <div className='caption'>
                     <div
@@ -207,11 +213,6 @@ class Home extends React.Component {
                       {data.last_name}
                     </div>
                     <div style={{ fontWeight: 'normal' }}>{data.title}</div>
-                  </div>
-                  <br />
-
-                  <div onClick={() => this.handleComments(data.pid)}>
-                    View all comments...
                   </div>
 
                   <div className='showcomment'>
