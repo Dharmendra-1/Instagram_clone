@@ -36,6 +36,10 @@ a {
   box-shadow: 0 1px 0 0 #796f607c;
 }
 
+.search input[type=text]::placeholder{
+  text-align: center;
+}
+
 #nav-mobile {
   margin-right: 35px;
 }
