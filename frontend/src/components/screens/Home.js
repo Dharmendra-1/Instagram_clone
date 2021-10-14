@@ -23,7 +23,6 @@ class Home extends React.Component {
       const res = await fetch('http://localhost:4000/user/post');
       const parseData = await res.json();
       parseData.sort((a, b) => (a.pid < b.pid ? 1 : -1));
-
       this.setState({ userData: parseData });
     } catch (err) {
       console.error(err.message);
