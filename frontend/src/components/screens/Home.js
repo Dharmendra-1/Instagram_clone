@@ -11,12 +11,9 @@ class Home extends React.Component {
       comment: '',
       userComment: [],
       postLike: [],
-<<<<<<< HEAD
       // toggleLike: false,
-=======
       toggleComments: false,
       pid: null,
->>>>>>> 651dc19678c9a2422bdc6e43122939b764ad409a
     };
   }
 
