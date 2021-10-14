@@ -7,7 +7,7 @@ const createTable = `CREATE TABLE IF NOT EXISTS users(
   user_email VARCHAR(255) NOT NULL UNIQUE,
   user_password VARCHAR(255) NOT NULL,
   resetToken VARCHAR(255),
-  expireToken DATE,
+  expireToken VARCHAR(255),
   img VARCHAR(255),
   PRIMARY KEY(id)
 )`;

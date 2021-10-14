@@ -8,6 +8,7 @@ import Profile from './components/screens/Profile';
 import Home from './components/screens/Home';
 import CreatePost from './components/screens/CreatePost';
 import UserProfile from './components/screens/UserProfile';
+import ResetPassword from './components/screens/ResetPassword';
 
 class App extends React.Component {
   constructor(props) {
@@ -54,6 +55,9 @@ class App extends React.Component {
         </Route>
         <Route exact path='/signup'>
           <Signup />
+        </Route>
+        <Route exact path='/resetPassword'>
+          <ResetPassword />
         </Route>
 
         <Route exact path='/home'>

@@ -83,23 +83,23 @@ const resetPassword = async (req, res) => {
         return res
           .status(422)
           .json({ error: 'User dont exists with that email' });
-      }
+      } else {
+        resetToken = token;
+        expireToken = Date.now() + 3600000;
 
-      resetToken = token;
-      expireToken = Date.now() + 3600000;
+        await pool.query(queries.setToken, [resetToken, expireToken, email]);
 
-      await pool.query(queries.setToken, [resetToken, expireToken, email]);
-
-      transporter.sendMail({
-        to: email,
-        from: 'juned.khan.2542@gmail.com',
-        subject: 'password reset',
-        html: `
+        transporter.sendMail({
+          to: email,
+          from: 'juned.khan.2542@gmail.com',
+          subject: 'password reset',
+          html: `
           <p>You requested for password reset</p>
           <h5>click in this <a href="http://localhost:3000/reset/${token}">link</a> to reset password</h5>
           `,
-      });
-      res.json({ message: 'check your email' });
+        });
+        res.json({ message: 'check your email' });
+      }
     });
   } catch (error) {
     throw new Error(error);
