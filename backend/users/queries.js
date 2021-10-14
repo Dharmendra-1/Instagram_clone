@@ -6,6 +6,8 @@ const createTable = `CREATE TABLE IF NOT EXISTS users(
   Last_name VARCHAR(255) NOT NULL,
   user_email VARCHAR(255) NOT NULL UNIQUE,
   user_password VARCHAR(255) NOT NULL,
+  resetToken VARCHAR(255),
+  expireToken DATE,
   img VARCHAR(255),
   PRIMARY KEY(id)
 )`;
@@ -100,6 +102,12 @@ const getComments = `SELECT users.Last_name, comments.cid, comments.comment , co
 FROM users LEFT JOIN comments 
 ON users.id=comments.id`;
 
+const setToken = `UPDATE users SET resetToken = $1, expireToken = $2 WHERE user_email = $3 `;
+
+const checkReset = `SELECT id from users WHERE resetToken = $1 AND expireToken >= $2`;
+
+const updatePassword = `UPDATE users SET user_password = $1, resetToken = $2, expireToken = $3 WHERE id = $4`;
+
 module.exports = {
   createDatabase,
   createTable,
@@ -130,4 +138,7 @@ module.exports = {
   deleteComment,
   checkLikeOfPost,
   deleteLike,
+  setToken,
+  checkReset,
+  updatePassword,
 };
