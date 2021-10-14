@@ -9,7 +9,24 @@ class NavBar extends React.Component {
     const { setIsAuthenticated } = this.props;
     this.state = {
       setIsAuthenticated,
+      searchInput: '',
+      userData: [],
     };
+  }
+
+  getUser = async () => {
+    try {
+      const res = await fetch('http://localhost:4000/user');
+      const parseData = await res.json();
+      parseData.sort((a, b) => (a.pid < b.pid ? 1 : -1));
+      this.setState({ userData: parseData });
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
+  componentDidMount() {
+    this.getUser();
   }
 
   render() {
@@ -55,7 +72,43 @@ class NavBar extends React.Component {
                 href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'
                 rel='stylesheet'
               />
-              <input type='text' placeholder='&#xF002; Search ' />
+
+              <Dropdown className='drop'>
+                <Dropdown.Toggle variant='success' id='dropdown-basic'>
+                  <input
+                    type='text'
+                    placeholder='&#xF002; Search '
+                    onChange={(e) => {
+                      this.setState({
+                        ...this.state,
+                        searchInput: e.target.value,
+                      });
+                    }}
+                  />
+                </Dropdown.Toggle>
+                <Dropdown.Menu className='card'>
+                  {this.state.userData
+                    .filter((obj) => {
+                      if (this.state.searchInput === '') {
+                        return obj;
+                      } else if (
+                        obj.last_name
+                          .toLowerCase()
+                          .includes(this.state.searchInput.toLowerCase())
+                      ) {
+                        return obj;
+                      }
+                      return null;
+                    })
+                    .map((obj) => {
+                      return (
+                        <li key={obj.id}>
+                          <Link to='/profile'>{obj.last_name}</Link>
+                        </li>
+                      );
+                    })}
+                </Dropdown.Menu>
+              </Dropdown>
             </div>
           </div>
         </nav>
