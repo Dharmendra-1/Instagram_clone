@@ -26,8 +26,7 @@ const likesTable = `CREATE TABLE IF NOT EXISTS likes (
     id int,
     pid int,
     PRIMARY KEY (lid),
-    CONSTRAINT FK_id FOREIGN KEY (id) REFERENCES users(id),
-    CONSTRAINT FK_pid FOREIGN KEY (pid) REFERENCES posts(pid)
+    CONSTRAINT FK_id FOREIGN KEY (id) REFERENCES users(id)
 )`;
 
 const commentsTable = `CREATE TABLE IF NOT EXISTS comments (
@@ -68,12 +67,10 @@ WHERE posts.pid = $1 RETURNING *`;
 const deleteComment = `DELETE FROM comments WHERE pid = $1`;
 
 const likeInsert = `INSERT INTO likes (id, pid) VALUES($1, $2)`;
-const likeIncrease = `UPDATE posts SET like_count=like_count+1 WHERE pid=$1 RETURNING id,pid,like_count`;
-
 const likeDelete = `DELETE FROM likes WHERE id=$1 AND pid=$2`;
-const likeDecrease = `UPDATE posts SET like_count=like_count-1 WHERE pid=$1 RETURNING id,pid,like_count`;
 
 const getLike = `SELECT * FROM likes`;
+const checkLikeOfPost = `SELECT * FROM likes WHERE id =($1) AND pid = ($2)`;
 
 const addComments = `INSERT INTO comments (comment, id, pid) VALUES($1, $2, $3) RETURNING id, pid, comment`;
 
@@ -123,11 +120,10 @@ module.exports = {
   likesTable,
   commentsTable,
   likeInsert,
-  likeIncrease,
   likeDelete,
-  likeDecrease,
   getLike,
   addComments,
   getComments,
   deleteComment,
+  checkLikeOfPost,
 };

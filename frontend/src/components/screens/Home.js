@@ -9,6 +9,7 @@ class Home extends React.Component {
       loginId: null,
       comment: '',
       userComment: [],
+      postLike: [],
     };
   }
 
@@ -79,54 +80,44 @@ class Home extends React.Component {
   };
 
   getComments = async () => {
-    const response = await fetch('http://localhost:4000/user/getComment');
-    const postComment = await response.json();
-    this.setState({
-      ...this.state,
-      userComment: postComment,
-    });
+    try {
+      const response = await fetch('http://localhost:4000/user/getComment');
+      const postComment = await response.json();
+      this.setState({
+        ...this.state,
+        userComment: postComment,
+      });
+    } catch (error) {
+      throw new Error(error);
+    }
   };
 
-  dolike = async (id, pid) => {
+  dolike = async (pid) => {
     try {
-      const likes = await fetch('http://localhost:4000/user/getLike', {
-        method: 'GET',
-        mode: 'cors',
+      await fetch('http://localhost:4000/user/like', {
+        method: 'put',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id: this.state.loginId, pid }),
       });
 
-      const likeData = await likes.json();
-
-      likeData.map(async (data) => {
-        console.log(data);
-        if (data.id === this.state.loginId && data.pid === pid) {
-          const unlike = await fetch('http://localhost:4000/user/unlike', {
-            method: 'put',
-            mode: 'cors',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ id: this.state.loginId, pid }),
-          });
-
-          const unlikeData = await unlike.json();
-          console.log(unlikeData);
-        }
-      });
-      if (id !== this.state.loginId) {
-        const like = await fetch('http://localhost:4000/user/like', {
-          method: 'put',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ id: this.state.loginId, pid }),
-        });
-        const likeData = await like.json();
-        console.log(likeData);
-      }
-
-      // window.location.reload();
+      window.location.reload();
     } catch (err) {
       console.error(err.message);
+    }
+  };
+
+  getLike = async () => {
+    try {
+      const response = await fetch('http://localhost:4000/user/getLike');
+      const postLikes = await response.json();
+      this.setState({
+        ...this.state,
+        postLike: postLikes,
+      });
+    } catch (error) {
+      throw new Error(error);
     }
   };
 
@@ -134,6 +125,7 @@ class Home extends React.Component {
     this.getUser();
     this.loginUserId();
     this.getComments();
+    this.getLike();
   }
 
   render() {
@@ -169,13 +161,16 @@ class Home extends React.Component {
                 <div className='likeandcomment'>
                   <div className='likes'>
                     <i
-                      onClick={() => this.dolike(data.id, data.pid)}
+                      onClick={() => this.dolike(data.pid)}
                       className='small material-icons'
                     >
                       favorite_border
                     </i>
-                    <br />
-                    {data.like_count} likes
+                    {
+                      this.state.postLike.filter((obj) => obj.pid === data.pid)
+                        .length
+                    }{' '}
+                    likes
                   </div>
                   <div className='caption'>
                     <div

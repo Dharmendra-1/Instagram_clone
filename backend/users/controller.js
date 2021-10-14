@@ -2,7 +2,6 @@ const pool = require('../db');
 const queries = require('./queries');
 const bcrypt = require('bcrypt');
 const jwtGenerator = require('./utils/jwtGenerator');
-const { request } = require('express');
 
 const createTable = async () => {
   try {
@@ -149,24 +148,12 @@ const deleteComment = async (request, response) => {
 const like = async (request, response) => {
   const { id, pid } = request.body;
   try {
-    await pool.query(queries.likeInsert, [id, pid]);
-
-    const likes = await pool.query(queries.likeIncrease, [pid]);
-
-    return response.status(200).json(likes.rows);
-  } catch (error) {
-    throw new Error(error);
-  }
-};
-
-const unlike = async (request, response) => {
-  const { id, pid } = request.body;
-  try {
-    await pool.query(queries.likeDelete, [id, pid]);
-
-    const likes = await pool.query(queries.likeDecrease, [pid]);
-
-    return response.status(200).json(likes.rows);
+    let checkLikeData = await pool.query(queries.checkLikeOfPost, [id, pid]);
+    if (checkLikeData.rows.length === 0) {
+      await pool.query(queries.likeInsert, [id, pid]);
+    } else {
+      await pool.query(queries.likeDelete, [id, pid]);
+    }
   } catch (error) {
     throw new Error(error);
   }
@@ -257,7 +244,6 @@ module.exports = {
   defaultFollow,
   deletePost,
   like,
-  unlike,
   comment,
   getComment,
   deleteComment,
