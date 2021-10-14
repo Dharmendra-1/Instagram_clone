@@ -187,17 +187,16 @@ class Profile extends React.Component {
           {this.state.post.map((obj) => {
             if (obj.img) {
               return (
-                <div className='item-container'>
+                <div key={obj.pid} className='item-container'>
                   <img
                     className='item'
-                    key={obj.pid}
                     src={obj.img}
                     alt='post'
                   />
                 </div>
               );
             } else {
-              return <div key={obj.pid}></div>;
+              return null;
             }
           })}
         </div>
