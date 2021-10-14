@@ -13,6 +13,7 @@ class Home extends React.Component {
       postLike: [],
       toggleComments: false,
       pid: null,
+      userLike: [],
     };
   }
 
@@ -121,9 +122,14 @@ class Home extends React.Component {
     try {
       const response = await fetch('http://localhost:4000/user/getLike');
       const postLikes = await response.json();
+      const like = postLikes
+        .filter((likes) => likes.id === this.state.loginId)
+        .map((data) => data.pid);
+      console.log(like);
       this.setState({
         ...this.state,
         postLike: postLikes,
+        userLike: like,
       });
     } catch (error) {
       throw new Error(error);
@@ -177,17 +183,32 @@ class Home extends React.Component {
 
                 <div className='likeandcomment'>
                   <div className='likes'>
-                    <i
-                      onClick={() => {
-                        this.dolike(data.pid);
-                        setTimeout(() => {
-                          this.getLike();
-                        }, 200);
-                      }}
-                      className='small material-icons'
-                    >
-                      favorite_border
-                    </i>
+                    {this.state.userLike.includes(data.pid) ? (
+                      <i
+                        onClick={() => {
+                          this.dolike(data.pid);
+                          setTimeout(() => {
+                            this.getLike();
+                          }, 200);
+                        }}
+                        className='small material-icons'
+                        style={{ color: 'red' }}
+                      >
+                        favorite
+                      </i>
+                    ) : (
+                      <i
+                        onClick={() => {
+                          this.dolike(data.pid);
+                          setTimeout(() => {
+                            this.getLike();
+                          }, 200);
+                        }}
+                        className='small material-icons'
+                      >
+                        favorite_border{' '}
+                      </i>
+                    )}
                     {
                       this.state.postLike.filter((obj) => obj.pid === data.pid)
                         .length
@@ -228,6 +249,10 @@ class Home extends React.Component {
                         .reverse()[0]
                     }
                   </div>
+
+                  {/* <i style={{ color: 'red' }} className='small material-icons'>
+                    favorite
+                  </i> */}
 
                   <Modal
                     show={this.state.toggleComments}
