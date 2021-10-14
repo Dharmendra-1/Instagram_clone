@@ -85,7 +85,7 @@ class UserProfile extends React.Component {
       const postData = await res.json();
 
       let posts = postData.filter((obj) => obj.id === this.state.userId);
-      console.log(posts);
+
       this.setState({
         ...this.state,
         post: posts,
@@ -141,7 +141,7 @@ class UserProfile extends React.Component {
     const dataOfUser = await fetch('http://localhost:4000/user/followers');
     const orginalData = await dataOfUser.json();
     const followings = orginalData.reduce((currArr, obj) => {
-      if (obj.fid === this.state.loginId) {
+      if (obj.id === this.state.userId) {
         if (obj.follow === 1) {
           currArr.push(obj);
         }
@@ -150,7 +150,7 @@ class UserProfile extends React.Component {
     }, []);
 
     const follower = orginalData.reduce((currArr, obj) => {
-      if (obj.id === this.state.loginId) {
+      if (obj.fid === this.state.userId) {
         if (obj.follow === 1) {
           currArr.push(obj);
         }
@@ -189,24 +189,31 @@ class UserProfile extends React.Component {
             </section>
           </div>
           <div className='userdetails'>
-            <h4>{this.state.userName}
-            {!this.state.follow ? (
-              <button className='btn waves-effect waves-light #2196f3 blue' onClick={this.handleFollow}>
-                <h4>Follow</h4>
-              </button>
-            ) : (
-              <button className='btn waves-effect waves-light unfollow' onClick={this.handleFollow}>
-                <i className='medium material-icons'>person_outline</i>
-                <i className='small material-icons'>check</i>
-              </button>
-            )}
+            <h4>
+              {this.state.userName}
+              {!this.state.follow ? (
+                <button
+                  className='btn waves-effect waves-light #2196f3 blue'
+                  onClick={this.handleFollow}
+                >
+                  <h4>Follow</h4>
+                </button>
+              ) : (
+                <button
+                  className='btn waves-effect waves-light unfollow'
+                  onClick={this.handleFollow}
+                >
+                  <i className='medium material-icons'>person_outline</i>
+                  <i className='small material-icons'>check</i>
+                </button>
+              )}
             </h4>
             <div className='user-stats'>
               <h6>{this.state.post.length} posts</h6>
               <h6>{this.state.followers.length} followers</h6>
               <h6>{this.state.following.length} following</h6>
             </div>
-              <p>{this.state.firstName}</p>
+            <p>{this.state.firstName}</p>
           </div>
         </div>
         <div className='gallery'>

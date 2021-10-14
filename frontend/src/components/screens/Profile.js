@@ -143,7 +143,11 @@ class Profile extends React.Component {
                 )}
               </button>
 
-              <Modal show={this.state.toggle} animation={false} className='modal fade profile-pic-modal'>
+              <Modal
+                show={this.state.toggle}
+                animation={false}
+                className='modal fade profile-pic-modal'
+              >
                 <Modal.Header>
                   <Modal.Title>Upload Profile Picture</Modal.Title>
                 </Modal.Header>
