@@ -36,7 +36,7 @@ body {
   border: 1px solid #796f60;
 }
 
-.auth-card .input-field input{
+.auth-card .input-field input {
   border-bottom: 1px solid #796f60;
 }
 
@@ -279,8 +279,8 @@ textarea {
   background: #ccc;
 }
 
-.profile-pic-modal{
-  margin: 100px auto;
+.profile-pic-modal {
+  margin-top: -300px;
   max-width: 616px;
   padding: 20px;
   text-align: center;
@@ -310,7 +310,7 @@ textarea {
 
 .userdetails button {
   position: relative;
-  top:-3px;
+  top: -3px;
   left: 20px;
   height: 28px;
 }
@@ -318,12 +318,12 @@ textarea {
 .userdetails button h4 {
   position: relative;
   font-size: 14px;
-  top:-15px;
+  top: -15px;
 }
 
 .userdetails .unfollow {
   position: relative;
-  top:-3px;
+  top: -3px;
   left: 20px;
   height: 28px;
   width: 90px;
@@ -333,7 +333,7 @@ textarea {
 
 .unfollow i {
   position: relative;
-  top:-5px;
+  top: -5px;
 }
 
 .user-stats {
@@ -360,7 +360,7 @@ textarea {
   border: 1px solid #796f60;
 }
 
-.create-post input[type=text]{
+.create-post input[type='text'] {
   border-bottom: 1px solid #796f60;
 }
 
@@ -368,11 +368,11 @@ textarea {
   background-color: #080b0c;
   height: 50px;
   margin-right: -20px;
-  box-shadow: 0 0 0 0 ;
+  box-shadow: 0 0 0 0;
 }
 
-.check-it i{
-  position:relative;
+.check-it i {
+  position: relative;
   padding: 20px;
   top: -15px;
   font-size: 40px;
