@@ -56,7 +56,7 @@ class NavBar extends React.Component {
             />
             <input
               type='text'
-              placeholder=' &#xF002; Search'
+              placeholder='                      &#xF002; Search'
             />
           </div>
         </div>
