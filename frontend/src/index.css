@@ -327,6 +327,16 @@ textarea {
   z-index: 1;
 }
 
+.comment-modal {
+  position: fixed;
+  top: 150px;
+  height: 25%;
+  width: 640px;
+  background-color: #fff;
+  border: 1px solid #796f60;
+  z-index: 1;
+}
+
 .userdetails {
   margin-top: 20px;
   margin-left: -450px;
