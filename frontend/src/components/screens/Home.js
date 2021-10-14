@@ -10,6 +10,7 @@ class Home extends React.Component {
       comment: '',
       userComment: [],
       postLike: [],
+      // toggleLike: false,
     };
   }
 
@@ -122,11 +123,14 @@ class Home extends React.Component {
       this.setState({
         ...this.state,
         postLike: postLikes,
+        // toggleLike: true,
       });
     } catch (error) {
       throw new Error(error);
     }
   };
+
+  // handleLike()
 
   componentDidMount() {
     this.getUser();
@@ -173,6 +177,7 @@ class Home extends React.Component {
                         setTimeout(() => {
                           this.getLike();
                         }, 200);
+                        // this.handleLike();
                       }}
                       className='small material-icons'
                     >
