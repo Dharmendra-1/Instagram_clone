@@ -1,8 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Grand+Hotel&display=swap');
 
+.navbar-fixed {
+  height: 54px;
+}
+
 .nav-wrapper {
   background-color: #080b0c;
   border-bottom: 1px solid #796f60;
+  z-index: 1;
+  position: fixed;
 }
 
 /* .nav-wrapper i{
@@ -11,11 +17,17 @@
 
 a {
   color: #e2dcdf !important;
+  font-size: 22px;
 }
 
 .brand-logo {
   font-family: 'Grand Hotel', cursive;
-  margin-left: 35px;
+  margin-left: 150px;
+  font-size: 29px;
+}
+
+#nav-mobile {
+  margin-right: 150px;
 }
 
 .search {
@@ -38,10 +50,6 @@ a {
 
 .search input[type='text']::placeholder {
   text-align: center;
-}
-
-#nav-mobile {
-  margin-right: 35px;
 }
 
 body {
@@ -192,7 +200,7 @@ h5 a {
   flex-direction: column;
 }
 
-.lc-icons{
+.lc-icons {
   display: flex;
 }
 
@@ -202,7 +210,7 @@ h5 a {
   justify-self: center;
 }
 
-.lc-icons i{
+.lc-icons i {
   height: 54px;
   justify-self: center;
   padding-top: 15px;
@@ -327,9 +335,26 @@ textarea {
   max-width: 616px;
   padding: 20px;
   text-align: center;
+  color: #f8f5f2;
   background-color: #080b0c;
   border: 1px solid #796f60;
   z-index: 1;
+}
+
+.profile-pic-modal{
+  position: absolute;
+  top: 250px;
+  max-width: 616px;
+  padding: 20px;
+  text-align: center;
+  color: #f8f5f2;
+  background-color: #080b0c;
+  border: 1px solid #796f60;
+  z-index: 1;
+}
+
+.profile-pic-modal input[type="file"] {
+  display: none;
 }
 
 .comment-modal {
@@ -463,6 +488,10 @@ textarea {
 
 .divider {
   background-color: #232729;
+}
+
+.username{
+  cursor: pointer;
 }
 
 @media only screen and (max-width: 600px) {

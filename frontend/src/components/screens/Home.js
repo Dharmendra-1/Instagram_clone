@@ -126,7 +126,6 @@ class Home extends React.Component {
       const like = postLikes
         .filter((likes) => likes.id === this.state.loginId)
         .map((data) => data.pid);
-      console.log(like);
       this.setState({
         ...this.state,
         postLike: postLikes,
@@ -240,7 +239,7 @@ class Home extends React.Component {
                         .filter((obj) => obj.pid === data.pid)
                         .map((record) => {
                           return (
-                            <h6 key={record.cid}>
+                            <h6 key={record.cid} className='username' onClick={() => this.goToUserProfile(record.id)}>
                               <span style={{ fontWeight: 'bold' }}>
                                 {' '}
                                 {record.last_name}
@@ -252,10 +251,6 @@ class Home extends React.Component {
                         .reverse()[0]
                     }
                   </div>
-
-                  {/* <i style={{ color: 'red' }} className='small material-icons'>
-                    favorite
-                  </i> */}
 
                   <Modal
                     show={this.state.toggleComments}
@@ -270,7 +265,7 @@ class Home extends React.Component {
                         .filter((obj) => obj.pid === this.state.pid)
                         .map((record) => {
                           return (
-                            <h6 key={record.cid}>
+                            <h6 key={record.cid} className='username' onClick={() => this.goToUserProfile(record.id)}>
                               <span style={{ fontWeight: 'bold' }}>
                                 {' '}
                                 {record.last_name}

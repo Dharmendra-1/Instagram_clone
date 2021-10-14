@@ -153,16 +153,30 @@ class Profile extends React.Component {
                 </Modal.Header>
 
                 <Modal.Body>
-                  <input
-                    type='file'
-                    name='filename'
-                    onChange={(e) =>
-                      this.setState({ image: e.target.files[0] })
-                    }
-                  />
-                  <button onClick={this.toggleModal}>Cancel</button>
+                  <div className='file-field input-field browse'>
+                      <label className='custom-file-upload'>
+                        <input
+                          type='file'
+                          onChange={(e) =>
+                            this.setState({ image: e.target.files[0] })
+                          }
+                        />
+                        Browse Files
+                      </label>
+                  </div>
+                  <button
+                    className='btn waves-effect waves-light #2196f3 blue'
+                    onClick={this.toggleModal}
+                  >
+                    Cancel
+                  </button>
 
-                  <button onClick={this.postDetails}>Upload</button>
+                  <button
+                    className='btn waves-effect waves-light #2196f3 blue'
+                    onClick={this.postDetails}
+                  >
+                    Upload
+                  </button>
                 </Modal.Body>
               </Modal>
             </section>
@@ -188,11 +202,7 @@ class Profile extends React.Component {
             if (obj.img) {
               return (
                 <div key={obj.pid} className='item-container'>
-                  <img
-                    className='item'
-                    src={obj.img}
-                    alt='post'
-                  />
+                  <img className='item' src={obj.img} alt='post' />
                 </div>
               );
             } else {
