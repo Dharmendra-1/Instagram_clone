@@ -70,20 +70,19 @@ class Home extends React.Component {
   };
 
   submitForm = async (pid) => {
-    if (this.state.comment !== '') {
-      await fetch('http://localhost:4000/user/comment', {
-        method: 'POST',
-        mode: 'cors',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          comment: this.state.comment,
-          id: this.state.loginId,
-          pid: pid,
-        }),
-      });
-    }
+    await fetch('http://localhost:4000/user/comment', {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        comment: this.state.comment,
+        id: this.state.loginId,
+        pid: pid,
+      }),
+    });
+
     this.setState({ ...this.state, comment: '' });
   };
 
@@ -214,10 +213,12 @@ class Home extends React.Component {
                     <form
                       onSubmit={(e) => {
                         e.preventDefault();
-                        this.submitForm(data.pid);
-                        setTimeout(() => {
-                          this.getComments();
-                        }, 200);
+                        if (this.state.comment !== '') {
+                          this.submitForm(data.pid);
+                          setTimeout(() => {
+                            this.getComments();
+                          }, 200);
+                        }
                       }}
                     >
                       <div className='commentsection'>
