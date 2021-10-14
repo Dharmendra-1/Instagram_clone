@@ -85,7 +85,7 @@ class UserProfile extends React.Component {
       const postData = await res.json();
 
       let posts = postData.filter((obj) => obj.id === this.state.userId);
-      console.log(posts);
+
       this.setState({
         ...this.state,
         post: posts,
@@ -141,7 +141,7 @@ class UserProfile extends React.Component {
     const dataOfUser = await fetch('http://localhost:4000/user/followers');
     const orginalData = await dataOfUser.json();
     const followings = orginalData.reduce((currArr, obj) => {
-      if (obj.fid === this.state.loginId) {
+      if (obj.id === this.state.userId) {
         if (obj.follow === 1) {
           currArr.push(obj);
         }
@@ -150,7 +150,7 @@ class UserProfile extends React.Component {
     }, []);
 
     const follower = orginalData.reduce((currArr, obj) => {
-      if (obj.id === this.state.loginId) {
+      if (obj.fid === this.state.userId) {
         if (obj.follow === 1) {
           currArr.push(obj);
         }
