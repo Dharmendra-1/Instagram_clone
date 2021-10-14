@@ -66,7 +66,7 @@ class CreatePost extends React.Component {
           className='btn check-it right'
           onClick={() => this.postDetails()}
         >
-          <i className='medium material-icons check'>check</i>
+          <i className='large material-icons check'>check</i>
         </button>
         <div className='file-field input-field browse'>
           <div className='btn #64b5f6 blue darken-1'>
@@ -88,7 +88,7 @@ class CreatePost extends React.Component {
         />
         <input
           type='text'
-          placeholder='body'
+          placeholder='#tag'
           value={this.state.body}
           onChange={(e) => this.setState({ body: e.target.value })}
         />

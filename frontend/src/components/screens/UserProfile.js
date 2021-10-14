@@ -85,10 +85,12 @@ class UserProfile extends React.Component {
       const postData = await res.json();
 
       let posts = postData.filter((obj) => obj.id === this.state.userId);
+      console.log(posts);
       this.setState({
         ...this.state,
         post: posts,
         userName: posts[0].last_name,
+        firstName: posts[0].first_name,
       });
     } catch (err) {
       console.error(err.message);
@@ -179,29 +181,32 @@ class UserProfile extends React.Component {
 
   render() {
     return (
-      <div style={{ maxWidth: '550px', margin: '0px auto' }}>
+      <div style={{ maxWidth: '953px', margin: '0px auto' }}>
         <div className='profile'>
-          <div className='profile-image'>
+          <div className='profile-image1'>
             <section>
               <img alt='profile' src={this.state.url} />
             </section>
           </div>
-          <div>
-            <h4>{this.state.userName}</h4>
-            <div className='user-stats'>
-              <h6>{this.state.post.length} posts</h6>
-              <h6>{this.state.followers.length} follower</h6>
-              <h6>{this.state.following.length} following</h6>
-            </div>
+          <div className='userdetails'>
+            <h4>{this.state.userName}
             {!this.state.follow ? (
-              <button className='btn' onClick={this.handleFollow}>
-                Follow
+              <button className='btn waves-effect waves-light #2196f3 blue' onClick={this.handleFollow}>
+                <h4>Follow</h4>
               </button>
             ) : (
-              <button className='btn' onClick={this.handleFollow}>
-                Unfollow
+              <button className='btn waves-effect waves-light unfollow' onClick={this.handleFollow}>
+                <i className='medium material-icons'>person_outline</i>
+                <i className='small material-icons'>check</i>
               </button>
             )}
+            </h4>
+            <div className='user-stats'>
+              <h6>{this.state.post.length} posts</h6>
+              <h6>{this.state.followers.length} followers</h6>
+              <h6>{this.state.following.length} following</h6>
+            </div>
+              <p>{this.state.firstName}</p>
           </div>
         </div>
         <div className='gallery'>
