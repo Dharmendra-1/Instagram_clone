@@ -5,6 +5,10 @@
   border-bottom: 1px solid #796f60;
 }
 
+/* .nav-wrapper i{
+  margin: 0 5%;
+} */
+
 a {
   color: #e2dcdf !important;
 }
@@ -12,6 +16,24 @@ a {
 .brand-logo {
   font-family: 'Grand Hotel', cursive;
   margin-left: 35px;
+}
+
+.search{
+  width:20%;
+  margin-left: 40%;
+}
+
+.search input[type=text]{
+  border: 0.5px solid #796f607c;
+  font-family:Arial, 'FontAwesome';
+  border-radius: 4px;
+  height: 37px;
+}
+
+.search input[type=text]:not(.browser-default):focus:not([readonly]){
+  border-bottom: 1px solid #796f60;
+  -webkit-box-shadow: 0 1px 0 0 #796f607c;
+  box-shadow: 0 1px 0 0 #796f607c;
 }
 
 #nav-mobile {
@@ -34,6 +56,7 @@ body {
   color: #f8f5f2;
   background-color: #080b0c;
   border: 1px solid #796f60;
+  border-radius: 7px;
 }
 
 .auth-card .input-field input {
@@ -57,6 +80,7 @@ body {
   color: #f8f5f2;
   background-color: #080b0c;
   border: 1px solid #796f60;
+  border-radius: 7px;
 }
 
 .auth-card1 h5 {
@@ -91,10 +115,19 @@ h5 a {
   z-index: -1;
 }
 
-.item {
+.item-container{
   width: 30%;
   margin: 30px 15px 15px 15px;
   height: 285.98px;
+  border: 0.5px solid #796f607c;
+}
+
+.item {
+  object-fit: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100%;
+  width: 100%;
 }
 
 /* .home{
@@ -110,6 +143,7 @@ h5 a {
   margin: 40px auto;
   font-weight: bold;
   border: 1px solid #796f60;
+  border-radius: 7px;
 }
 
 .postheadername {
@@ -140,7 +174,6 @@ h5 a {
 
 .card-image {
   object-fit: contain;
-  position: absolute;
   background-position: center;
   background-repeat: no-repeat;
   height: 100%;
@@ -280,7 +313,8 @@ textarea {
 }
 
 .profile-pic-modal {
-  margin-top: -300px;
+  position: absolute;
+  top: 250px;
   max-width: 616px;
   padding: 20px;
   text-align: center;
@@ -358,6 +392,7 @@ textarea {
   text-align: center;
   background-color: #080b0c;
   border: 1px solid #796f60;
+  border-radius: 7px;
 }
 
 .create-post input[type='text'] {

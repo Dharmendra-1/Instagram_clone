@@ -143,7 +143,11 @@ class Profile extends React.Component {
                 )}
               </button>
 
-              <Modal show={this.state.toggle} animation={false} className='modal fade profile-pic-modal'>
+              <Modal
+                show={this.state.toggle}
+                animation={false}
+                className='modal fade profile-pic-modal'
+              >
                 <Modal.Header>
                   <Modal.Title>Upload Profile Picture</Modal.Title>
                 </Modal.Header>
@@ -183,7 +187,14 @@ class Profile extends React.Component {
           {this.state.post.map((obj) => {
             if (obj.img) {
               return (
-                <img className='item' key={obj.pid} src={obj.img} alt='post' />
+                <div className='item-container'>
+                  <img
+                    className='item'
+                    key={obj.pid}
+                    src={obj.img}
+                    alt='post'
+                  />
+                </div>
               );
             } else {
               return <div key={obj.pid}></div>;

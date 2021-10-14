@@ -49,6 +49,16 @@ class NavBar extends React.Component {
               </Dropdown>
             </li>
           </ul>
+          <div className='search'>
+            <link
+              href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'
+              rel='stylesheet'
+            />
+            <input
+              type='text'
+              placeholder=' &#xF002; Search'
+            />
+          </div>
         </div>
       </nav>
     );

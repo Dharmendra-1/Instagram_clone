@@ -189,30 +189,39 @@ class UserProfile extends React.Component {
             </section>
           </div>
           <div className='userdetails'>
-            <h4>{this.state.userName}
-            {!this.state.follow ? (
-              <button className='btn waves-effect waves-light #2196f3 blue' onClick={this.handleFollow}>
-                <h4>Follow</h4>
-              </button>
-            ) : (
-              <button className='btn waves-effect waves-light unfollow' onClick={this.handleFollow}>
-                <i className='medium material-icons'>person_outline</i>
-                <i className='small material-icons'>check</i>
-              </button>
-            )}
+            <h4>
+              {this.state.userName}
+              {!this.state.follow ? (
+                <button
+                  className='btn waves-effect waves-light #2196f3 blue'
+                  onClick={this.handleFollow}
+                >
+                  <h4>Follow</h4>
+                </button>
+              ) : (
+                <button
+                  className='btn waves-effect waves-light unfollow'
+                  onClick={this.handleFollow}
+                >
+                  <i className='medium material-icons'>person_outline</i>
+                  <i className='small material-icons'>check</i>
+                </button>
+              )}
             </h4>
             <div className='user-stats'>
               <h6>{this.state.post.length} posts</h6>
               <h6>{this.state.followers.length} followers</h6>
               <h6>{this.state.following.length} following</h6>
             </div>
-              <p>{this.state.firstName}</p>
+            <p>{this.state.firstName}</p>
           </div>
         </div>
         <div className='gallery'>
           {this.state.post.map((obj) => {
             return (
-              <img className='item' key={obj.pid} src={obj.img} alt='post' />
+              <div className='item-container'>
+                <img className='item' key={obj.pid} src={obj.img} alt='post' />
+              </div>
             );
           })}
         </div>

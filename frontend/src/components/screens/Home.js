@@ -193,17 +193,18 @@ class Home extends React.Component {
                     </div>
                     <div style={{ fontWeight: 'normal' }}>{data.title}</div>
                   </div>
+                  {/* View all comments... */}
                   <div className='showcomment'>
                     {this.state.userComment
                       .filter((obj) => obj.pid === data.pid)
                       .map((record) => {
                         return (
                           <h6 key={record.cid}>
-                            <span style={{ fontWeight: '500' }}>
+                            <span style={{ fontWeight: 'bold' }}>
                               {' '}
                               {record.last_name}
-                            </span>{' '}
-                            {record.comment}
+                            </span>
+                            <span>&nbsp;&nbsp;&nbsp;{record.comment}</span>
                           </h6>
                         );
                       })}
