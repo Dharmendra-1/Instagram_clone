@@ -166,6 +166,7 @@ class Home extends React.Component {
       if (idOfMatch.indexOf(obj.id) !== -1) {
         return obj;
       }
+      return null;
     });
 
     this.setState({
