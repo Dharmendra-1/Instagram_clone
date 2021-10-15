@@ -11,7 +11,6 @@ class Explore extends React.Component {
       comment: '',
       userComment: [],
       postLike: [],
-      // toggleLike: false,
       toggleComments: false,
       pid: null,
       userLike: [],

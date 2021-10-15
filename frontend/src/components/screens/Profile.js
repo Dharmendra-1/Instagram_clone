@@ -190,7 +190,6 @@ class Profile extends React.Component {
 
               <Modal
                 show={this.state.toggle}
-                animation={false}
                 className='modal fade profile-pic-modal'
               >
                 <Modal.Header className='modal-header'>

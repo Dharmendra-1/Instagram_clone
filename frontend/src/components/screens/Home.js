@@ -11,7 +11,6 @@ class Home extends React.Component {
       comment: '',
       userComment: [],
       postLike: [],
-      // toggleLike: false,
       toggleComments: false,
       pid: null,
       userLike: [],
@@ -303,7 +302,6 @@ class Home extends React.Component {
 
                   <Modal
                     show={this.state.toggleComments}
-                    animation={false}
                     className='comment-modal'
                   >
                     <Modal.Header className='modal-header'>
