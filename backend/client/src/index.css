@@ -618,6 +618,8 @@ textarea {
   z-index: 1;
   background-color: #232729;
   border-radius: 5px;
+  height: 400px;
+  overflow: scroll;
 }
 
 .divider {
