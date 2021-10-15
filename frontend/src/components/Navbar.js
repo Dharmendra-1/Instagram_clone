@@ -42,11 +42,17 @@ class NavBar extends React.Component {
   };
 
   handleUserProfile = (id) => {
-    if (this.state.loginId !== id) localStorage.setItem('userId', id);
+    if (id === this.state.loginId) {
+      this.props.history.push(`/profile`);
+    } else {
+      this.props.history.push(`/profile/user`);
+    }
+    localStorage.setItem('userId', id);
   };
 
   componentDidMount() {
     this.getUser();
+    this.loginUserId();
   }
 
   render() {
@@ -125,15 +131,16 @@ class NavBar extends React.Component {
                       }
                       return null;
                     })
-                    .map((obj) => {
+                    .map((obj, index) => {
                       return (
                         <li
-                          key={obj.id}
+                          className='listStyle'
+                          key={index}
                           onClick={() => {
                             this.handleUserProfile(obj.id);
                           }}
                         >
-                          <Link to='/profile/user'>{obj.last_name}</Link>
+                          {obj.last_name}
                         </li>
                       );
                     })}

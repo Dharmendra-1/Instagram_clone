@@ -544,6 +544,10 @@ textarea {
   cursor: pointer;
 }
 
+.listStyle {
+  list-style: none;
+}
+
 @media only screen and (max-width: 600px) {
   #dropdown-basic {
     margin-top: -3px;
