@@ -9,7 +9,6 @@ require('dotenv').config();
 
 const createTable = async () => {
   try {
-    await pool.connect();
     await pool.query(queries.createTable);
     await pool.query(queries.postTable);
     await pool.query(queries.followerTable);
