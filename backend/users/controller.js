@@ -2,6 +2,11 @@ const pool = require('../db');
 const queries = require('./queries');
 const bcrypt = require('bcrypt');
 const jwtGenerator = require('./utils/jwtGenerator');
+const crypto = require('crypto');
+const nodemailer = require('nodemailer');
+const sendgridTransport = require('nodemailer-sendgrid-transport');
+const SENDGRID_API =
+  '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';
 
 const createTable = async () => {
   try {
@@ -16,6 +21,14 @@ const createTable = async () => {
 };
 
 createTable();
+
+const transporter = nodemailer.createTransport(
+  sendgridTransport({
+    auth: {
+      api_key: SENDGRID_API,
+    },
+  })
+);
 
 const getUser = async (request, response, next) => {
   try {
@@ -42,9 +55,74 @@ const addUser = async (request, response) => {
       ]);
 
       const jwtToken = jwtGenerator(newUser.rows[0].user_email);
-
+      transporter.sendMail({
+        to: newUser.rows[0].user_email,
+        from: 'juned.khan.2542@gmail.com',
+        subject: 'signup success',
+        html: '<h1>welcome to instagram</h1>',
+      });
       return response.json({ jwtToken });
     }
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+const resetPassword = async (req, res) => {
+  const { email } = req.body;
+  try {
+    crypto.randomBytes(32, async (err, buffer) => {
+      if (err) {
+        console.log(err);
+      }
+      const token = buffer.toString('hex');
+
+      let userExists = await pool.query(queries.checkEmailExists, [email]);
+      if (!userExists.rows.length) {
+        return res
+          .status(422)
+          .json({ error: 'User dont exists with that email' });
+      } else {
+        resetToken = token;
+        expireToken = Date.now() + 3600000;
+
+        await pool.query(queries.setToken, [resetToken, expireToken, email]);
+
+        transporter.sendMail({
+          to: email,
+          from: 'juned.khan.2542@gmail.com',
+          subject: 'password reset',
+          html: `
+          <p>You requested for password reset</p>
+          <h5>click in this <a href="http://localhost:3000/newPassword/${token}" target="_blank">link</a> to reset password</h5>
+          `,
+        });
+        res.json({ message: 'check your email' });
+      }
+    });
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+const newPassword = async (req, res) => {
+  const { newPassword, sentToken } = req.body;
+
+  try {
+    const check = await pool.query(queries.checkReset, [sentToken, Date.now()]);
+
+    if (!check) {
+      return res.status(422).json({ error: 'Try again session expired' });
+    }
+
+    await pool.query(queries.updatePassword, [
+      newPassword,
+      undefined,
+      undefined,
+      check.rows[0]['id'],
+    ]);
+
+    res.json({ message: 'password updated success' });
   } catch (error) {
     throw new Error(error);
   }
@@ -258,4 +336,6 @@ module.exports = {
   deleteComment,
   getLike,
   deleteLike,
+  resetPassword,
+  newPassword,
 };

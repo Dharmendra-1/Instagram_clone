@@ -96,7 +96,7 @@ class Login extends React.Component {
               </div>
             </div>
             <h4>
-              <Link to='/'>Forgot password?</Link>
+              <Link to='/resetPassword'>Forgot password?</Link>
             </h4>
           </form>
         </div>
