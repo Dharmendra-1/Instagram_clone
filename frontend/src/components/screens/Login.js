@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import M from 'materialize-css';
 
 class Login extends React.Component {
   constructor(props) {
@@ -41,8 +42,16 @@ class Login extends React.Component {
         localStorage.setItem('token', user.jwtToken);
         this.props.history.push('/home');
         this.state.setIsAuthenticated(true);
+
+        M.toast({
+          html: 'Login successfully',
+          classes: '#43a047 green darken-1',
+        });
       } else {
-        alert('Invalid login credentials!');
+        M.toast({
+          html: 'Invalid login credentials!',
+          classes: '#c62828 red darken-3',
+        });
       }
     } catch (err) {
       console.error(err.message);

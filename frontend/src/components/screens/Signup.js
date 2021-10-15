@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import M from 'materialize-css';
 
 class Signup extends React.Component {
   constructor(props) {
@@ -31,12 +32,16 @@ class Signup extends React.Component {
       const user = await res.json();
 
       if (user) {
-        if (user.jwtToken) {
-          localStorage.setItem('token', user.jwtToken);
-          this.props.history.push('/');
-        }
+        M.toast({
+          html: 'Signup successfully',
+          classes: '#43a047 green darken-1',
+        });
+        this.props.history.push('/');
       } else {
-        alert('Email already exists!');
+        M.toast({
+          html: 'Email already exists!',
+          classes: '#c62828 red darken-3',
+        });
       }
     } catch (err) {
       console.error(err.message);

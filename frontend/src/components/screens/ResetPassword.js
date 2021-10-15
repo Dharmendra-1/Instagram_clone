@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import M from 'materialize-css';
 
 class ResetPassword extends React.Component {
   constructor(props) {
@@ -23,12 +24,15 @@ class ResetPassword extends React.Component {
       });
 
       const data = await res.json();
-      console.log(data);
-      if (data.message) {
-        alert(data.message);
-        this.props.history.push('/');
+
+      if (data.error) {
+        M.toast({ html: data.error, classes: '#c62828 red darken-3' });
       } else {
-        alert(data.error);
+        M.toast({
+          html: data.message,
+          classes: '#43a047 green darken-1',
+        });
+        this.props.history.push('/');
       }
     } catch (error) {
       console.log(error);

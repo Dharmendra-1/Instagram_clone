@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import M from 'materialize-css';
 
 class Logout extends Component {
   constructor(props) {
@@ -13,6 +14,10 @@ class Logout extends Component {
   handleLogout = () => {
     localStorage.removeItem('token');
     this.state.setIsAuthenticated(false);
+    M.toast({
+      html: 'Logout successfully',
+      classes: '#43a047 green darken-1',
+    });
   };
 
   render() {

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Modal } from 'react-bootstrap';
+import M from 'materialize-css';
 
 class Profile extends React.Component {
   constructor(props) {
@@ -41,7 +42,13 @@ class Profile extends React.Component {
       );
 
       const fileData = await response.json();
-      window.location.reload();
+      M.toast({
+        html: 'Profile image updated!',
+        classes: '#43a047 green darken-1',
+      });
+      setTimeout(() => {
+        window.location.reload();
+      }, 500);
 
       await fetch('http://localhost:4000/user/img', {
         method: 'POST',

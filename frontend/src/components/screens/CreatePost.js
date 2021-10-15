@@ -1,4 +1,5 @@
 import React from 'react';
+import M from 'materialize-css';
 
 class CreatePost extends React.Component {
   constructor() {
@@ -40,7 +41,14 @@ class CreatePost extends React.Component {
           id: this.state.id,
         }),
       });
-      window.location.reload();
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 500);
+      M.toast({
+        html: 'New post created',
+        classes: '#43a047 green darken-1',
+      });
     } catch (error) {
       throw new Error(error);
     }
