@@ -218,14 +218,18 @@ class UserProfile extends React.Component {
         </div>
         <div className='gallery'>
           {this.state.post.map((obj) => {
-            if(obj.img){
+            if (obj.img) {
               return (
                 <div className='item-container'>
-                  <img className='item' key={obj.pid} src={obj.img} alt='post' />
+                  <img
+                    className='item'
+                    key={obj.pid}
+                    src={obj.img}
+                    alt='post'
+                  />
                 </div>
               );
-            }
-            else{
+            } else {
               return null;
             }
           })}

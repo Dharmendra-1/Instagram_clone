@@ -158,7 +158,7 @@ class Profile extends React.Component {
                       Upload Photo
                     </div>
                     <br/>
-                    <label className='custom-file-upload files'>
+                    <label className='custom-file-upload'>
                       <input
                         type='file'
                         onChange={(e) =>

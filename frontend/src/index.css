@@ -155,6 +155,7 @@ h5 a {
   font-weight: bold;
   border: 1px solid #796f60;
   border-radius: 7px;
+  overflow: hidden;
 }
 
 .postheadername {
@@ -242,7 +243,7 @@ h5 a {
 }
 
 .comment {
-  width: 615px;
+  width: 650px;
   margin-top: 43px;
   margin-left: -10px;
   border-top: 1px solid #796f60;
@@ -271,7 +272,7 @@ h5 a {
 
 .commentsection .btn {
   align-self: center;
-  margin-right: 5px;
+  margin-left: -110px;
   background-color: #080b0c;
   color: #2196f3;
   font-size: 14px;
@@ -343,7 +344,7 @@ textarea {
   z-index: 1;
   overflow: hidden;
   opacity: 0.9;
-  box-shadow: 0px 20px 20px #080b0c28;
+  box-shadow: 0px 0px 20px #080b0c28;
 }
 
 .profile-pic-modal input[type='file'] {
@@ -414,9 +415,10 @@ textarea {
   border-radius: 20px;
   z-index: 1;
   overflow: hidden;
-  opacity: 0.35;
-  box-shadow: 0px 20px 20px #080b0c28;
+  opacity: 0.7;
+  box-shadow: 0px 0px 20px #080b0c28;
 }
+
 
 .modal-header {
   display: flex;
@@ -446,12 +448,8 @@ textarea {
   padding-bottom: 11px;
 }
 
-textarea {
-  color: #f8f5f2;
-}
-
-.comment-modal .comment textarea {
-  height: 50px;
+.comment-modal .commentsection {
+  margin-right: -35px;
 }
 
 .comment-modal .comment textarea:focus {
@@ -461,7 +459,6 @@ textarea {
 
 .comment-modal .commentsection .btn {
   align-self: center;
-  margin-right: 10px;
   background-color: #080b0c;
   color: #2196f3;
   font-size: 14px;
@@ -596,6 +593,10 @@ textarea {
 
 .username {
   cursor: pointer;
+}
+
+.listStyle {
+  list-style: none;
 }
 
 @media only screen and (max-width: 600px) {
