@@ -11,6 +11,7 @@ class NavBar extends React.Component {
       setIsAuthenticated,
       searchInput: '',
       userData: [],
+      loginId: '',
     };
   }
 
@@ -23,6 +24,25 @@ class NavBar extends React.Component {
     } catch (err) {
       console.error(err.message);
     }
+  };
+
+  loginUserId = async () => {
+    try {
+      const res = await fetch('http://localhost:4000/dashboard/', {
+        method: 'POST',
+        headers: { jwt_token: localStorage.token },
+      });
+      const parseData = await res.json();
+      this.setState({
+        loginId: parseData.id,
+      });
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
+  handleUserProfile = (id) => {
+    if (this.state.loginId !== id) localStorage.setItem('userId', id);
   };
 
   componentDidMount() {
@@ -43,6 +63,11 @@ class NavBar extends React.Component {
               <li>
                 <Link to='/home'>
                   <i className='medium material-icons'>home</i>
+                </Link>
+              </li>
+              <li>
+                <Link to='/explore'>
+                  <i className='medium material-icons'>explore</i>
                 </Link>
               </li>
               <li>
@@ -90,7 +115,7 @@ class NavBar extends React.Component {
                   {this.state.userData
                     .filter((obj) => {
                       if (this.state.searchInput === '') {
-                        return obj;
+                        return null;
                       } else if (
                         obj.last_name
                           .toLowerCase()
@@ -102,8 +127,13 @@ class NavBar extends React.Component {
                     })
                     .map((obj) => {
                       return (
-                        <li key={obj.id}>
-                          <Link to='/profile'>{obj.last_name}</Link>
+                        <li
+                          key={obj.id}
+                          onClick={() => {
+                            this.handleUserProfile(obj.id);
+                          }}
+                        >
+                          <Link to='/profile/user'>{obj.last_name}</Link>
                         </li>
                       );
                     })}

@@ -330,40 +330,91 @@ textarea {
 
 .profile-pic-modal {
   position: absolute;
-  top: 250px;
-  max-width: 616px;
+  top: 200px;
+  max-width: 400px;
+  height: 222px;
   padding: 20px;
   text-align: center;
   color: #f8f5f2;
   background-color: #080b0c;
   border: 1px solid #796f60;
+  border-radius: 20px;
   z-index: 1;
 }
 
-.profile-pic-modal{
-  position: absolute;
-  top: 250px;
-  max-width: 616px;
-  padding: 20px;
-  text-align: center;
-  color: #f8f5f2;
-  background-color: #080b0c;
-  border: 1px solid #796f60;
-  z-index: 1;
-}
-
-.profile-pic-modal input[type="file"] {
+.profile-pic-modal input[type='file'] {
   display: none;
 }
 
 .comment-modal {
   position: fixed;
-  top: 150px;
-  height: 25%;
-  width: 640px;
-  background-color: #fff;
+  width: 620px;
+  top: 200px;
+  left: -15px;
+  height: auto;
+  padding-bottom: 20px;
+  text-align: left;
+  color: #f8f5f2;
+  background-color: #080b0c;
   border: 1px solid #796f60;
+  border-radius: 20px;
   z-index: 1;
+  overflow: hidden;
+  opacity: 0.35;
+  box-shadow: 0px 20px 20px #080b0c28;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 20px;
+  margin-top: -8px;
+  margin-right: -10px;
+  padding-left: 11px;
+}
+
+.modal-header i {
+  font-size: 15px;
+  margin-top: -10px;
+  border-radius: 5px;
+  color: whitesmoke;
+}
+
+.modal-header .btn {
+  background-color: #080b0c;
+  border: 1px solid #796f60;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.comment-modal .modal-content {
+  padding-left: 11px;
+  padding-bottom: 11px;
+}
+
+textarea {
+  color: #f8f5f2;
+}
+
+.comment-modal .comment textarea {
+  height: 50px;
+}
+
+.comment-modal .comment textarea:focus {
+  outline: none !important;
+  border-color: #796f60;
+}
+
+.comment-modal .commentsection .btn {
+  align-self: center;
+  margin-right: 10px;
+  background-color: #080b0c;
+  color: #2196f3;
+  font-size: 14px;
+}
+
+.comment-modal .modal-comment {
+  padding-left: 11px;
 }
 
 .userdetails {
@@ -489,7 +540,7 @@ textarea {
   background-color: #232729;
 }
 
-.username{
+.username {
   cursor: pointer;
 }
 

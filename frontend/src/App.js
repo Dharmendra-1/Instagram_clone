@@ -6,8 +6,10 @@ import Signup from './components/screens/Signup';
 import Login from './components/screens/Login';
 import Profile from './components/screens/Profile';
 import Home from './components/screens/Home';
+import Explore from './components/screens/Explore';
 import CreatePost from './components/screens/CreatePost';
 import UserProfile from './components/screens/UserProfile';
+
 
 class App extends React.Component {
   constructor(props) {
@@ -63,6 +65,15 @@ class App extends React.Component {
 
           {this.state.isAuthenticated && <Home />}
           {!this.state.isAuthenticated && <Redirect to='/home' />}
+        </Route>
+
+        <Route exact path='/explore'>
+          {this.state.isAuthenticated && (
+            <NavBar setIsAuthenticated={this.setIsAuthenticated.bind(this)} />
+          )}
+
+          {this.state.isAuthenticated && <Explore />}
+          {!this.state.isAuthenticated && <Redirect to='/explore' />}
         </Route>
 
         <Route exact path='/profile'>

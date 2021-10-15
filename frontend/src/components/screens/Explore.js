@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Modal } from 'react-bootstrap';
 
-class Home extends React.Component {
+class Explore extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -363,4 +363,4 @@ class Home extends React.Component {
   }
 }
 
-export default withRouter(Home);
+export default withRouter(Explore);
