@@ -282,7 +282,7 @@ class Home extends React.Component {
                     <div className='title'>
                       <div>{data.title}</div>
                     </div>
-                    <br/>
+                    <br />
                     <div className='body'>
                       <div>&nbsp;&nbsp;{data.body}</div>
                     </div>
@@ -299,7 +299,10 @@ class Home extends React.Component {
                               className='username'
                               onClick={() => this.goToUserProfile(record.id)}
                             >
-                              <div style={{color: 'gray'}}>Latest comment</div><br />
+                              <div style={{ color: 'gray' }}>
+                                Latest comment
+                              </div>
+                              <br />
                               <span style={{ fontWeight: 'bold' }}>
                                 {' '}
                                 {record.last_name}
@@ -411,7 +414,18 @@ class Home extends React.Component {
               </div>
             );
           } else {
-            return null;
+            return (
+              <div
+                style={{
+                  color: 'gray',
+                  position: 'absolute',
+                  top: '40%',
+                  left: '31%'
+                }}
+              >
+                <h1>No posts to show...</h1>
+              </div>
+            );
           }
         })}
       </div>

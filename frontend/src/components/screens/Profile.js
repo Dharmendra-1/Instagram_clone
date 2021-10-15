@@ -1,6 +1,7 @@
 import React from 'react';
 import { Modal } from 'react-bootstrap';
 import M from 'materialize-css';
+import { withRouter } from 'react-router-dom';
 
 class Profile extends React.Component {
   constructor(props) {
@@ -172,6 +173,11 @@ class Profile extends React.Component {
     }
   };
 
+  goToUserProfile = (pid) => {
+    this.props.history.push('/profile/user');
+    localStorage.setItem('userId', pid);
+  };
+
   componentDidMount() {
     this.userData();
     setTimeout(() => {
@@ -230,18 +236,32 @@ class Profile extends React.Component {
           <div className='userdetails'>
             <h4>{this.state.userName}</h4>
             <div className='user-stats'>
-              <h6>
-                {(this.state.post.length &&
-                  this.state.post[0].pid &&
-                  this.state.post.length) ||
-                  0}{' '}
-                posts
+              <h6 style={{ display: 'flex' }}>
+                <div style={{ fontWeight: 'bold' }}>
+                  {(this.state.post.length &&
+                    this.state.post[0].pid &&
+                    this.state.post.length) ||
+                    0}
+                </div>
+                <div>&nbsp;posts</div>
               </h6>
-              <h6 onClick={this.handleToggleFollowers}>
-                {this.state.followers.length} followers
+              <h6
+                style={{ display: 'flex' }}
+                onClick={this.handleToggleFollowers}
+              >
+                <div style={{ fontWeight: 'bold' }}>
+                  {this.state.followers.length}
+                </div>
+                <div>&nbsp;followers</div>
               </h6>
-              <h6 onClick={this.handleToggleFollowing}>
-                {this.state.following.length} following
+              <h6
+                style={{ display: 'flex' }}
+                onClick={this.handleToggleFollowing}
+              >
+                <div style={{ fontWeight: 'bold' }}>
+                  {this.state.following.length}
+                </div>
+                <div>&nbsp;following</div>
               </h6>
             </div>
             <p>{this.state.firstName}</p>
@@ -261,46 +281,69 @@ class Profile extends React.Component {
           })}
         </div>
 
-        <Modal
-          show={this.state.toggleFollowing}
-          animation={false}
-          className='modal fade profile-pic-modal'
-        >
-          <Modal.Header>
-            <Modal.Title>Followings</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            {this.state.followingList.map((data) => {
-              return <div key={data.id}>{data.last_name}</div>;
-            })}
-          </Modal.Body>
-
-          <button onClick={this.handleToggleFollowing} type='btn'>
-            close
-          </button>
-        </Modal>
-
-        <Modal
-          show={this.state.toggleFollowers}
-          animation={false}
-          className='modal fade profile-pic-modal'
-        >
-          <Modal.Header>
-            <Modal.Title>Followers</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            {this.state.followersList.map((data) => {
-              return <div key={data.id}>{data.last_name}</div>;
-            })}
-          </Modal.Body>
-
-          <button onClick={this.handleToggleFollowers} type='btn'>
-            close
-          </button>
-        </Modal>
+        <div className='follow'>
+          <Modal
+            show={this.state.toggleFollowing}
+            className='modal fade profile-pic-modal'
+          >
+            <Modal.Header>
+              <div className='follow-head'>
+                <div className='follow-title'>Following</div>
+                <div>
+                  <button onClick={this.handleToggleFollowing} type='btn'>
+                    <i className='material-icons'>close</i>
+                  </button>
+                </div>
+              </div>
+            </Modal.Header>
+            <div className='follow-body'>
+              <br />
+              {this.state.followingList.map((data) => {
+                return (
+                  <div
+                    onClick={() => this.goToUserProfile(data.id)}
+                    key={data.id}
+                  >
+                    {data.last_name}
+                  </div>
+                );
+              })}
+            </div>
+          </Modal>
+        </div>
+        <div className='follow'>
+          <Modal
+            show={this.state.toggleFollowers}
+            className='modal fade profile-pic-modal'
+          >
+            <Modal.Header>
+              <div className='follow-head'>
+                <div className='follow-title'>Followers</div>
+                <div>
+                  <button onClick={this.handleToggleFollowers} type='btn'>
+                    <i className='material-icons'>close</i>
+                  </button>
+                </div>
+              </div>
+            </Modal.Header>
+            <div className='follow-body'>
+              <br />
+              {this.state.followersList.map((data) => {
+                return (
+                  <div
+                    onClick={() => this.goToUserProfile(data.id)}
+                    key={data.id}
+                  >
+                    {data.last_name}
+                  </div>
+                );
+              })}
+            </div>
+          </Modal>
+        </div>
       </div>
     );
   }
 }
 
-export default Profile;
+export default withRouter(Profile);
