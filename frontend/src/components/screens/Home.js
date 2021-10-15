@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Modal } from 'react-bootstrap';
+import M from 'materialize-css';
 
 class Home extends React.Component {
   constructor(props) {
@@ -75,6 +76,10 @@ class Home extends React.Component {
       setTimeout(() => {
         this.getFollowerDetails();
       }, 200);
+      M.toast({
+        html: 'Post Deleted',
+        classes: '#43a047 green darken-1',
+      });
     } catch (err) {
       console.error(err.message);
     }
