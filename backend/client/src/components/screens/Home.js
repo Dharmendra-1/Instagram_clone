@@ -413,19 +413,7 @@ class Home extends React.Component {
               </div>
             );
           } else {
-            return (
-              <div
-                style={{
-                  color: 'gray',
-                  position: 'absolute',
-                  zIndex: '-1',
-                  top: '40%',
-                  left: '31%',
-                }}
-              >
-                <h1>No posts to show...</h1>
-              </div>
-            );
+            return null;
           }
         })}
       </div>
