@@ -71,7 +71,10 @@ class Home extends React.Component {
         method: 'delete',
       });
 
-      window.location.reload();
+      this.getUser();
+      setTimeout(() => {
+        this.getFollowerDetails();
+      }, 200);
     } catch (err) {
       console.error(err.message);
     }
@@ -189,7 +192,9 @@ class Home extends React.Component {
     this.loginUserId();
     this.getComments();
     this.getLike();
-    this.getFollowerDetails();
+    setTimeout(() => {
+      this.getFollowerDetails();
+    }, 200);
   }
 
   render() {
