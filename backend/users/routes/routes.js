@@ -48,4 +48,7 @@ router.post('/defaultFollow', controller.defaultFollow);
 
 router.get('/getComment', controller.getComment);
 
+router.post('/resetPassword', controller.resetPassword);
+router.post('/newPassword', controller.newPassword);
+
 module.exports = router;

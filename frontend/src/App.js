@@ -9,6 +9,8 @@ import Home from './components/screens/Home';
 import Explore from './components/screens/Explore';
 import CreatePost from './components/screens/CreatePost';
 import UserProfile from './components/screens/UserProfile';
+import ResetPassword from './components/screens/ResetPassword';
+import NewPassword from './components/screens/NewPassword';
 
 
 class App extends React.Component {
@@ -56,6 +58,12 @@ class App extends React.Component {
         </Route>
         <Route exact path='/signup'>
           <Signup />
+        </Route>
+        <Route exact path='/resetPassword'>
+          <ResetPassword />
+        </Route>
+        <Route exact path='/newPassword/:token'>
+          <NewPassword />
         </Route>
 
         <Route exact path='/home'>
