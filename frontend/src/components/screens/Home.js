@@ -274,7 +274,13 @@ class Home extends React.Component {
                     >
                       {data.last_name}
                     </div>
-                    <div style={{ fontWeight: 'normal' }}>{data.title}</div>
+                    <div className='title'>
+                      <div>{data.title}</div>
+                    </div>
+                    <br/>
+                    <div className='body'>
+                      <div>&nbsp;&nbsp;{data.body}</div>
+                    </div>
                   </div>
 
                   <div className='showcomment'>
@@ -288,6 +294,7 @@ class Home extends React.Component {
                               className='username'
                               onClick={() => this.goToUserProfile(record.id)}
                             >
+                              <div style={{color: 'gray'}}>Latest comment</div><br />
                               <span style={{ fontWeight: 'bold' }}>
                                 {' '}
                                 {record.last_name}

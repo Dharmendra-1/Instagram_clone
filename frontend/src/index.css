@@ -5,18 +5,18 @@
 }
 
 .nav-wrapper {
-  background-color: #080b0c;
+  background: #080b0c;
   border-bottom: 1px solid #796f60;
   z-index: 1;
   position: fixed;
 }
 
-/* .nav-wrapper i{
-  margin: 0 5%;
-} */
-
 a {
   color: #e2dcdf !important;
+}
+
+a:active {
+  color: #fff !important;
 }
 
 .brand-logo {
@@ -130,6 +130,7 @@ h5 a {
   width: 30%;
   margin: 30px 15px 15px 15px;
   height: 285.98px;
+  background: #080b0c;
   border: 0.5px solid #796f607c;
 }
 
@@ -150,12 +151,15 @@ h5 a {
   background-color: #080b0c;
   width: 616px;
   height: auto;
-  /* height: 894.25px; */
   margin: 40px auto;
   font-weight: bold;
   border: 1px solid #796f60;
   border-radius: 7px;
   overflow: hidden;
+}
+
+.title {
+  font-weight: normal;
 }
 
 .postheadername {
@@ -214,6 +218,10 @@ h5 a {
   height: 54px;
   justify-self: center;
   padding-top: 15px;
+}
+
+.lc-icons i:active {
+  font-size: 33px;
 }
 
 .likes h6 {
@@ -418,7 +426,6 @@ textarea {
   opacity: 0.7;
   box-shadow: 0px 0px 20px #080b0c28;
 }
-
 
 .modal-header {
   display: flex;
