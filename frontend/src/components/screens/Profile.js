@@ -148,35 +148,28 @@ class Profile extends React.Component {
                 animation={false}
                 className='modal fade profile-pic-modal'
               >
-                <Modal.Header>
+                <Modal.Header className='modal-header'>
                   <Modal.Title>Upload Profile Picture</Modal.Title>
                 </Modal.Header>
 
                 <Modal.Body>
                   <div className='file-field input-field browse'>
-                      <label className='custom-file-upload'>
-                        <input
-                          type='file'
-                          onChange={(e) =>
-                            this.setState({ image: e.target.files[0] })
-                          }
-                        />
-                        Browse Files
-                      </label>
+                    <div className='upload' onClick={this.postDetails}>
+                      Upload Photo
+                    </div>
+                    <br/>
+                    <label className='custom-file-upload files'>
+                      <input
+                        type='file'
+                        onChange={(e) =>
+                          this.setState({ image: e.target.files[0] })
+                        }
+                      />
+                      Browse Files
+                    </label>
+                    <br/>
+                    <div className='cancel' onClick={this.toggleModal}>Cancel</div>
                   </div>
-                  <button
-                    className='btn waves-effect waves-light #2196f3 blue'
-                    onClick={this.toggleModal}
-                  >
-                    Cancel
-                  </button>
-
-                  <button
-                    className='btn waves-effect waves-light #2196f3 blue'
-                    onClick={this.postDetails}
-                  >
-                    Upload
-                  </button>
                 </Modal.Body>
               </Modal>
             </section>
