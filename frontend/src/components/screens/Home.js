@@ -15,6 +15,8 @@ class Home extends React.Component {
       toggleComments: false,
       pid: null,
       userLike: [],
+      following: [],
+      showData: [],
     };
   }
 
@@ -24,6 +26,8 @@ class Home extends React.Component {
       const parseData = await res.json();
       parseData.sort((a, b) => (a.pid < b.pid ? 1 : -1));
       this.setState({ userData: parseData });
+
+      //console.log(this.state.userData);
     } catch (err) {
       console.error(err.message);
     }
@@ -135,6 +139,41 @@ class Home extends React.Component {
     }
   };
 
+  getFollowerDetails = async () => {
+    const dataOfUser = await fetch('http://localhost:4000/user/followers');
+    const orginalData = await dataOfUser.json();
+    const followings = orginalData.reduce((currArr, obj) => {
+      if (obj.id === this.state.loginId) {
+        if (obj.follow === 1) {
+          currArr.push(obj);
+        }
+      }
+      return currArr;
+    }, []);
+
+    this.setState({
+      ...this.state,
+      following: followings,
+    });
+
+    let idOfMatch = [this.state.loginId];
+    this.state.following.forEach((obj) => {
+      idOfMatch.push(obj.id);
+      idOfMatch.push(obj.fid);
+    });
+
+    const filterData = this.state.userData.filter((obj) => {
+      if (idOfMatch.indexOf(obj.id) !== -1) {
+        return obj;
+      }
+    });
+
+    this.setState({
+      ...this.state,
+      showData: filterData,
+    });
+  };
+
   // handleLike()
   handleComments = (pid) => {
     if (this.state.toggleComments) {
@@ -149,12 +188,13 @@ class Home extends React.Component {
     this.loginUserId();
     this.getComments();
     this.getLike();
+    this.getFollowerDetails();
   }
 
   render() {
     return (
       <div className='home'>
-        {this.state.userData.map((data) => {
+        {this.state.showData.map((data) => {
           if (data.pid) {
             return (
               <div key={data.pid} className='card home-card' style={{}}>

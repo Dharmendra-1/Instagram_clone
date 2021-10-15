@@ -154,15 +154,15 @@ class Profile extends React.Component {
 
                 <Modal.Body>
                   <div className='file-field input-field browse'>
-                      <label className='custom-file-upload'>
-                        <input
-                          type='file'
-                          onChange={(e) =>
-                            this.setState({ image: e.target.files[0] })
-                          }
-                        />
-                        Browse Files
-                      </label>
+                    <label className='custom-file-upload'>
+                      <input
+                        type='file'
+                        onChange={(e) =>
+                          this.setState({ image: e.target.files[0] })
+                        }
+                      />
+                      Browse Files
+                    </label>
                   </div>
                   <button
                     className='btn waves-effect waves-light #2196f3 blue'
