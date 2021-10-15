@@ -418,8 +418,9 @@ class Home extends React.Component {
                 style={{
                   color: 'gray',
                   position: 'absolute',
+                  zIndex: '-1',
                   top: '40%',
-                  left: '31%'
+                  left: '31%',
                 }}
               >
                 <h1>No posts to show...</h1>
