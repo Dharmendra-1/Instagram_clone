@@ -50,9 +50,8 @@ class Profile extends React.Component {
         window.location.reload();
       }, 500);
 
-      await fetch('http://localhost:4000/user/img', {
+      await fetch('/user/img', {
         method: 'POST',
-        mode: 'cors',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -65,7 +64,7 @@ class Profile extends React.Component {
 
   userData = async () => {
     try {
-      const res = await fetch('http://localhost:4000/dashboard/', {
+      const res = await fetch('/dashboard/', {
         method: 'POST',
         headers: { jwt_token: localStorage.token },
       });
@@ -92,7 +91,7 @@ class Profile extends React.Component {
 
   postDeatils = async () => {
     try {
-      const res = await fetch('http://localhost:4000/user/post');
+      const res = await fetch('/user/post');
       const postData = await res.json();
       let usefulData = postData.filter((obj) => obj.id === this.state.id);
       this.setState({
@@ -105,8 +104,8 @@ class Profile extends React.Component {
 
   getFollowerDetails = async () => {
     try {
-      const dataOfUser = await fetch('http://localhost:4000/user/followers');
-      const res = await fetch('http://localhost:4000/user');
+      const dataOfUser = await fetch('/user/followers');
+      const res = await fetch('/user');
 
       const orginalData = await dataOfUser.json();
       const followingIds = [];

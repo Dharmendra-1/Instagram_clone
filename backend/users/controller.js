@@ -5,8 +5,7 @@ const jwtGenerator = require('./utils/jwtGenerator');
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 const sendgridTransport = require('nodemailer-sendgrid-transport');
-const SENDGRID_API =
-  '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';
+require('dotenv').config();
 
 const createTable = async () => {
   try {
@@ -25,7 +24,7 @@ createTable();
 const transporter = nodemailer.createTransport(
   sendgridTransport({
     auth: {
-      api_key: SENDGRID_API,
+      api_key: process.env.SENDGRID_API,
     },
   })
 );
@@ -79,9 +78,7 @@ const resetPassword = async (req, res) => {
 
       let userExists = await pool.query(queries.checkEmailExists, [email]);
       if (!userExists.rows.length) {
-        return res
-          .status(422)
-          .json({ error: 'User dont exists with that email' });
+        return res.status(422).json({ error: 'No user found' });
       } else {
         resetToken = token;
         expireToken = Date.now() + 3600000;
@@ -94,7 +91,7 @@ const resetPassword = async (req, res) => {
           subject: 'password reset',
           html: `
           <p>You requested for password reset</p>
-          <h5>click in this <a href="http://localhost:3000/newPassword/${token}" target="_blank">link</a> to reset password</h5>
+          <h5>click in this <a href="${process.env.HOST}/newPassword/${token}" target="_blank">link</a> to reset password</h5>
           `,
         });
         res.json({ message: 'check your email' });

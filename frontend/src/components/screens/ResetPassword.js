@@ -15,7 +15,7 @@ class ResetPassword extends React.Component {
     e.preventDefault();
 
     try {
-      const res = await fetch('http://localhost:4000/user/resetPassword', {
+      const res = await fetch('/user/resetPassword', {
         method: 'post',
         headers: {
           'Content-Type': 'application/json',

@@ -20,14 +20,13 @@ class Login extends React.Component {
     this.setState({ ...this.state, [name]: value });
   }
 
-  requestUrl = 'http://localhost:4000/user/login';
+  requestUrl = '/user/login';
 
   createUser = async (event) => {
     event.preventDefault();
 
     const options = {
       method: 'POST',
-      mode: 'cors',
       headers: {
         'Content-Type': 'application/json',
       },

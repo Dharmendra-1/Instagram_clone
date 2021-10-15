@@ -14,7 +14,7 @@ class Signup extends React.Component {
     this.setState({ ...this.state, [name]: value });
   }
 
-  requestUrl = 'http://localhost:4000/user/signup';
+  requestUrl = '/user/signup';
 
   createUser = async (event) => {
     event.preventDefault();

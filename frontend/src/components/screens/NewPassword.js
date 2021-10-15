@@ -24,7 +24,7 @@ class newPassword extends React.Component {
     console.log(this.state.tokenParam);
 
     try {
-      const res = await fetch('http://localhost:4000/user/newPassword', {
+      const res = await fetch('/user/newPassword', {
         method: 'post',
         headers: {
           'Content-Type': 'application/json',

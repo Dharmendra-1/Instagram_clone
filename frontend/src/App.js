@@ -12,7 +12,6 @@ import UserProfile from './components/screens/UserProfile';
 import ResetPassword from './components/screens/ResetPassword';
 import NewPassword from './components/screens/NewPassword';
 
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -28,7 +27,7 @@ class App extends React.Component {
   }
   async checkAuthenticated() {
     try {
-      const res = await fetch('http://localhost:4000/user/verify', {
+      const res = await fetch('/user/verify', {
         method: 'POST',
         headers: { jwt_token: localStorage.token },
       });

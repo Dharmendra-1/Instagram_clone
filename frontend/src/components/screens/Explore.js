@@ -22,7 +22,7 @@ class Explore extends React.Component {
 
   getUser = async () => {
     try {
-      const res = await fetch('http://localhost:4000/user/post');
+      const res = await fetch('/user/post');
       const parseData = await res.json();
       parseData.sort((a, b) => (a.pid < b.pid ? 1 : -1));
       this.setState({ userData: parseData });
@@ -35,7 +35,7 @@ class Explore extends React.Component {
 
   loginUserId = async () => {
     try {
-      const res = await fetch('http://localhost:4000/dashboard/', {
+      const res = await fetch('/dashboard/', {
         method: 'POST',
         headers: { jwt_token: localStorage.token },
       });
@@ -59,15 +59,15 @@ class Explore extends React.Component {
 
   deletePost = async (pid) => {
     try {
-      await fetch('http://localhost:4000/user/comment/' + pid, {
+      await fetch('/user/comment/' + pid, {
         method: 'delete',
       });
 
-      await fetch('http://localhost:4000/user/like/' + pid, {
+      await fetch('/user/like/' + pid, {
         method: 'delete',
       });
 
-      await fetch('http://localhost:4000/user/post/' + pid, {
+      await fetch('/user/post/' + pid, {
         method: 'delete',
       });
 
@@ -78,9 +78,8 @@ class Explore extends React.Component {
   };
 
   submitForm = async (pid) => {
-    await fetch('http://localhost:4000/user/comment', {
+    await fetch('/user/comment', {
       method: 'POST',
-      mode: 'cors',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -96,7 +95,7 @@ class Explore extends React.Component {
 
   getComments = async () => {
     try {
-      const response = await fetch('http://localhost:4000/user/getComment');
+      const response = await fetch('/user/getComment');
       const postComment = await response.json();
       this.setState({
         ...this.state,
@@ -109,7 +108,7 @@ class Explore extends React.Component {
 
   dolike = async (pid) => {
     try {
-      await fetch('http://localhost:4000/user/like', {
+      await fetch('/user/like', {
         method: 'put',
         headers: {
           'Content-Type': 'application/json',
@@ -124,7 +123,7 @@ class Explore extends React.Component {
 
   getLike = async () => {
     try {
-      const response = await fetch('http://localhost:4000/user/getLike');
+      const response = await fetch('/user/getLike');
       const postLikes = await response.json();
       const like = postLikes
         .filter((likes) => likes.id === this.state.loginId)
@@ -140,7 +139,7 @@ class Explore extends React.Component {
   };
 
   getFollowerDetails = async () => {
-    const dataOfUser = await fetch('http://localhost:4000/user/followers');
+    const dataOfUser = await fetch('/user/followers');
     const orginalData = await dataOfUser.json();
     const followings = orginalData.reduce((currArr, obj) => {
       if (obj.id === this.state.loginId) {

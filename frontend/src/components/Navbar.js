@@ -17,7 +17,7 @@ class NavBar extends React.Component {
 
   getUser = async () => {
     try {
-      const res = await fetch('http://localhost:4000/user');
+      const res = await fetch('/user');
       const parseData = await res.json();
       parseData.sort((a, b) => (a.pid < b.pid ? 1 : -1));
       this.setState({ userData: parseData });
@@ -28,7 +28,7 @@ class NavBar extends React.Component {
 
   loginUserId = async () => {
     try {
-      const res = await fetch('http://localhost:4000/dashboard/', {
+      const res = await fetch('/dashboard/', {
         method: 'POST',
         headers: { jwt_token: localStorage.token },
       });

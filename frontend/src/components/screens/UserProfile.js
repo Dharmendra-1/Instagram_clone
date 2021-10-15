@@ -20,7 +20,7 @@ class UserProfile extends React.Component {
   count = 1;
   loginUserId = async () => {
     try {
-      const res = await fetch('http://localhost:4000/dashboard/', {
+      const res = await fetch('/dashboard/', {
         method: 'POST',
         headers: { jwt_token: localStorage.token },
       });
@@ -36,9 +36,8 @@ class UserProfile extends React.Component {
 
   getDefaultFollow = async (id, fid) => {
     try {
-      const res = await fetch('http://localhost:4000/user/defaultFollow/', {
+      const res = await fetch('/user/defaultFollow/', {
         method: 'POST',
-        mode: 'cors',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -59,9 +58,8 @@ class UserProfile extends React.Component {
 
   userDetails = async () => {
     try {
-      const res = await fetch('http://localhost:4000/user/profile/img/', {
+      const res = await fetch('/user/profile/img/', {
         method: 'POST',
-        mode: 'cors',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -81,7 +79,7 @@ class UserProfile extends React.Component {
 
   postDeatils = async () => {
     try {
-      const res = await fetch('http://localhost:4000/user/post/');
+      const res = await fetch('/user/post/');
       const postData = await res.json();
 
       let posts = postData.filter((obj) => obj.id === this.state.userId);
@@ -119,9 +117,8 @@ class UserProfile extends React.Component {
         fol = 0;
       }
       try {
-        await fetch('http://localhost:4000/user/follow', {
+        await fetch('/user/follow', {
           method: 'POST',
-          mode: 'cors',
           headers: {
             'Content-Type': 'application/json',
           },
@@ -138,7 +135,7 @@ class UserProfile extends React.Component {
   };
 
   getFollowerDetails = async () => {
-    const dataOfUser = await fetch('http://localhost:4000/user/followers');
+    const dataOfUser = await fetch('/user/followers');
     const orginalData = await dataOfUser.json();
     const followings = orginalData.reduce((currArr, obj) => {
       if (obj.id === this.state.userId) {

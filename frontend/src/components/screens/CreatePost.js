@@ -28,9 +28,8 @@ class CreatePost extends React.Component {
       );
 
       const fileData = await response.json();
-      await fetch('http://localhost:4000/user/post', {
+      await fetch('/user/post', {
         method: 'POST',
-        mode: 'cors',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -55,7 +54,7 @@ class CreatePost extends React.Component {
   };
 
   getUserId = async () => {
-    const res = await fetch('http://localhost:4000/dashboard/', {
+    const res = await fetch('/dashboard/', {
       method: 'POST',
       headers: { jwt_token: localStorage.token },
     });
