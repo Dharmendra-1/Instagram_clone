@@ -5,6 +5,7 @@ const jwtGenerator = require('./utils/jwtGenerator');
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 const sendgridTransport = require('nodemailer-sendgrid-transport');
+const { request } = require('http');
 const SENDGRID_API =
   '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';
 
@@ -79,7 +80,7 @@ const resetPassword = async (req, res) => {
       const token = buffer.toString('hex');
 
       let userExists = await pool.query(queries.checkEmailExists, [email]);
-      if (userExists.rows.length) {
+      if (!userExists.rows.length) {
         return res
           .status(422)
           .json({ error: 'User dont exists with that email' });
@@ -95,7 +96,7 @@ const resetPassword = async (req, res) => {
           subject: 'password reset',
           html: `
           <p>You requested for password reset</p>
-          <h5>click in this <a href="http://localhost:3000/reset/${token}">link</a> to reset password</h5>
+          <h5>click in this <a href="http://localhost:3000/newPassword/${token}">link</a> to reset password</h5>
           `,
         });
         res.json({ message: 'check your email' });
@@ -108,16 +109,19 @@ const resetPassword = async (req, res) => {
 
 const newPassword = async (req, res) => {
   const { newPassword, sentToken } = req.body;
+
   try {
     const check = await pool.query(queries.checkReset, [sentToken, Date.now()]);
+
     if (!check) {
       return res.status(422).json({ error: 'Try again session expired' });
     }
+
     await pool.query(queries.updatePassword, [
       newPassword,
       undefined,
       undefined,
-      check.rows['id'],
+      check.rows[0]['id'],
     ]);
 
     res.json({ message: 'password updated success' });
