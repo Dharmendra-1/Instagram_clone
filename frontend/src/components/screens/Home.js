@@ -48,8 +48,8 @@ class Home extends React.Component {
     if (id === this.state.loginId) {
       this.props.history.push(`/profile`);
     } else {
-      localStorage.setItem('userId', id);
       this.props.history.push(`/profile/user`, { id });
+      localStorage.setItem('userId', id);
     }
   };
 

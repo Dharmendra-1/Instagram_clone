@@ -20,8 +20,7 @@ createTable();
 const getUser = async (request, response, next) => {
   try {
     let userData = await pool.query(queries.getUser);
-    response.status(200).json(userData.rows);
-    next();
+    return response.status(200).json(userData.rows);
   } catch (error) {
     throw new Error(error);
   }

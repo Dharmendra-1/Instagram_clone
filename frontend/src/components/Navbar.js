@@ -46,8 +46,8 @@ class NavBar extends React.Component {
       this.props.history.push(`/profile`);
     } else {
       this.props.history.push(`/profile/user`);
+      localStorage.setItem('userId', id);
     }
-    localStorage.setItem('userId', id);
   };
 
   componentDidMount() {

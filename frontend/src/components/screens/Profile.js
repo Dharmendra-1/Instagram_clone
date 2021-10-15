@@ -17,6 +17,10 @@ class Profile extends React.Component {
       id: null,
       followers: [],
       following: [],
+      toggleFollowers: false,
+      toggleFollowing: false,
+      followingList: [],
+      followersList: [],
     };
   }
 
@@ -93,31 +97,72 @@ class Profile extends React.Component {
   };
 
   getFollowerDetails = async () => {
-    const dataOfUser = await fetch('http://localhost:4000/user/followers');
-    const orginalData = await dataOfUser.json();
-    const followings = orginalData.reduce((currArr, obj) => {
-      if (obj.id === this.state.id) {
-        if (obj.follow === 1) {
-          currArr.push(obj);
-        }
-      }
-      return currArr;
-    }, []);
+    try {
+      const dataOfUser = await fetch('http://localhost:4000/user/followers');
+      const res = await fetch('http://localhost:4000/user');
 
-    const follower = orginalData.reduce((currArr, obj) => {
-      if (obj.fid === this.state.id) {
-        if (obj.follow === 1) {
-          currArr.push(obj);
-        }
-      }
-      return currArr;
-    }, []);
+      const orginalData = await dataOfUser.json();
+      const followingIds = [];
+      const followerIds = [];
 
-    this.setState({
-      ...this.state,
-      following: followings,
-      followers: follower,
-    });
+      const followings = orginalData.reduce((currArr, obj) => {
+        if (obj.id === this.state.id) {
+          if (obj.follow === 1) {
+            currArr.push(obj);
+          }
+        }
+        return currArr;
+      }, []);
+      followings.forEach((data) => followingIds.push(data.fid));
+
+      const follower = orginalData.reduce((currArr, obj) => {
+        if (obj.fid === this.state.id) {
+          if (obj.follow === 1) {
+            currArr.push(obj);
+          }
+        }
+        return currArr;
+      }, []);
+      follower.forEach((data) => followerIds.push(data.id));
+
+      this.setState({
+        ...this.state,
+        following: followings,
+        followers: follower,
+      });
+
+      const parseData = await res.json();
+      const followingUsers = parseData.filter((data) =>
+        followingIds.includes(data.id)
+      );
+
+      const followerUsers = parseData.filter((data) =>
+        followerIds.includes(data.id)
+      );
+      this.setState({
+        ...this.state,
+        followingList: followingUsers,
+        followersList: followerUsers,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  handleToggleFollowing = () => {
+    if (this.state.toggleFollowing) {
+      this.setState({ ...this.state, toggleFollowing: false });
+    } else {
+      this.setState({ ...this.state, toggleFollowing: true });
+    }
+  };
+
+  handleToggleFollowers = () => {
+    if (this.state.toggleFollowers) {
+      this.setState({ ...this.state, toggleFollowers: false });
+    } else {
+      this.setState({ ...this.state, toggleFollowers: true });
+    }
   };
 
   componentDidMount() {
@@ -154,15 +199,15 @@ class Profile extends React.Component {
 
                 <Modal.Body>
                   <div className='file-field input-field browse'>
-                      <label className='custom-file-upload'>
-                        <input
-                          type='file'
-                          onChange={(e) =>
-                            this.setState({ image: e.target.files[0] })
-                          }
-                        />
-                        Browse Files
-                      </label>
+                    <label className='custom-file-upload'>
+                      <input
+                        type='file'
+                        onChange={(e) =>
+                          this.setState({ image: e.target.files[0] })
+                        }
+                      />
+                      Browse Files
+                    </label>
                   </div>
                   <button
                     className='btn waves-effect waves-light #2196f3 blue'
@@ -191,8 +236,12 @@ class Profile extends React.Component {
                   0}{' '}
                 posts
               </h6>
-              <h6>{this.state.followers.length} followers</h6>
-              <h6>{this.state.following.length} following</h6>
+              <h6 onClick={this.handleToggleFollowers}>
+                {this.state.followers.length} followers
+              </h6>
+              <h6 onClick={this.handleToggleFollowing}>
+                {this.state.following.length} following
+              </h6>
             </div>
             <p>{this.state.firstName}</p>
           </div>
@@ -210,6 +259,44 @@ class Profile extends React.Component {
             }
           })}
         </div>
+
+        <Modal
+          show={this.state.toggleFollowing}
+          animation={false}
+          className='modal fade profile-pic-modal'
+        >
+          <Modal.Header>
+            <Modal.Title>Followings</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            {this.state.followingList.map((data) => {
+              return <div key={data.id}>{data.last_name}</div>;
+            })}
+          </Modal.Body>
+
+          <button onClick={this.handleToggleFollowing} type='btn'>
+            close
+          </button>
+        </Modal>
+
+        <Modal
+          show={this.state.toggleFollowers}
+          animation={false}
+          className='modal fade profile-pic-modal'
+        >
+          <Modal.Header>
+            <Modal.Title>Followers</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            {this.state.followersList.map((data) => {
+              return <div key={data.id}>{data.last_name}</div>;
+            })}
+          </Modal.Body>
+
+          <button onClick={this.handleToggleFollowers} type='btn'>
+            close
+          </button>
+        </Modal>
       </div>
     );
   }
