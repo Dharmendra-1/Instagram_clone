@@ -48,7 +48,7 @@ class ResetPassword extends React.Component {
             <div className='row'>
               <div className='input-field col s12'>
                 <input
-                  placeholder='Username or email'
+                  placeholder='Email'
                   type='text'
                   id='email'
                   name='email'

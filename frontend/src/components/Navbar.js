@@ -125,6 +125,9 @@ class NavBar extends React.Component {
                       } else if (
                         obj.last_name
                           .toLowerCase()
+                          .includes(this.state.searchInput.toLowerCase()) ||
+                        obj.first_name
+                          .toLowerCase()
                           .includes(this.state.searchInput.toLowerCase())
                       ) {
                         return obj;
@@ -140,7 +143,10 @@ class NavBar extends React.Component {
                             this.handleUserProfile(obj.id);
                           }}
                         >
-                          {obj.last_name}
+                          <div className='search-result'>
+                            <div className='username'>{obj.last_name}</div>
+                            <div className='name'>{obj.first_name}</div>
+                          </div>
                         </li>
                       );
                     })}

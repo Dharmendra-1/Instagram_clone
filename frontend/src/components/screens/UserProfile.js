@@ -206,9 +206,21 @@ class UserProfile extends React.Component {
               )}
             </h4>
             <div className='user-stats'>
-              <h6>{this.state.post.length} posts</h6>
-              <h6>{this.state.followers.length} followers</h6>
-              <h6>{this.state.following.length} following</h6>
+              <h6 style={{display:'flex'}}>
+                <div style={{fontWeight:'bold'}}>{(this.state.post.length &&
+                  this.state.post[0].pid &&
+                  this.state.post.length) ||
+                  0}</div>
+                <div>&nbsp;posts</div>
+              </h6>
+              <h6 style={{display:'flex'}}>
+                <div style={{fontWeight:'bold'}}>{this.state.followers.length}</div>
+                <div>&nbsp;followers</div>
+              </h6>
+              <h6 style={{display:'flex'}}>
+                <div style={{fontWeight:'bold'}}>{this.state.following.length}</div>
+                <div>&nbsp;following</div>
+              </h6>
             </div>
             <p>{this.state.firstName}</p>
           </div>

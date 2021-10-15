@@ -12,7 +12,6 @@ class Home extends React.Component {
       comment: '',
       userComment: [],
       postLike: [],
-      // toggleLike: false,
       toggleComments: false,
       pid: null,
       userLike: [],
@@ -279,7 +278,13 @@ class Home extends React.Component {
                     >
                       {data.last_name}
                     </div>
-                    <div style={{ fontWeight: 'normal' }}>{data.title}</div>
+                    <div className='title'>
+                      <div>{data.title}</div>
+                    </div>
+                    <br />
+                    <div className='body'>
+                      <div>&nbsp;&nbsp;{data.body}</div>
+                    </div>
                   </div>
 
                   <div className='showcomment'>
@@ -293,6 +298,10 @@ class Home extends React.Component {
                               className='username'
                               onClick={() => this.goToUserProfile(record.id)}
                             >
+                              <div style={{ color: 'gray' }}>
+                                Latest comment
+                              </div>
+                              <br />
                               <span style={{ fontWeight: 'bold' }}>
                                 {' '}
                                 {record.last_name}
@@ -307,7 +316,6 @@ class Home extends React.Component {
 
                   <Modal
                     show={this.state.toggleComments}
-                    animation={false}
                     className='comment-modal'
                   >
                     <Modal.Header className='modal-header'>
@@ -405,7 +413,18 @@ class Home extends React.Component {
               </div>
             );
           } else {
-            return null;
+            return (
+              <div
+                style={{
+                  color: 'gray',
+                  position: 'absolute',
+                  top: '40%',
+                  left: '31%'
+                }}
+              >
+                <h1>No posts to show...</h1>
+              </div>
+            );
           }
         })}
       </div>
