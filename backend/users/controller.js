@@ -56,7 +56,7 @@ const addUser = async (request, response) => {
       const jwtToken = jwtGenerator(newUser.rows[0].user_email);
       transporter.sendMail({
         to: newUser.rows[0].user_email,
-        from: 'juned.khan.2542@gmail.com',
+        from: 'jkkhan2542@gmail.com',
         subject: 'signup success',
         html: '<h1>welcome to instagram</h1>',
       });
@@ -87,11 +87,11 @@ const resetPassword = async (req, res) => {
 
         transporter.sendMail({
           to: email,
-          from: 'juned.khan.2542@gmail.com',
+          from: 'jkkhan2542@gmail.com',
           subject: 'password reset',
           html: `
           <p>You requested for password reset</p>
-          <h5>click in this <a href="${process.env.HOST}/newPassword/${token}" target="_blank">link</a> to reset password</h5>
+          <h5>click in this <a href="${process.env.HOST}newPassword/${token}" target="_blank">link</a> to reset password</h5>
           `,
         });
         res.json({ message: 'check your email' });
