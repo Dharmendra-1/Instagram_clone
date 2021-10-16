@@ -618,8 +618,8 @@ textarea {
   z-index: 1;
   background-color: #232729;
   border-radius: 5px;
-  height: 400px;
-  overflow: scroll;
+  height: 355px;
+  overflow-y: scroll;
 }
 
 .divider {
@@ -665,7 +665,7 @@ textarea {
   padding: 0px;
 }
 
-.follow-head{
+.follow-head {
   font-size: 16px;
   font-weight: bold;
   display: flex;
@@ -698,15 +698,14 @@ textarea {
   cursor: pointer;
 }
 
-.follow-body div{
+.follow-body div {
   line-height: 2;
   text-align: center;
 }
 
-.follow-body div:hover{
+.follow-body div:hover {
   text-decoration: underline;
 }
-
 
 @media only screen and (max-width: 600px) {
   #dropdown-basic {
