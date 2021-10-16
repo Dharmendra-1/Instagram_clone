@@ -251,7 +251,7 @@ class Profile extends React.Component {
                 <div style={{ fontWeight: 'bold' }}>
                   {this.state.followers.length}
                 </div>
-                <div>&nbsp;followers</div>
+                <div style={{cursor:'pointer'}}>&nbsp;followers</div>
               </h6>
               <h6
                 style={{ display: 'flex' }}
@@ -260,7 +260,7 @@ class Profile extends React.Component {
                 <div style={{ fontWeight: 'bold' }}>
                   {this.state.following.length}
                 </div>
-                <div>&nbsp;following</div>
+                <div style={{cursor:'pointer'}}>&nbsp;following</div>
               </h6>
             </div>
             <p>{this.state.firstName}</p>
