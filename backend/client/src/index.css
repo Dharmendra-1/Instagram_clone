@@ -696,6 +696,8 @@ textarea {
   top: 20px;
   margin: 15px 0;
   cursor: pointer;
+  height: 130px;
+  overflow-y: scroll;
 }
 
 .follow-body div {
